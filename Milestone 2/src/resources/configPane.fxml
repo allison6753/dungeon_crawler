@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="configScreen" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ConfigController">
+<Pane fx:id="configScreen" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.ConfigScreen">
    <children>
 <!--      <ImageView fx:id="titleBackImg" fitHeight="1080.0" fitWidth="1920.0" preserveRatio="true">-->
 <!--         <image>-->
