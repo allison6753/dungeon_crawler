@@ -1,14 +1,7 @@
 package main;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Main extends Application {
