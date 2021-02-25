@@ -15,7 +15,7 @@ public class Main extends Application {
 
         ConfigScreen configScreen = new ConfigScreen(screenWidth, screenHeight);
         primaryStage.setScene(configScreen.getScene());
-        primaryStage.setTitle("Our Game");
+        primaryStage.setTitle("Tech Game");
         primaryStage.show();
     }
 

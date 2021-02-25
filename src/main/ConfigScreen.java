@@ -52,7 +52,7 @@ public class ConfigScreen {
         styleNameField();
 
         setupDifficultyButtons();
-        setupWeaponButton();
+        setupWeaponButtons();
     }
 
     public ConfigScreen() {} //default constructor so fxml can load an instance of this class as a controller
@@ -64,7 +64,7 @@ public class ConfigScreen {
     private void startupStartButton() {
         Button startButton = (Button) scene.lookup("#buttonStart");
         startButton.setStyle("-fx-background-image: url('" + Main.class.getResource("../resources/startButton.png").toExternalForm() + "');" +
-                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch; \n-fx-background-size: stretch;\n" +
+                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;\n-fx-background-size: stretch;\n" +
                 "\n-fx-background-color: transparent;");
         startButton.setText(""); //Image already has the text on it so remove it
 
@@ -92,7 +92,7 @@ public class ConfigScreen {
     private void addBackgroundImg() {
         //add background image using css
         root.setStyle("-fx-background-image: url('" + Main.class.getResource("../resources/techMenu.png").toExternalForm() + "');" +
-                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;\n-fx-background-size: stretch;");
+                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
 
     private void setupDifficultyButtons() {
@@ -137,7 +137,7 @@ public class ConfigScreen {
         });
     }
 
-    private void setupWeaponButton() {
+    private void setupWeaponButtons() {
         //grab buttons from scene
         Button pencil = (Button) scene.lookup("#weapPencil");
         Button textbook = (Button) scene.lookup("#weapText");
