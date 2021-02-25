@@ -13,7 +13,7 @@
 <!--            <Image url="techMenu.png" />-->
 <!--         </image>-->
 <!--      </ImageView>-->
-      <Button fx:id="buttonStart" layoutX="1300.0" layoutY="779.0" mnemonicParsing="false" onAction="#toNextScreen" prefHeight="80.0" prefWidth="228.0" text="Start">
+      <Button fx:id="buttonStart" layoutX="1300.0" layoutY="779.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="228.0" text="Start">
          <font>
             <Font size="37.0" />
          </font>
@@ -68,7 +68,7 @@
             <Font size="37.0" />
          </font>
       </TextField>
-      <Label fx:id="alertLabel" layoutX="544.0" layoutY="178.0" prefHeight="62.0" prefWidth="941.0" text="Alert : Name must not be null, empty or contain only white-spaces" textFill="RED" visible="false">
+      <Label fx:id="alertLabel" layoutX="544.0" layoutY="178.0" prefHeight="62.0" prefWidth="941.0" text="Make sure to fill in your name and select weapon / difficulty!" textFill="RED" visible="false">
          <font>
             <Font size="24.0" />
          </font>

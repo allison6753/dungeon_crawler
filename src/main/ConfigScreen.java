@@ -1,12 +1,16 @@
 package main;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -17,16 +21,38 @@ public class ConfigScreen {
     public TextField NameField;
     public Button buttonStart;
     public Label alertLabel;
+
+    public enum Difficulty {
+        INVALID,
+        IN_STATE,
+        OUT_OF_STATE,
+        INTERNATIONAL
+    }
+
+    public enum Weapon {
+        INVALID,
+        PENCIL,
+        TEXTBOOK,
+        CALCULATOR
+    }
+
+    private Difficulty currentDiff = Difficulty.INVALID;
+    private Weapon currentWeapon = Weapon.INVALID;
+
     public ConfigScreen(int width, int height) {
         try {
             root = FXMLLoader.load(getClass().getResource("../resources/configPane.fxml"));
         } catch (IOException except) {
-
+            //the fxml loader can't find the file
         }
 
         scene = new Scene(root, width, height);
-        styleButton();
+        startupStartButton();
         addBackgroundImg();
+        styleNameField();
+
+        setupDifficultyButtons();
+        setupWeaponButton();
     }
 
     public ConfigScreen() {} //default constructor so fxml can load an instance of this class as a controller
@@ -35,12 +61,32 @@ public class ConfigScreen {
         return this.scene;
     }
 
-    private void styleButton() {
+    private void startupStartButton() {
         Button startButton = (Button) scene.lookup("#buttonStart");
         startButton.setStyle("-fx-background-image: url('" + Main.class.getResource("../resources/startButton.png").toExternalForm() + "');" +
                 " \n-fx-background-position: center center; \n-fx-background-repeat: stretch; \n-fx-background-size: stretch;\n" +
-                "\n-fx-border-width: 0;\n -fx-background-radius: 0;\n-fx-background-color: transparent;");
+                "\n-fx-background-color: transparent;");
         startButton.setText(""); //Image already has the text on it so remove it
+
+        startButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                alertLabel = (Label) scene.lookup("#alertLabel");
+                if (validation()) {
+                    // Change to Initial Game Screen
+                    Scene initialScene = new Scene(new Pane());
+                    Main.changeWindowTo((Stage) ((Node) e.getSource()).getScene().getWindow(), initialScene);
+                } else {
+                    // Prompt the user to enter correct name
+                    alertLabel.setVisible(true);
+                }
+            }
+        });
+
+    }
+
+    private void styleNameField() {
+        TextField field = (TextField) scene.lookup("#NameField");
+        field.setStyle("-fx-background-color: rgba(150, 150, 150, 0.75);\n-fx-text-fill: white;");
     }
 
     private void addBackgroundImg() {
@@ -49,30 +95,107 @@ public class ConfigScreen {
                 " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;\n-fx-background-size: stretch;");
     }
 
-    // Check if name is null, empty, or whitespaces only
+    private void setupDifficultyButtons() {
+        //grab buttons from scene
+        Button instate = (Button) scene.lookup("#diffIS");
+        Button outofstate = (Button) scene.lookup("#diffOOS");
+        Button international = (Button) scene.lookup("#diffIntern");
+
+        //setup button styling
+        String defaultStyling = "\n-fx-background-color: rgba(150, 150, 150, 0.75); -fx-text-fill: white;";
+        String selectedStyling = "\n-fx-background-color: rgba(50, 50, 50, 0.75); -fx-text-fill: white;";
+        instate.setStyle(defaultStyling);
+        outofstate.setStyle(defaultStyling);
+        international.setStyle(defaultStyling);
+
+        //add action listeners to buttons
+        instate.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                instate.setStyle(selectedStyling);
+                outofstate.setStyle(defaultStyling);
+                international.setStyle(defaultStyling);
+                currentDiff = Difficulty.IN_STATE;
+            }
+        });
+
+        outofstate.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                instate.setStyle(defaultStyling);
+                outofstate.setStyle(selectedStyling);
+                international.setStyle(defaultStyling);
+                currentDiff = Difficulty.OUT_OF_STATE;
+            }
+        });
+
+        international.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                instate.setStyle(defaultStyling);
+                outofstate.setStyle(defaultStyling);
+                international.setStyle(selectedStyling);
+                currentDiff = Difficulty.INTERNATIONAL;
+            }
+        });
+    }
+
+    private void setupWeaponButton() {
+        //grab buttons from scene
+        Button pencil = (Button) scene.lookup("#weapPencil");
+        Button textbook = (Button) scene.lookup("#weapText");
+        Button calc = (Button) scene.lookup("#weapCalc");
+
+        //setup button styling
+        String defaultStyling = "\n-fx-background-color: rgba(150, 150, 150, 0.75); -fx-text-fill: white;";
+        String selectedStyling = "\n-fx-background-color: rgba(50, 50, 50, 0.75); -fx-text-fill: white;";
+        pencil.setStyle(defaultStyling);
+        textbook.setStyle(defaultStyling);
+        calc.setStyle(defaultStyling);
+
+        //add action listeners to buttons
+        pencil.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                pencil.setStyle(selectedStyling);
+                textbook.setStyle(defaultStyling);
+                calc.setStyle(defaultStyling);
+                currentWeapon = Weapon.PENCIL;
+            }
+        });
+
+        textbook.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                pencil.setStyle(defaultStyling);
+                textbook.setStyle(selectedStyling);
+                calc.setStyle(defaultStyling);
+                currentWeapon = Weapon.TEXTBOOK;
+            }
+        });
+
+        calc.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                pencil.setStyle(defaultStyling);
+                textbook.setStyle(defaultStyling);
+                calc.setStyle(selectedStyling);
+                currentWeapon = Weapon.CALCULATOR;
+            }
+        });
+    }
+
+    /**
+     * Checks if the configuration state allows us to move to the next screen.
+     * NameField must not be empty, difficulty and weapon must both be selected
+     *
+     * @return true if we can move to the next screen, else return false
+     */
     public boolean validation () {
+        NameField = (TextField) scene.lookup("#NameField");
         if (NameField == null || NameField.getText().trim().isEmpty()) {
             return false;
         }
+
+        if (this.currentDiff == Difficulty.INVALID || this.currentWeapon == Weapon.INVALID) {
+            return false;
+        }
+
         return true;
     }
 
-    // Move on to next screen
-    public void toNextScreen(ActionEvent actionEvent) {
-        if (validation()) {
-            // Change to Initial Game Screen
-            /* Still need <initialGame> to change scene
-            Pane initialGame = FXMLLoader.load(getClass().getResource("<initialGame>.fxml"));
-            Scene initialScene = new Scene(initialGame);
-
-            Stage window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
-            window.setScene(initialScene);
-            window.show();
-             */
-        } else {
-            // Prompt the user to enter correct name
-            alertLabel.setVisible(true);
-        }
-    }
 }
