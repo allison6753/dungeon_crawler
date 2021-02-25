@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,10 +16,6 @@ import java.io.IOException;
 public class ConfigScreen {
     private Scene scene;
     private Pane root;
-
-    public TextField NameField;
-    public Button buttonStart;
-    public Label alertLabel;
 
     public enum Difficulty {
         INVALID,
@@ -41,7 +36,7 @@ public class ConfigScreen {
 
     public ConfigScreen(int width, int height) {
         try {
-            root = FXMLLoader.load(getClass().getResource("../resources/configPane.fxml"));
+            root = FXMLLoader.load(ConfigScreen.class.getResource("../resources/configPane.fxml"));
         } catch (IOException except) {
             //the fxml loader can't find the file
         }
@@ -55,26 +50,26 @@ public class ConfigScreen {
         setupWeaponButtons();
     }
 
-    public ConfigScreen() {} //default constructor so fxml can load an instance of this class as a controller
-
     public Scene getScene() {
         return this.scene;
     }
 
     private void startupStartButton() {
         Button startButton = (Button) scene.lookup("#buttonStart");
-        startButton.setStyle("-fx-background-image: url('" + Main.class.getResource("../resources/startButton.png").toExternalForm() + "');" +
-                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;\n-fx-background-size: stretch;\n" +
-                "\n-fx-background-color: transparent;");
+        startButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/startButton.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         startButton.setText(""); //Image already has the text on it so remove it
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                alertLabel = (Label) scene.lookup("#alertLabel");
+                Label alertLabel = (Label) scene.lookup("#alertLabel");
                 if (validation()) {
                     // Change to Initial Game Screen
                     Scene initialScene = new Scene(new Pane());
-                    Main.changeWindowTo((Stage) ((Node) e.getSource()).getScene().getWindow(), initialScene);
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    Main.changeWindowTo(currentWindow, initialScene);
                 } else {
                     // Prompt the user to enter correct name
                     alertLabel.setVisible(true);
@@ -91,8 +86,9 @@ public class ConfigScreen {
 
     private void addBackgroundImg() {
         //add background image using css
-        root.setStyle("-fx-background-image: url('" + Main.class.getResource("../resources/techMenu.png").toExternalForm() + "');" +
-                " \n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
+        root.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/techMenu.png").toExternalForm()
+                + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
 
     private void setupDifficultyButtons() {
@@ -101,9 +97,11 @@ public class ConfigScreen {
         Button outofstate = (Button) scene.lookup("#diffOOS");
         Button international = (Button) scene.lookup("#diffIntern");
 
-        //setup button styling
-        String defaultStyling = "\n-fx-background-color: rgba(150, 150, 150, 0.75); -fx-text-fill: white;";
-        String selectedStyling = "\n-fx-background-color: rgba(50, 50, 50, 0.75); -fx-text-fill: white;";
+        //setup button styling (lines separated for checkstyle)
+        String defaultStyling = "-fx-background-color: rgba(150, 150, 150, 0.75);"
+                + " -fx-text-fill: white;";
+        String selectedStyling = "\n-fx-background-color: rgba(50, 50, 50, 0.75);"
+                + " -fx-text-fill: white;";
         instate.setStyle(defaultStyling);
         outofstate.setStyle(defaultStyling);
         international.setStyle(defaultStyling);
@@ -143,9 +141,12 @@ public class ConfigScreen {
         Button textbook = (Button) scene.lookup("#weapText");
         Button calc = (Button) scene.lookup("#weapCalc");
 
-        //setup button styling
-        String defaultStyling = "\n-fx-background-color: rgba(150, 150, 150, 0.75); -fx-text-fill: white;";
-        String selectedStyling = "\n-fx-background-color: rgba(50, 50, 50, 0.75); -fx-text-fill: white;";
+        //setup button styling (lines separated for checkstyle)
+        String defaultStyling = "-fx-background-color: rgba(150, 150, 150, 0.75);"
+                + " -fx-text-fill: white;";
+        String selectedStyling = "-fx-background-color: rgba(50, 50, 50, 0.75);"
+                + " -fx-text-fill: white;";
+
         pencil.setStyle(defaultStyling);
         textbook.setStyle(defaultStyling);
         calc.setStyle(defaultStyling);
@@ -185,9 +186,9 @@ public class ConfigScreen {
      *
      * @return true if we can move to the next screen, else return false
      */
-    public boolean validation () {
-        NameField = (TextField) scene.lookup("#NameField");
-        if (NameField == null || NameField.getText().trim().isEmpty()) {
+    public boolean validation() {
+        TextField nameField = (TextField) scene.lookup("#NameField");
+        if (nameField == null || nameField.getText().trim().isEmpty()) {
             return false;
         }
 
@@ -196,6 +197,18 @@ public class ConfigScreen {
         }
 
         return true;
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public Difficulty getDifficulty() {
+        return this.currentDiff;
+    }
+
+    public Weapon getWeapon() {
+        return this.currentWeapon;
     }
 
 }
