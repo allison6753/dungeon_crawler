@@ -16,6 +16,7 @@ public class gameScreen1  {
         }
 
         scene = new Scene(root, width, height);
+        addBackgroundImage();
     }
 
     public gameScreen1() {}
@@ -23,6 +24,17 @@ public class gameScreen1  {
     public Scene getScene() {
         return this.scene;
     }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    private void addBackgroundImage() {
+        root.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/InitialGameScreenBackground.png").toExternalForm()
+                + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
+    }
+
 
 }
 
