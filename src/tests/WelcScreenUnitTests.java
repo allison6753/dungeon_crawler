@@ -14,7 +14,7 @@ public class WelcScreenUnitTests extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        welcScreen = new welcScreen();
+        welcScreen = new WelcScreen();
         primaryStage.setScene(welcScreen.getScene());
         primaryStage.show();
     }
@@ -29,7 +29,7 @@ public class WelcScreenUnitTests extends ApplicationTest {
             //the javaFX environment was already set up
         }
 
-        welcScreen = new welcScreen();
+        welcScreen = new WelcScreen();
     }
     
     @Test(timeout = TIMEOUT)

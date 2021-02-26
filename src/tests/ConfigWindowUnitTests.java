@@ -1,10 +1,12 @@
 package tests;
 
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.ConfigScreen;
+import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -20,7 +22,7 @@ public class ConfigWindowUnitTests extends ApplicationTest {
         primaryStage.setScene(configScreen.getScene());
         primaryStage.show();
     }
-    /*
+
     @Before
     public void setUp() {
         try {
@@ -35,7 +37,7 @@ public class ConfigWindowUnitTests extends ApplicationTest {
         //setup a dummy screen on the configuration page for testing
         configScreen = new ConfigScreen();
     }
-    */
+
 
     @Test(timeout = TIMEOUT)
     public void testFxmlLoading() {
