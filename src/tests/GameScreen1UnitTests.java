@@ -10,6 +10,8 @@ import org.junit.Test;
 public class GameScreen1UnitTests {
     private static final int TIMEOUT = 500;
     private GameScreen1 screen1;
+    private GameScreen1 screen2;
+    private GameScreen1 screen3;
 
     @Before
     public void setUp() {
@@ -22,8 +24,10 @@ public class GameScreen1UnitTests {
             //the javaFX environment was already set up
         }
 
-        //setup a dummy screen on the GameScreen1 page for testing
-        screen1= new GameScreen1(ConfigScreen.Difficulty.INVALID, ConfigScreen.Weapon.INVALID);
+        //setup dummy screens on the GameScreen1 page for testing
+        screen1= new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR);
+        screen2= new GameScreen1(ConfigScreen.Difficulty.OUT_OF_STATE, ConfigScreen.Weapon.PENCIL);
+        screen3= new GameScreen1(ConfigScreen.Difficulty.INTERNATIONAL, ConfigScreen.Weapon.TEXTBOOK);
     }
 
     @Test(timeout = TIMEOUT)
@@ -39,6 +43,11 @@ public class GameScreen1UnitTests {
     //test that shop leads to correct screen
 
     //test that label shows correct amount of starting money
+    @Test(timeout = TIMEOUT)
+    public void correctStartingMoney() {
+        assert (screen1.getStartingMoney() == 500);
+        assert (screen2.getStartingMoney() == 300);
+        assert (screen3.getStartingMoney() == 100);
+    }
 
 }
-
