@@ -15,7 +15,7 @@ public class WelcScreenUnitTests extends ApplicationTest {
     @Override
     public void start(Stage primaryStage) throws Exception {
         welcScreen = new welcScreen();
-        primaryStage.setScene(configScreen.getScene());
+        primaryStage.setScene(welcScreen.getScene());
         primaryStage.show();
     }
 
