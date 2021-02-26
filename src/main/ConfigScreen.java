@@ -11,11 +11,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class ConfigScreen {
     private Scene scene;
     private Pane root;
+
+    private TextField nameField;
+    private Label alertLabel;
+
+
 
     public enum Difficulty {
         INVALID,
@@ -34,7 +40,9 @@ public class ConfigScreen {
     private Difficulty currentDiff = Difficulty.INVALID;
     private Weapon currentWeapon = Weapon.INVALID;
 
+
     public ConfigScreen() {
+
         try {
             root = FXMLLoader.load(ConfigScreen.class.getResource("../resources/configPane.fxml"));
         } catch (IOException except) {
@@ -61,10 +69,9 @@ public class ConfigScreen {
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         startButton.setText(""); //Image already has the text on it so remove it
-
+        this.alertLabel = (Label) scene.lookup("#alertLabel");
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                Label alertLabel = (Label) scene.lookup("#alertLabel");
                 if (validation()) {
                     // Change to Initial Game Screen
                     GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon);
@@ -80,8 +87,9 @@ public class ConfigScreen {
     }
 
     private void styleNameField() {
-        TextField field = (TextField) scene.lookup("#NameField");
-        field.setStyle("-fx-background-color: rgba(150, 150, 150, 0.75);\n-fx-text-fill: white;");
+        nameField = (TextField) scene.lookup("#NameField");
+        nameField.setStyle("-fx-background-color: rgba(150, 150, 150, 0.75)"
+                + ";\n-fx-text-fill: white;");
     }
 
     private void addBackgroundImg() {
@@ -187,7 +195,6 @@ public class ConfigScreen {
      * @return true if we can move to the next screen, else return false
      */
     public boolean validation() {
-        TextField nameField = (TextField) scene.lookup("#NameField");
         if (nameField == null || nameField.getText().trim().isEmpty()) {
             return false;
         }
@@ -195,7 +202,6 @@ public class ConfigScreen {
         if (this.currentDiff == Difficulty.INVALID || this.currentWeapon == Weapon.INVALID) {
             return false;
         }
-
         return true;
     }
 
@@ -209,6 +215,14 @@ public class ConfigScreen {
 
     public Weapon getWeapon() {
         return this.currentWeapon;
+    }
+
+    public TextField getNameField() {
+        return this.nameField;
+    }
+
+    public Label getAlert() {
+        return this.alertLabel;
     }
 
 }
