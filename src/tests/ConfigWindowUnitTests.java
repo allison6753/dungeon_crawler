@@ -22,7 +22,7 @@ public class ConfigWindowUnitTests {
         }
 
         //setup a dummy screen on the configuration page for testing
-        configScreen = new ConfigScreen(1920, 1080);
+        configScreen = new ConfigScreen();
     }
 
     @Test(timeout = TIMEOUT)
