@@ -1,12 +1,12 @@
 package tests;
 
-import javafx.scene.control.Button;
+import javafx.application.Platform;
 import javafx.stage.Stage;
-import main.ConfigScreen;
+import main.WelcScreen;
+import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
-import static org.junit.Assert.assertEquals;
 
 public class WelcScreenUnitTests extends ApplicationTest {
     private static final int TIMEOUT = 500;
@@ -15,7 +15,7 @@ public class WelcScreenUnitTests extends ApplicationTest {
     @Override
     public void start(Stage primaryStage) throws Exception {
         welcScreen = new welcScreen();
-        primaryStage.setScene(configScreen.getScene());
+        primaryStage.setScene(welcScreen.getScene());
         primaryStage.show();
     }
 
