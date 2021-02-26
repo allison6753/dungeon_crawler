@@ -6,14 +6,18 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
-    private int screenWidth = 1920;
-    private int screenHeight = 1080;
+    private static int screenWidth = 1920;
+    private static int screenHeight = 1080;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        ConfigScreen configScreen = new ConfigScreen(screenWidth, screenHeight);
-        primaryStage.setScene(configScreen.getScene());
+        WelcScreen welcome = new WelcScreen();
+        primaryStage.setScene(welcome.getScene());
+        primaryStage.setResizable(true);
         primaryStage.setTitle("Tech Game");
         primaryStage.show();
     }
@@ -22,4 +26,13 @@ public class Main extends Application {
         window.setScene(newScene);
         window.show();
     }
+
+    public static int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public static int getScreenHeight() {
+        return screenHeight;
+    }
+
 }

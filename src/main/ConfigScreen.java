@@ -42,13 +42,14 @@ public class ConfigScreen {
 
 
     public ConfigScreen(int width, int height) {
+
         try {
             root = FXMLLoader.load(ConfigScreen.class.getResource("../resources/configPane.fxml"));
         } catch (IOException except) {
             //the fxml loader can't find the file
         }
 
-        scene = new Scene(root, width, height);
+        scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         startupStartButton();
         addBackgroundImg();
         styleNameField();
@@ -73,9 +74,9 @@ public class ConfigScreen {
             @Override public void handle(ActionEvent e) {
                 if (validation()) {
                     // Change to Initial Game Screen
-                    Scene initialScene = new Scene(new Pane());
+                    GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon);
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    Main.changeWindowTo(currentWindow, initialScene);
+                    Main.changeWindowTo(currentWindow, screen1.getScene());
                 } else {
                     // Prompt the user to enter correct name
                     alertLabel.setVisible(true);
