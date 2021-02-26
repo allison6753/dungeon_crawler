@@ -68,7 +68,6 @@ public class ConfigScreen {
                 if (validation()) {
                     // Change to Initial Game Screen
                     GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon);
-//                    Scene initialScene = new Scene(new Pane());
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 } else {

@@ -1,12 +1,20 @@
 package main;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class GameScreen1 {
     private Scene scene;
     private Pane root;
+
+    private int startingMoney;
 
     public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon) {
         try {
@@ -17,6 +25,21 @@ public class GameScreen1 {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
+        setStartingMoney(difficulty);
+        //setMoneyLabel();
+
+
+
+    /** Uncomment when creating buttons for doors **/
+    /*
+        //change next rooms to actual next rooms once we create them
+        setDoor("#door1", new WelcScreen());
+        setDoor("#door2", new WelcScreen());
+        setDoor("#door3", new WelcScreen());
+        setDoor("#door4", new WelcScreen());
+    */
+
+
     }
 
     public Scene getScene() {
@@ -32,6 +55,45 @@ public class GameScreen1 {
                 + Main.class.getResource("../resources/InitialGameScreenBackground.png").toExternalForm()
                 + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
+
+    private void setStartingMoney(ConfigScreen.Difficulty difficulty) {
+        switch(difficulty) {
+            case IN_STATE:
+                startingMoney = 500;
+                break;
+            case OUT_OF_STATE:
+                startingMoney = 300;
+                break;
+            case INTERNATIONAL:
+                startingMoney = 100;
+                break;
+        }
+    }
+
+
+/**Uncomment when add moneyLabel to fxml **/
+/*
+    private void setMoneyLabel() {
+        Label moneyLabel = (Label) scene.lookup("#startingMoney");
+        moneyLabel.setText("StartingMoney: $" + startingMoney);
+    }
+*/
+
+
+/** Uncomment when add buttons to door images **/
+/*
+    private void setDoor(String id, WelcScreen next) {
+        Button nextRoom = (Button) scene.lookup(id);
+
+        nextRoom.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                // Change to next room
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                Main.changeWindowTo(currentWindow, next.getScene());
+            }
+        });
+    }
+*/
 
 
 }

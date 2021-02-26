@@ -6,27 +6,27 @@
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Pane prefHeight="1080.0" prefWidth="1920.0" />
-        <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="240.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="door1" fitHeight="120.0" fitWidth="180.0" layoutX="240.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Door.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="660.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="door2" fitHeight="120.0" fitWidth="180.0" layoutX="660.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Door.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="1080.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="door3" fitHeight="120.0" fitWidth="180.0" layoutX="1080.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Door.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="120.0" fitWidth="180.0" layoutX="1500.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="door4" fitHeight="120.0" fitWidth="180.0" layoutX="1500.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@Door.png" />
             </image>
         </ImageView>
-        <ImageView fitHeight="180.0" fitWidth="240.0" layoutX="240.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="shop" fitHeight="180.0" fitWidth="240.0" layoutX="240.0" layoutY="660.0" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@BurdellShop.png" />
             </image>
