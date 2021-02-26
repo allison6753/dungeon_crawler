@@ -1,7 +1,6 @@
 package tests;
 
 import javafx.application.Platform;
-import javafx.scene.control.Button;
 import main.ConfigScreen;
 import main.GameScreen1;
 import org.junit.Before;
@@ -25,9 +24,15 @@ public class GameScreen1UnitTests {
         }
 
         //setup dummy screens on the GameScreen1 page for testing
-        screen1= new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR);
-        screen2= new GameScreen1(ConfigScreen.Difficulty.OUT_OF_STATE, ConfigScreen.Weapon.PENCIL);
-        screen3= new GameScreen1(ConfigScreen.Difficulty.INTERNATIONAL, ConfigScreen.Weapon.TEXTBOOK);
+        screen1 = new GameScreen1(
+                ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR
+        );
+        screen2 = new GameScreen1(
+                ConfigScreen.Difficulty.OUT_OF_STATE, ConfigScreen.Weapon.PENCIL
+        );
+        screen3 = new GameScreen1(
+                ConfigScreen.Difficulty.INTERNATIONAL, ConfigScreen.Weapon.TEXTBOOK
+        );
     }
 
     @Test(timeout = TIMEOUT)
