@@ -41,7 +41,7 @@ public class ConfigScreen {
     private Weapon currentWeapon = Weapon.INVALID;
 
 
-    public ConfigScreen(int width, int height) {
+    public ConfigScreen() {
 
         try {
             root = FXMLLoader.load(ConfigScreen.class.getResource("../resources/configPane.fxml"));
