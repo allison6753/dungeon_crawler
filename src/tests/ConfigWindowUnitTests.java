@@ -1,3 +1,5 @@
+package tests;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,7 +16,7 @@ public class ConfigWindowUnitTests extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        configScreen = new ConfigScreen(1920, 1080);
+        configScreen = new ConfigScreen();
         primaryStage.setScene(configScreen.getScene());
         primaryStage.show();
     }

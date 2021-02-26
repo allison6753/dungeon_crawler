@@ -32,9 +32,14 @@
       </library>
     </orderEntry>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="library" name="org.testfx:testfx-core:4.0.15-alpha" level="project" />
     <orderEntry type="library" name="org.testfx:testfx-junit:4.0.15-alpha" level="project" />
 =======
 >>>>>>> 0233211a151c92be1b0b36a51305980f7edbd445
+=======
+    <orderEntry type="library" name="org.testfx:testfx-core:4.0.15-alpha" level="project" />
+    <orderEntry type="library" name="org.testfx:testfx-junit:4.0.15-alpha" level="project" />
+>>>>>>> 40c211d7e191930f23843770178bc6086907c54e
   </component>
 </module>
