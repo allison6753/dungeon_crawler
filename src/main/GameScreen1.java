@@ -64,6 +64,10 @@ public class GameScreen1 {
         }
     }
 
+    public int getStartingMoney() {
+        return startingMoney;
+    }
+
 
 /**Uncomment when add moneyLabel to fxml **/
 /*
