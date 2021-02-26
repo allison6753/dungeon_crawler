@@ -87,7 +87,8 @@ public class ConfigScreen {
 
     private void styleNameField() {
         nameField = (TextField) scene.lookup("#NameField");
-        nameField.setStyle("-fx-background-color: rgba(150, 150, 150, 0.75);\n-fx-text-fill: white;");
+        nameField.setStyle("-fx-background-color: rgba(150, 150, 150, 0.75)"
+                + ";\n-fx-text-fill: white;");
     }
 
     private void addBackgroundImg() {

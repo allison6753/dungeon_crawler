@@ -1,11 +1,8 @@
-import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.ConfigScreen;
-import org.assertj.core.internal.bytebuddy.build.ToStringPlugin;
-import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -21,7 +18,7 @@ public class ConfigWindowUnitTests extends ApplicationTest {
         primaryStage.setScene(configScreen.getScene());
         primaryStage.show();
     }
-/*
+    /*
     @Before
     public void setUp() {
         try {
@@ -36,8 +33,7 @@ public class ConfigWindowUnitTests extends ApplicationTest {
         //setup a dummy screen on the configuration page for testing
         configScreen = new ConfigScreen(1920, 1080);
     }
-
- */
+    */
 
     @Test(timeout = TIMEOUT)
     public void testFxmlLoading() {
