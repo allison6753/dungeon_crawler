@@ -1,5 +1,6 @@
 package main;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class GameScreen1 {
         addBackgroundImage();
         setStartingMoney(difficulty);
         setWeapon(weapon);
-        //setMoneyLabel();
+        setMoneyLabel();
 
 
 
@@ -93,13 +94,11 @@ public class GameScreen1 {
         return conWeapon;
     }
 
-    /**Uncomment when add moneyLabel to fxml **/
-    /*
+
         private void setMoneyLabel() {
             Label moneyLabel = (Label) scene.lookup("#startingMoney");
             moneyLabel.setText("StartingMoney: $" + startingMoney);
         }
-    */
 
 
     /** Uncomment when add buttons to door images **/
