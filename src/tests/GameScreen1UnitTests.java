@@ -1,10 +1,13 @@
 package tests;
 
+import com.sun.tools.javac.Main;
 import javafx.application.Platform;
 import main.ConfigScreen;
 import main.GameScreen1;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Objects;
 
 public class GameScreen1UnitTests {
     private static final int TIMEOUT = 500;
@@ -54,5 +57,20 @@ public class GameScreen1UnitTests {
         assert (screen2.getStartingMoney() == 300);
         assert (screen3.getStartingMoney() == 100);
     }
+    //test if weapon chosen in configScreen is the same as the weapon in game
+    @Test(timeout = TIMEOUT)
+    public void correctWeapon() {
+        assert (Objects.equals(screen1.getWeapon(), ConfigScreen.Weapon.CALCULATOR));
+        assert Objects.equals(screen2.getWeapon(), ConfigScreen.Weapon.PENCIL);
+        assert (Objects.equals(screen3.getWeapon(), ConfigScreen.Weapon.TEXTBOOK));
+    }
 
+    @Test(timeout = TIMEOUT)
+    public void testBackground() {
+        //if the constructor cannot find InitialGameScreen.fxml, the root will be null and the scene
+        //cannot be properly constructed
+        assert (screen1.getRoot().getStyle() != null);
+        assert (screen1.getScene().getRoot().getStyle() != null);
+
+    }
 }

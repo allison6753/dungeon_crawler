@@ -9,6 +9,7 @@ public class GameScreen1 {
     private Pane root;
 
     private int startingMoney;
+    private ConfigScreen.Weapon conWeapon;
 
     public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon) {
         try {
@@ -22,6 +23,7 @@ public class GameScreen1 {
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
         setStartingMoney(difficulty);
+        setWeapon(weapon);
         //setMoneyLabel();
 
 
@@ -73,6 +75,23 @@ public class GameScreen1 {
         return startingMoney;
     }
 
+    private void setWeapon(ConfigScreen.Weapon configWeapon) {
+        switch(configWeapon) {
+            case PENCIL:
+                conWeapon = configWeapon.PENCIL;
+                break;
+            case TEXTBOOK:
+                conWeapon = configWeapon.TEXTBOOK;
+                break;
+            case CALCULATOR:
+                conWeapon = configWeapon.CALCULATOR;
+                break;
+        }
+    }
+
+    public ConfigScreen.Weapon getWeapon() {
+        return conWeapon;
+    }
 
     /**Uncomment when add moneyLabel to fxml **/
     /*
