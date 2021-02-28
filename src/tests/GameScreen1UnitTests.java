@@ -1,6 +1,6 @@
 package tests;
 
-import com.sun.tools.javac.Main;
+//import com.sun.tools.javac.Main;
 import javafx.application.Platform;
 import main.ConfigScreen;
 import main.GameScreen1;
