@@ -1,8 +1,10 @@
 package main;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
+
 import java.io.IOException;
 
 public class GameScreen1 {
@@ -28,7 +30,6 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-
         /** Uncomment when creating buttons for doors **/
         /*
             //change next rooms to actual next rooms once we create them
@@ -51,9 +52,9 @@ public class GameScreen1 {
 
     private void addBackgroundImage() {
         root.setStyle("-fx-background-image: url('"
-            + Main.class.getResource("../resources/InitialGameScreenBackground.png")
+                + Main.class.getResource("../resources/InitialGameScreenBackground.png")
                 .toExternalForm()
-            + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
+                + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
 
     private void setStartingMoney(ConfigScreen.Difficulty difficulty) {
@@ -77,16 +78,18 @@ public class GameScreen1 {
     }
 
     private void setWeapon(ConfigScreen.Weapon configWeapon) {
-        switch(configWeapon) {
-            case PENCIL:
-                conWeapon = configWeapon.PENCIL;
-                break;
-            case TEXTBOOK:
-                conWeapon = configWeapon.TEXTBOOK;
-                break;
-            case CALCULATOR:
-                conWeapon = configWeapon.CALCULATOR;
-                break;
+        switch (configWeapon) {
+        case PENCIL:
+            conWeapon = configWeapon.PENCIL;
+            break;
+        case TEXTBOOK:
+            conWeapon = configWeapon.TEXTBOOK;
+            break;
+        case CALCULATOR:
+            conWeapon = configWeapon.CALCULATOR;
+            break;
+        default:
+            break;
         }
     }
 
@@ -95,17 +98,16 @@ public class GameScreen1 {
     }
 
 
-        private void setMoneyLabel() {
-            Label moneyLabel = (Label) scene.lookup("#startingMoney");
-            moneyLabel.setText("StartingMoney: $" + startingMoney);
-        }
+    private void setMoneyLabel() {
+        Label moneyLabel = (Label) scene.lookup("#startingMoney");
+        moneyLabel.setText("StartingMoney: $" + startingMoney);
+    }
 
 
     /** Uncomment when add buttons to door images **/
     /*
         private void setDoor(String id, WelcScreen next) {
             Button nextRoom = (Button) scene.lookup(id);
-
             nextRoom.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                     // Change to next room
@@ -118,4 +120,3 @@ public class GameScreen1 {
 
 
 }
-
