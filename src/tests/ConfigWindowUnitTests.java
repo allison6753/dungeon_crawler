@@ -23,22 +23,6 @@ public class ConfigWindowUnitTests extends ApplicationTest {
         primaryStage.show();
     }
 
-    @Before
-    public void setUp() {
-        try {
-            //initialize JavaFX env without launching a window
-            Platform.startup(() -> {
-
-            });
-        } catch (IllegalStateException e) {
-            //the javaFX environment was already set up
-        }
-
-        //setup a dummy screen on the configuration page for testing
-        configScreen = new ConfigScreen();
-    }
-
-
     @Test(timeout = TIMEOUT)
     public void testFxmlLoading() {
         //if the constructor cannot find configPane.fxml, the root will be null and the scene
