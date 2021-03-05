@@ -31,7 +31,10 @@ public class WelcScreenUnitTests extends ApplicationTest {
 
         welcScreen = new WelcScreen();
     }
-    
+
+    /**
+     * Make sure that welcome screen fxml resource is loaded
+     */
     @Test(timeout = TIMEOUT)
     public void testFxmlLoading() {
         assert (welcScreen.getRoot() != null);
