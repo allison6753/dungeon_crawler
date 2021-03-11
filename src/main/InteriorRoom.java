@@ -17,12 +17,12 @@ public class InteriorRoom {
     private Pane root;
 
     private int money;
-    private int roomIndex; // 0-5 sequentially
+    private int roomIndex; // 0-5 sequentially in mazOrder
     private int roomNum; // 0-5 randomly to create a "random maze"
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    public InteriorRoom(int roomNum, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
+    public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
                     GameScreen1.class.getResource("../resources/mazeRoom.fxml")
@@ -34,8 +34,8 @@ public class InteriorRoom {
         this.weapon = weapon;
         this.difficulty = difficulty;
         this.money = money;
-        this.roomIndex = roomNum;
-        this.roomNum = Main.getMazeOrder()[this.roomIndex];
+        this.roomIndex = roomIndex;
+        this.roomNum = Main.getMazeOrder().get(this.roomIndex);
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + Main.getBackgroundImgs()[roomNum]);

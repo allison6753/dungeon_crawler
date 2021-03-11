@@ -38,7 +38,6 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-        //change next rooms to actual next rooms once we create them
         setDoor("#door1", new InteriorRoom(0, difficulty, weapon, startingMoney));
         setDoor("#door2", new InteriorRoom(0, difficulty, weapon, startingMoney));
         setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney));
