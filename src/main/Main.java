@@ -9,7 +9,8 @@ public class Main extends Application {
     private static int screenWidth = 1920;
     private static int screenHeight = 1080;
 
-    private static String[] rooms;
+    private static String[] backgroundImgs;
+    private static int[] mazeOrder;
 
     public static void main(String[] args) {
         launch(args);
@@ -17,14 +18,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        rooms = new String[]{
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml"
+        backgroundImgs = new String[]{
+                "../resources/InitialGameScreenBackground.png",
+                "../resources/InitialGameScreenBackground.png",
+                "../resources/InitialGameScreenBackground.png",
+                "../resources/InitialGameScreenBackground.png",
+                "../resources/InitialGameScreenBackground.png",
+                "../resources/InitialGameScreenBackground.png"
         };
+        mazeOrder = new int[]{0,1,2,3,4,5};
 
         WelcScreen welcome = new WelcScreen();
         primaryStage.setScene(welcome.getScene());
@@ -38,8 +40,11 @@ public class Main extends Application {
         window.show();
     }
 
-    public static String[] getRoomsArray() {
-        return rooms;
+    public static String[] getBackgroundImgs() {
+        return backgroundImgs;
+    }
+    public static int[] getMazeOrder() {
+        return mazeOrder;
     }
 
     public static int getScreenWidth() {

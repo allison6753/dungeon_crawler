@@ -17,6 +17,8 @@ public class InteriorRoom {
     private Pane root;
 
     private int money;
+    private int roomIndex; // 0-5 sequentially
+    private int roomNum; // 0-5 randomly to create a "random maze"
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
@@ -32,18 +34,14 @@ public class InteriorRoom {
         this.weapon = weapon;
         this.difficulty = difficulty;
         this.money = money;
+        this.roomIndex = roomNum;
+        this.roomNum = Main.getMazeOrder()[this.roomIndex];
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
-        addBackgroundImage("../resources/" + Main.getRoomsArray()[roomNum]);
+        addBackgroundImage("../resources/" + Main.getBackgroundImgs()[roomNum]);
         setMoneyLabel();
 
-        /** If room is not first room or last room before exit screen **/
-        if (roomNum > 0 && roomNum < 5) {
-            setDoor("#nextRoomDoor", new InteriorRoom(roomNum + 1, difficulty, weapon, money));
-
-            setDoor("#prevRoomDoor", new InteriorRoom(roomNum - 1, difficulty, weapon, money));
-        }
-
+        setupDoors();
 
     }
 
@@ -57,7 +55,7 @@ public class InteriorRoom {
 
     private void addBackgroundImage(String background) {
         root.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/InitialGameScreenBackground.png")
+                + Main.class.getResource(background)
                 .toExternalForm()
                 + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
@@ -77,21 +75,42 @@ public class InteriorRoom {
 
     private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("StartingMoney: $" + money);
+        moneyLabel.setText("Room:" + roomNum + "Money: $" + money);
     }
 
 
-    private void setDoor(String id, InteriorRoom next) {
-        Button doorButton = (Button) scene.lookup(id);
-        doorButton.setStyle("-fx-background-image: url('"
+    private void setupDoors() {
+        //make the next door
+        Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
+        prevDoor.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        doorButton.setOnAction(new EventHandler<ActionEvent>() {
+        prevDoor.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                Main.changeWindowTo(currentWindow, next.getScene());
+                if (roomIndex > 0) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money);
+                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                }
             }
+        });
+
+        //make the next door
+        Button nextDoor = (Button) scene.lookup("#nextRoomDoor");
+        nextDoor.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        nextDoor.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if (roomIndex < 5) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty, weapon, money);
+                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                }
+            }
+
         });
     }
 
