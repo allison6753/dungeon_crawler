@@ -77,7 +77,7 @@ public class InteriorRoom {
 
     private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("StartingMoney: $" + money);
+        moneyLabel.setText("Money: $" + money);
     }
 
 

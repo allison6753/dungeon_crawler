@@ -18,12 +18,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         rooms = new String[]{
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml",
-                "InitialGameScreen.fxml"
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png"
         };
 
         WelcScreen welcome = new WelcScreen();
