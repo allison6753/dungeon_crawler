@@ -1,9 +1,14 @@
 package main;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -12,32 +17,33 @@ public class GameScreen1 {
     private Pane root;
 
     private int startingMoney;
-    private ConfigScreen.Weapon conWeapon;
+    private ConfigScreen.Weapon weapon;
+    private ConfigScreen.Difficulty difficulty;
 
     public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon) {
         try {
             root = FXMLLoader.load(
-                    GameScreen1.class.getResource("../resources/InitialGameScreen.fxml")
+                    GameScreen1.class.getResource("../resources/newInitialGameScreen.fxml")
             );
         } catch (IOException except) {
             //the fxml loader can't find the file
         }
 
+        this.weapon = weapon;
+        this.difficulty = difficulty;
+
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
         setStartingMoney(difficulty);
-        setWeapon(weapon);
         setMoneyLabel();
 
 
         /** Uncomment when creating buttons for doors **/
-        /*
             //change next rooms to actual next rooms once we create them
             setDoor("#door1", new WelcScreen());
             setDoor("#door2", new WelcScreen());
             setDoor("#door3", new WelcScreen());
             setDoor("#door4", new WelcScreen());
-        */
 
 
     }
@@ -77,24 +83,12 @@ public class GameScreen1 {
         return startingMoney;
     }
 
-    private void setWeapon(ConfigScreen.Weapon configWeapon) {
-        switch (configWeapon) {
-        case PENCIL:
-            conWeapon = configWeapon.PENCIL;
-            break;
-        case TEXTBOOK:
-            conWeapon = configWeapon.TEXTBOOK;
-            break;
-        case CALCULATOR:
-            conWeapon = configWeapon.CALCULATOR;
-            break;
-        default:
-            break;
-        }
+    public ConfigScreen.Weapon getWeapon() {
+        return weapon;
     }
 
-    public ConfigScreen.Weapon getWeapon() {
-        return conWeapon;
+    public ConfigScreen.Difficulty getDifficulty() {
+        return difficulty;
     }
 
 
@@ -105,18 +99,19 @@ public class GameScreen1 {
 
 
     /** Uncomment when add buttons to door images **/
-    /*
         private void setDoor(String id, WelcScreen next) {
-            Button nextRoom = (Button) scene.lookup(id);
-            nextRoom.setOnAction(new EventHandler<ActionEvent>() {
+            Button doorButton = (Button) scene.lookup(id);
+            doorButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource("../resources/Door.png").toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            doorButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
-                    // Change to next room
-                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    Main.changeWindowTo(currentWindow, next.getScene());
+                        Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                        Main.changeWindowTo(currentWindow, next.getScene());
                 }
             });
         }
-    */
 
 
 }
