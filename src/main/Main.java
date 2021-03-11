@@ -9,7 +9,7 @@ public class Main extends Application {
     private static int screenWidth = 1920;
     private static int screenHeight = 1080;
 
-    private int[] rooms;
+    private static String[] rooms;
 
     public static void main(String[] args) {
         launch(args);
@@ -17,7 +17,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        rooms = new int[]{0,1,2,3,4,5};
+        rooms = new String[]{
+                "InitialGameScreen.fxml",
+                "InitialGameScreen.fxml",
+                "InitialGameScreen.fxml",
+                "InitialGameScreen.fxml",
+                "InitialGameScreen.fxml",
+                "InitialGameScreen.fxml"
+        };
 
         WelcScreen welcome = new WelcScreen();
         primaryStage.setScene(welcome.getScene());
@@ -31,7 +38,7 @@ public class Main extends Application {
         window.show();
     }
 
-    public int[] getRoomsArray() {
+    public static String[] getRoomsArray() {
         return rooms;
     }
 

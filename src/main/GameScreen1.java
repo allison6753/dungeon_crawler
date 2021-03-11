@@ -39,10 +39,10 @@ public class GameScreen1 {
 
 
         //change next rooms to actual next rooms once we create them
-        setDoor("#door1", new InteriorRoom(background, difficulty, weapon, startingMoney));
-        setDoor("#door2", new InteriorRoom(background, difficulty, weapon, startingMoney));
-        setDoor("#door3", new InteriorRoom(background, difficulty, weapon, startingMoney));
-        setDoor("#door4", new InteriorRoom(background, difficulty, weapon, startingMoney));
+        setDoor("#door1", new InteriorRoom(0, difficulty, weapon, startingMoney));
+        setDoor("#door2", new InteriorRoom(0, difficulty, weapon, startingMoney));
+        setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney));
+        setDoor("#door4", new InteriorRoom(0, difficulty, weapon, startingMoney));
 
 
     }
@@ -97,7 +97,7 @@ public class GameScreen1 {
     }
 
 
-    private void setDoor(String id, WelcScreen next) {
+    private void setDoor(String id, InteriorRoom next) {
         Button doorButton = (Button) scene.lookup(id);
         doorButton.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()

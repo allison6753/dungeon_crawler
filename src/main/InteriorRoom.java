@@ -20,10 +20,10 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    public InteriorRoom(String background, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
+    public InteriorRoom(int roomNum, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
-                    GameScreen1.class.getResource("../resources/interiorRoom.fxml")
+                    GameScreen1.class.getResource("../resources/mazeRoom.fxml")
             );
         } catch (IOException except) {
             //the fxml loader can't find the file
@@ -34,12 +34,15 @@ public class InteriorRoom {
         this.money = money;
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
-        addBackgroundImage(background);
+        addBackgroundImage("../resources/" + Main.getRoomsArray()[roomNum]);
         setMoneyLabel();
 
+        /** If room is not first room or last room before exit screen **/
+        if (roomNum > 0 && roomNum < 5) {
+            setDoor("#nextRoomDoor", new InteriorRoom(roomNum + 1, difficulty, weapon, money));
 
-        //change next rooms to actual next rooms once we create them
-        setDoor("#door", new InteriorRoom(background, difficulty, weapon, money));
+            setDoor("#prevRoomDoor", new InteriorRoom(roomNum - 1, difficulty, weapon, money));
+        }
 
 
     }
@@ -54,7 +57,7 @@ public class InteriorRoom {
 
     private void addBackgroundImage(String background) {
         root.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("background")
+                + Main.class.getResource("../resources/InitialGameScreenBackground.png")
                 .toExternalForm()
                 + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
@@ -73,12 +76,11 @@ public class InteriorRoom {
 
 
     private void setMoneyLabel() {
-        Label moneyLabel = (Label) scene.lookup("#startingMoney");
+        Label moneyLabel = (Label) scene.lookup("#money");
         moneyLabel.setText("StartingMoney: $" + money);
     }
 
 
-    /** Uncomment when add buttons to door images **/
     private void setDoor(String id, InteriorRoom next) {
         Button doorButton = (Button) scene.lookup(id);
         doorButton.setStyle("-fx-background-image: url('"
