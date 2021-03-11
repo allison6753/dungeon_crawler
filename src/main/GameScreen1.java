@@ -23,7 +23,7 @@ public class GameScreen1 {
     public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon) {
         try {
             root = FXMLLoader.load(
-                    GameScreen1.class.getResource("../resources/newInitialGameScreen.fxml")
+                    GameScreen1.class.getResource("../resources/InitialGameScreen.fxml")
             );
         } catch (IOException except) {
             //the fxml loader can't find the file
@@ -38,12 +38,11 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-        /** Uncomment when creating buttons for doors **/
-            //change next rooms to actual next rooms once we create them
-            setDoor("#door1", new WelcScreen());
-            setDoor("#door2", new WelcScreen());
-            setDoor("#door3", new WelcScreen());
-            setDoor("#door4", new WelcScreen());
+        //change next rooms to actual next rooms once we create them
+        setDoor("#door1", new InteriorRoom(background, difficulty, weapon, startingMoney));
+        setDoor("#door2", new InteriorRoom(background, difficulty, weapon, startingMoney));
+        setDoor("#door3", new InteriorRoom(background, difficulty, weapon, startingMoney));
+        setDoor("#door4", new InteriorRoom(background, difficulty, weapon, startingMoney));
 
 
     }
@@ -98,20 +97,19 @@ public class GameScreen1 {
     }
 
 
-    /** Uncomment when add buttons to door images **/
-        private void setDoor(String id, WelcScreen next) {
-            Button doorButton = (Button) scene.lookup(id);
-            doorButton.setStyle("-fx-background-image: url('"
-                    + Main.class.getResource("../resources/Door.png").toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-            doorButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                        Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                        Main.changeWindowTo(currentWindow, next.getScene());
-                }
-            });
-        }
+    private void setDoor(String id, WelcScreen next) {
+        Button doorButton = (Button) scene.lookup(id);
+        doorButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        doorButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    Main.changeWindowTo(currentWindow, next.getScene());
+            }
+        });
+    }
 
 
 }
