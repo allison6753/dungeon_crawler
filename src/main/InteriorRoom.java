@@ -80,7 +80,7 @@ public class InteriorRoom {
 
 
     private void setupDoors() {
-        //make the next door
+        //make the prev door
         Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
         prevDoor.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()
