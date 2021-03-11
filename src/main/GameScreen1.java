@@ -38,11 +38,10 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-        setDoor("#door1", new InteriorRoom(0, difficulty, weapon, startingMoney));
-        setDoor("#door2", new InteriorRoom(0, difficulty, weapon, startingMoney));
-        setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney));
-        setDoor("#door4", new InteriorRoom(0, difficulty, weapon, startingMoney));
-
+        setDoor("#door1", new InteriorRoom(0, difficulty, weapon, startingMoney, 1));
+        setDoor("#door2", new InteriorRoom(0, difficulty, weapon, startingMoney, 2));
+        setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney, 3));
+        setDoor("#door4", new InteriorRoom(0, difficulty, weapon, startingMoney, 4));
 
     }
 
@@ -109,6 +108,4 @@ public class GameScreen1 {
             }
         });
     }
-
-
 }

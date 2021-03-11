@@ -19,10 +19,12 @@ public class InteriorRoom {
     private int money;
     private int roomIndex; // 0-5 sequentially in mazOrder
     private int roomNum; // 0-5 randomly to create a "random maze"
+    private int order;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
+    public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
+                        ConfigScreen.Weapon weapon, int money, int order) {
         try {
             root = FXMLLoader.load(
                     GameScreen1.class.getResource("../resources/mazeRoom.fxml")
@@ -35,7 +37,8 @@ public class InteriorRoom {
         this.difficulty = difficulty;
         this.money = money;
         this.roomIndex = roomIndex;
-        this.roomNum = Main.getMazeOrder().get(this.roomIndex);
+        this.order = order;
+        checkOrder(order);
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + Main.getBackgroundImgs()[roomNum]);
@@ -43,6 +46,18 @@ public class InteriorRoom {
 
         setupDoors();
 
+    }
+
+    private void checkOrder(int order) {
+        if (order == 1) {
+            this.roomNum = Main.getMazeOrder1().get(this.roomIndex);
+        } else if (order == 2) {
+            this.roomNum = Main.getMazeOrder2().get(this.roomIndex);
+        } else if (order == 3) {
+            this.roomNum = Main.getMazeOrder3().get(this.roomIndex);
+        } else {
+            this.roomNum = Main.getMazeOrder4().get(this.roomIndex);
+        }
     }
 
     public Scene getScene() {
@@ -88,9 +103,16 @@ public class InteriorRoom {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         prevDoor.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                if (roomIndex == 0) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon);
+
+                    Main.changeWindowTo(currentWindow, screen1.getScene());
+                }
                 if (roomIndex > 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money);
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex - 1, difficulty,
+                            weapon, money, order);
                     Main.changeWindowTo(currentWindow, nextRoom.getScene());
                 }
             }
@@ -106,11 +128,11 @@ public class InteriorRoom {
             @Override public void handle(ActionEvent e) {
                 if (roomIndex < 5) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty, weapon, money);
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+                            weapon, money, order);
                     Main.changeWindowTo(currentWindow, nextRoom.getScene());
                 }
             }
-
         });
     }
 
