@@ -22,7 +22,8 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
+    public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
+                        ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
                     GameScreen1.class.getResource("../resources/mazeRoom.fxml")
@@ -90,7 +91,8 @@ public class InteriorRoom {
             @Override public void handle(ActionEvent e) {
                 if (roomIndex > 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money);
+                    InteriorRoom nextRoom =
+                            new InteriorRoom(roomIndex - 1, difficulty, weapon, money);
                     Main.changeWindowTo(currentWindow, nextRoom.getScene());
                 }
             }
@@ -106,7 +108,8 @@ public class InteriorRoom {
             @Override public void handle(ActionEvent e) {
                 if (roomIndex < 5) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty, weapon, money);
+                    InteriorRoom nextRoom =
+                            new InteriorRoom(roomIndex + 1, difficulty, weapon, money);
                     Main.changeWindowTo(currentWindow, nextRoom.getScene());
                 }
             }

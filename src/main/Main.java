@@ -23,12 +23,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         backgroundImgs = new String[]{
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png"
+            "InitialGameScreenBackground.png",
+            "InitialGameScreenBackground.png",
+            "InitialGameScreenBackground.png",
+            "InitialGameScreenBackground.png",
+            "InitialGameScreenBackground.png",
+            "InitialGameScreenBackground.png"
         };
 
         for (int i = 0; i < 6; i++) {
