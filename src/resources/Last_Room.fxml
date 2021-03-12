@@ -12,5 +12,10 @@
                 <Font size="37.0" />
             </font>
         </Button>
+        <Label fx:id="money" layoutX="1545.0" layoutY="792.0" prefHeight="74.0" prefWidth="289.0" text="Money">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
     </children>
 </Pane>
