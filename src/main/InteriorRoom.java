@@ -103,17 +103,15 @@ public class InteriorRoom {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         prevDoor.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex == 0) {
-                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     GameScreen1 screen1 = new GameScreen1(difficulty, weapon);
-
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 }
                 if (roomIndex > 0) {
-                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex - 1, difficulty,
+                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
                             weapon, money, order);
-                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
                 }
             }
         });
@@ -126,11 +124,14 @@ public class InteriorRoom {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         nextDoor.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex < 5) {
-                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
                             weapon, money, order);
                     Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                } else {
+                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
                 }
             }
         });
