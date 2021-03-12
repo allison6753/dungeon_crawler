@@ -71,8 +71,8 @@ public class LastRoom {
 
     //setter for money label
     private void setMoneyLabel() {
-        Label moneyLabel = (Label) scene.lookup("#MoneyLabel");
-        moneyLabel.setText("Room: Final Room" + "Ending Money: $" + money);
+        Label moneyLabel = (Label) scene.lookup("#money");
+        moneyLabel.setText("Room: Final Room" + "Money: $" + money);
     }
 
     //exit room door to go to congrats screen :)
@@ -87,7 +87,7 @@ public class LastRoom {
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                // Change to Config Screen
+                // Change to winScreen Screen
                 WinScreen winScreen = new WinScreen();
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Main.changeWindowTo(currentWindow, winScreen.getScene());
