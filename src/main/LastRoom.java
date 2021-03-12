@@ -21,7 +21,6 @@ public class LastRoom {
     private ConfigScreen.Weapon weapon;
 
     //constructor for last room
-    //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
     public LastRoom(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
@@ -73,7 +72,7 @@ public class LastRoom {
     //setter for money label
     private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#MoneyLabel");
-        moneyLabel.setText("Room: Final Room" + "Money: $" + money);
+        moneyLabel.setText("Room: Final Room" + "Ending Money: $" + money);
     }
 
     //exit room door to go to congrats screen :)
@@ -94,8 +93,6 @@ public class LastRoom {
                 Main.changeWindowTo(currentWindow, winScreen.getScene());
             }
         });
-
-
 
     }
 }
