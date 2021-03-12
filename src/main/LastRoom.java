@@ -22,7 +22,7 @@ public class LastRoom {
 
     //constructor for last room
     //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
-    public LastRoom() {
+    public LastRoom(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
                     GameScreen1.class.getResource("../resources/Last_Room.fxml")
