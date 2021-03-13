@@ -41,7 +41,7 @@ public class InteriorRoom {
         checkOrder(order);
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
-        addBackgroundImage("../resources/" + Main.getBackgroundImgs()[roomNum]);
+        addBackgroundImage("../resources/" + GameScreen1.getBackgroundImgs()[roomNum]);
         setMoneyLabel();
 
         setupDoors();
@@ -50,13 +50,13 @@ public class InteriorRoom {
 
     private void checkOrder(int order) {
         if (order == 1) {
-            this.roomNum = Main.getMazeOrder1().get(this.roomIndex);
+            this.roomNum = GameScreen1.getMazeOrder1().get(this.roomIndex);
         } else if (order == 2) {
-            this.roomNum = Main.getMazeOrder2().get(this.roomIndex);
+            this.roomNum = GameScreen1.getMazeOrder2().get(this.roomIndex);
         } else if (order == 3) {
-            this.roomNum = Main.getMazeOrder3().get(this.roomIndex);
+            this.roomNum = GameScreen1.getMazeOrder3().get(this.roomIndex);
         } else {
-            this.roomNum = Main.getMazeOrder4().get(this.roomIndex);
+            this.roomNum = GameScreen1.getMazeOrder4().get(this.roomIndex);
         }
     }
 
