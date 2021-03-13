@@ -24,34 +24,17 @@ public class GameScreen1 {
     private ConfigScreen.Difficulty difficulty;
 
     private static String[] backgroundImgs;
-    private static List<Integer> mazeOrder1 = new ArrayList<>();
-    private static List<Integer> mazeOrder2 = new ArrayList<>();
-    private static List<Integer> mazeOrder3 = new ArrayList<>();
-    private static List<Integer> mazeOrder4 = new ArrayList<>();
+    private static List<Integer> mazeOrder1;
+    private static List<Integer> mazeOrder2;
+    private static List<Integer> mazeOrder3;
+    private static List<Integer> mazeOrder4;
 
 
 
-    public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon) {
-        backgroundImgs = new String[]{
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png"
-        };
-
-        for (int i = 0; i < 6; i++) {
-            mazeOrder1.add(i);
-            mazeOrder2.add(i);
-            mazeOrder3.add(i);
-            mazeOrder4.add(i);
+    public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, boolean setUp) {
+        if (setUp) {
+            doSetUp();
         }
-
-        Collections.shuffle(mazeOrder1);
-        Collections.shuffle(mazeOrder2);
-        Collections.shuffle(mazeOrder3);
-        Collections.shuffle(mazeOrder4);
 
         try {
             root = FXMLLoader.load(
@@ -75,6 +58,34 @@ public class GameScreen1 {
         setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney, 3));
         setDoor("#door4", new InteriorRoom(0, difficulty, weapon, startingMoney, 4));
 
+    }
+
+    private void doSetUp() {
+        backgroundImgs = new String[]{
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png",
+                "InitialGameScreenBackground.png"
+        };
+
+        mazeOrder1 = new ArrayList<>();
+        mazeOrder2 = new ArrayList<>();
+        mazeOrder3 = new ArrayList<>();
+        mazeOrder4 = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            mazeOrder1.add(i);
+            mazeOrder2.add(i);
+            mazeOrder3.add(i);
+            mazeOrder4.add(i);
+        }
+
+        Collections.shuffle(mazeOrder1);
+        Collections.shuffle(mazeOrder2);
+        Collections.shuffle(mazeOrder3);
+        Collections.shuffle(mazeOrder4);
     }
 
     public Scene getScene() {

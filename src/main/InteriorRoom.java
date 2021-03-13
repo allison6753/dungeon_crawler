@@ -105,7 +105,7 @@ public class InteriorRoom {
             @Override public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex == 0) {
-                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon);
+                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 }
                 if (roomIndex > 0) {

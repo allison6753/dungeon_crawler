@@ -21,7 +21,7 @@ public class MazeUnitTests extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        startScreen = new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR);
+        startScreen = new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR, true);
         primaryStage.setScene(startScreen.getScene());
         primaryStage.show();
 
