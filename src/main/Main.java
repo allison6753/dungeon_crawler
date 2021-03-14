@@ -4,10 +4,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 
 public class Main extends Application {
     private static int screenWidth = 1920;
