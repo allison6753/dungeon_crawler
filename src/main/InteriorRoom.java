@@ -2,12 +2,12 @@ package main;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class InteriorRoom {
                         ConfigScreen.Weapon weapon, int money, int order) {
         try {
             root = FXMLLoader.load(
-                    GameScreen1.class.getResource("../resources/mazeRoom.fxml")
+                    GameScreen1.class.getResource("../resources/LectureRoom.fxml")
             );
         } catch (IOException except) {
             //the fxml loader can't find the file
@@ -96,6 +96,89 @@ public class InteriorRoom {
 
     private void setupDoors() {
         //make the prev door
+
+
+        Button nextDoorLeft = (Button) scene.lookup("#nextDoorLeft");
+        nextDoorLeft.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Open_Door_Left.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        nextDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                if (roomIndex < 5) {
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+                            weapon, money, order);
+                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                } else {
+                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                }
+            }
+        });
+
+        Button nextDoorRight = (Button) scene.lookup("#nextDoorRight");
+        nextDoorRight.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Open_Door_Right.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        nextDoorRight.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                if (roomIndex < 5) {
+                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+                            weapon, money, order);
+                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                } else {
+                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                }
+            }
+        });
+
+        Button prevDoorLeft = (Button) scene.lookup("#prevDoorLeft");
+        prevDoorLeft.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Open_Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        prevDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                if (roomIndex == 0) {
+                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
+                    Main.changeWindowTo(currentWindow, screen1.getScene());
+                }
+                if (roomIndex > 0) {
+                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
+                            weapon, money, order);
+                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
+                }
+            }
+        });
+        Button prevDoorRight = (Button) scene.lookup("#prevDoorRight");
+        prevDoorRight.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Open_Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        prevDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                if (roomIndex == 0) {
+                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
+                    Main.changeWindowTo(currentWindow, screen1.getScene());
+                }
+                if (roomIndex > 0) {
+                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
+                            weapon, money, order);
+                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
+                }
+            }
+        });
+
+
+
+/**
+
         Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
         prevDoor.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()
@@ -135,7 +218,6 @@ public class InteriorRoom {
                 }
             }
         });
+*/
     }
-
-
 }

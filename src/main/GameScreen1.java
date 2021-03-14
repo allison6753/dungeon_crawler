@@ -62,12 +62,12 @@ public class GameScreen1 {
 
     private void doSetUp() {
         backgroundImgs = new String[]{
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png",
-                "InitialGameScreenBackground.png"
+                "Blue_Room.png",
+                "Pink_Room.png",
+                "Green_Room.png",
+                "Yellow_Room.png",
+                "Side_Room.png",
+                "Side_Room.png"
         };
 
         mazeOrder1 = new ArrayList<>();

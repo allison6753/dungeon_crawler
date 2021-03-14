@@ -1,19 +1,14 @@
 package tests;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import main.ConfigScreen;
 import main.GameScreen1;
-import main.InteriorRoom;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class MazeUnitTests extends ApplicationTest {
     private GameScreen1 startScreen;
@@ -35,4 +30,12 @@ public class MazeUnitTests extends ApplicationTest {
         clickOn(door1Button);
 //        assert(window.getScene() )
     }
+
+    @Test
+    public void testMazeBackground() {
+
+
+    }
+
+
 }
