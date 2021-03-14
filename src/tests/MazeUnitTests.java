@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import main.ConfigScreen;
 import main.GameScreen1;
+import main.InteriorRoom;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class MazeUnitTests extends ApplicationTest {
     private GameScreen1 startScreen;
     private Window window;
+    private InteriorRoom room;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -33,9 +35,10 @@ public class MazeUnitTests extends ApplicationTest {
 
     @Test
     public void testMazeBackground() {
-
-
+        Button door1Button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(door1Button);
+        assert(room.getBackgroundImage() == "../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()]);
     }
 
-
 }
+

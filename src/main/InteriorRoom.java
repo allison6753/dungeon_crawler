@@ -20,6 +20,7 @@ public class InteriorRoom {
     private int roomIndex; // 0-5 sequentially in mazOrder
     private int roomNum; // 0-5 randomly to create a "random maze"
     private int order;
+    private String backGroundImage;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
@@ -73,6 +74,7 @@ public class InteriorRoom {
                 + Main.class.getResource(background)
                 .toExternalForm()
                 + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
+        backGroundImage = background;
     }
 
     public int getMoney() {
@@ -104,7 +106,8 @@ public class InteriorRoom {
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         nextDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex < 5) {
                     InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
@@ -123,7 +126,8 @@ public class InteriorRoom {
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         nextDoorRight.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex < 5) {
                     InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
@@ -142,7 +146,8 @@ public class InteriorRoom {
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         prevDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex == 0) {
                     GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
@@ -161,7 +166,8 @@ public class InteriorRoom {
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         prevDoorRight.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex == 0) {
                     GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
@@ -175,7 +181,14 @@ public class InteriorRoom {
             }
         });
 
+    }
+        public String getBackgroundImage() {
+            return backGroundImage;
+        }
 
+        public int getRoomNum() {
+        return roomNum;
+        }
 
 /**
 
@@ -219,5 +232,5 @@ public class InteriorRoom {
             }
         });
 */
-    }
+
 }
