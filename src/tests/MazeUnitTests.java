@@ -68,6 +68,9 @@ public class MazeUnitTests extends ApplicationTest {
         );
     }
 
+    /**
+     * Tests to see
+     */
 
 
     /** Tests that the path backward equals the reverse of the path going forward **/
