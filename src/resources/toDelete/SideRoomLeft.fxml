@@ -11,12 +11,12 @@
                 <Rectangle2D />
             </viewport>
             <image>
-                <Image url="@Side_Room.png" />
+                <Image url="@../Side_Room.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="240.0" fitWidth="120.0" layoutX="1800.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@Open_Door_Right.png" />
+                <Image url="@../Open_Door_Right.png" />
             </image>
         </ImageView>
     </children>

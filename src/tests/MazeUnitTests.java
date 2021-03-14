@@ -1,6 +1,8 @@
 package tests;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import main.ConfigScreen;
@@ -11,6 +13,8 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 public class MazeUnitTests extends ApplicationTest {
     private GameScreen1 startScreen;
@@ -42,22 +46,40 @@ public class MazeUnitTests extends ApplicationTest {
         assert(room.getBackgroundImage() == "../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()]);
     }
 
-    /** Tests that there are at least 8 rooms in total **/
-    //Doesn't work yet
+    /** Tests that the path backward equals the reverse of the path going forward **/
     /** Alison's Test **/
     @Test
-    public void test8RoomsTotal() {
-        Button door1Button = (Button) startScreen.getScene().lookup("#door1");
-        clickOn(door1Button);
-        int countRooms = 0;
-        countRooms++; //for gameScreen1
-        while (lastRoom == null) {
-            Button nextDoorLeft = (Button) room.getScene().lookup("#nextDoorLeft");
-            clickOn(nextDoorLeft);
-            countRooms++; //for each interior room
+    public void pathBackward() {
+        String[] forwardScenes = new String[8];
+        forwardScenes[0] = ((Label) startScreen.getScene().lookup("#startingMoney")).getText();
+
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+        Window nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        System.out.println(((Label) (nextRoom.getScene().lookup("#roomNum"))));
+        forwardScenes[1] = ((Label) nextRoom.getScene().lookup("#roomNum")).getText();
+
+        //going forward
+        for (int i = 2; i <= 6; i++) {
+            button = (Button) nextRoom.getScene().lookup("#nextDoorLeft");
+            clickOn(button);
+            nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            forwardScenes[i] = ((Label) nextRoom.getScene().lookup("#roomNum")).getText();
         }
-        countRooms++; //for last room
-        assert(countRooms >= 8);
+
+        //going backward
+        for (int i = 6; i > 0; i--) {
+            button = (Button) nextRoom.getScene().lookup("#prevDoorLeft");
+            clickOn(button);
+            nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            assertEquals(forwardScenes[i], ((Label) nextRoom.getScene().lookup("#roomNum")).getText());
+        }
+
+        button = (Button) nextRoom.getScene().lookup("#prevDoorLeft");
+        clickOn(button);
+        nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        assertEquals(forwardScenes[0], ((Label) nextRoom.getScene().lookup("#startingMoney")).getText());
+
     }
 
     /** Tests that prevDoor leads you to room you wee previously in **/
@@ -81,4 +103,3 @@ public class MazeUnitTests extends ApplicationTest {
     }
 
 }
-
