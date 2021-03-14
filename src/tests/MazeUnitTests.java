@@ -1,6 +1,5 @@
 package tests;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -11,9 +10,7 @@ import main.InteriorRoom;
 import main.LastRoom;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MazeUnitTests extends ApplicationTest {
     private GameScreen1 startScreen;
@@ -23,7 +20,8 @@ public class MazeUnitTests extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        startScreen = new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR, true);
+        startScreen = new GameScreen1(ConfigScreen.Difficulty.IN_STATE,
+                ConfigScreen.Weapon.CALCULATOR, true);
         primaryStage.setScene(startScreen.getScene());
         primaryStage.show();
 
@@ -35,14 +33,15 @@ public class MazeUnitTests extends ApplicationTest {
     public void testCorrectImgLoading() {
         Button door1Button = (Button) startScreen.getScene().lookup("#door1");
         clickOn(door1Button);
-//        assert(window.getScene() )
+        //assert(window.getScene() )
     }
 
     @Test
     public void testMazeBackground() {
         Button door1Button = (Button) startScreen.getScene().lookup("#door1");
         clickOn(door1Button);
-        assert(room.getBackgroundImage() == "../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()]);
+        assert (room.getBackgroundImage() == "../resources/"
+                + GameScreen1.getBackgroundImgs()[room.getRoomNum()]);
     }
 
     /** Tests that there are at least 8 rooms in total **/
@@ -60,7 +59,7 @@ public class MazeUnitTests extends ApplicationTest {
             countRooms++; //for each interior room
         }
         countRooms++; //for last room
-        assert(countRooms >= 8);
+        assert (countRooms >= 8);
     }
 
     /** Tests that prevDoor leads you to room you wee previously in **/
@@ -92,24 +91,26 @@ public class MazeUnitTests extends ApplicationTest {
         clickOn(door1Button);
 
         for (int i = 0; i < 6; ++i) {
-            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                    .findFirst().orElse(null);
             Button nextDoorLeft = (Button) newRoom.getScene().lookup("#nextDoorLeft");
 
             //make sure we see the objects that should be in a maze room
-            assert(newRoom.getScene().lookup("#nextDoorLeft") != null);
-            assert(newRoom.getScene().lookup("#prevDoorLeft") != null);
+            assert (newRoom.getScene().lookup("#nextDoorLeft") != null);
+            assert (newRoom.getScene().lookup("#prevDoorLeft") != null);
 
             //go to the next room
             clickOn(nextDoorLeft);
         }
 
         //make sure we're in the last room
-        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-        assert(lastRoom.getScene().lookup("#lastRoom") != null);
+        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+        assert (lastRoom.getScene().lookup("#lastRoom") != null);
     }
 
     /**
-     * Tests that the same maze room doesn't sow up twice
+     * Tests that the same maze room doesn't show up twice
      *
      * Nathan Malta wrote this test
      */
@@ -120,17 +121,18 @@ public class MazeUnitTests extends ApplicationTest {
         ArrayList<String> roomNums = new ArrayList<>();
 
         for (int i = 0; i < 6; ++i) {
-            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                    .findFirst().orElse(null);
 
             //make sure we see the objects that should be in a maze room
-            assert(newRoom.getScene().lookup("#nextDoorLeft") != null);
-            assert(newRoom.getScene().lookup("#prevDoorLeft") != null);
-            assert(newRoom.getScene().lookup("#roomNum") != null);
+            assert (newRoom.getScene().lookup("#nextDoorLeft") != null);
+            assert (newRoom.getScene().lookup("#prevDoorLeft") != null);
+            assert (newRoom.getScene().lookup("#roomNum") != null);
 
             Button nextDoorLeft = (Button) newRoom.getScene().lookup("#nextDoorLeft");
             Label roomNumLabel = (Label) newRoom.getScene().lookup("#roomNum");
 
-            assert(!roomNums.contains(roomNumLabel.getText()));
+            assert (!roomNums.contains(roomNumLabel.getText()));
             roomNums.add(roomNumLabel.getText());
 
             //go to the next room
@@ -138,8 +140,9 @@ public class MazeUnitTests extends ApplicationTest {
         }
 
         //make sure we're in the last room
-        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-        assert(lastRoom.getScene().lookup("#lastRoom") != null);
+        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+        assert (lastRoom.getScene().lookup("#lastRoom") != null);
     }
 
 }
