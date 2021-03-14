@@ -53,10 +53,10 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-        setDoor("#door1", new InteriorRoom(0, difficulty, weapon, startingMoney, 1));
-        setDoor("#door2", new InteriorRoom(0, difficulty, weapon, startingMoney, 2));
-        setDoor("#door3", new InteriorRoom(0, difficulty, weapon, startingMoney, 3));
-        setDoor("#door4", new InteriorRoom(0, difficulty, weapon, startingMoney, 4));
+        setDoor("#door1", 1);
+        setDoor("#door2", 2);
+        setDoor("#door3", 3);
+        setDoor("#door4", 4);
 
     }
 
@@ -138,7 +138,8 @@ public class GameScreen1 {
     }
 
 
-    private void setDoor(String id, InteriorRoom next) {
+    private void setDoor(String id, int pathNum) {
+        InteriorRoom next = new InteriorRoom(0, difficulty, weapon, startingMoney, pathNum);
         Button doorButton = (Button) scene.lookup(id);
         doorButton.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()
