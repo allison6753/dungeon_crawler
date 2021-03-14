@@ -73,7 +73,7 @@ public class ConfigScreen {
             @Override public void handle(ActionEvent e) {
                 if (validation()) {
                     // Change to Initial Game Screen
-                    GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon);
+                    GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon, true);
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 } else {

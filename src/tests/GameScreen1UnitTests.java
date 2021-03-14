@@ -28,13 +28,13 @@ public class GameScreen1UnitTests {
 
         //setup dummy screens on the GameScreen1 page for testing
         screen1 = new GameScreen1(
-                ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR
+                ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR, true
         );
         screen2 = new GameScreen1(
-                ConfigScreen.Difficulty.OUT_OF_STATE, ConfigScreen.Weapon.PENCIL
+                ConfigScreen.Difficulty.OUT_OF_STATE, ConfigScreen.Weapon.PENCIL, true
         );
         screen3 = new GameScreen1(
-                ConfigScreen.Difficulty.INTERNATIONAL, ConfigScreen.Weapon.TEXTBOOK
+                ConfigScreen.Difficulty.INTERNATIONAL, ConfigScreen.Weapon.TEXTBOOK, true
         );
     }
 
