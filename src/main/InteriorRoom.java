@@ -160,7 +160,7 @@ public class InteriorRoom {
                 + Main.class.getResource("../resources/Open_Door.png").toExternalForm()
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        prevDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
+        prevDoorRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 if (roomIndex == 0) {
