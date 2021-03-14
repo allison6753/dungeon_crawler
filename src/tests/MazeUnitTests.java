@@ -1,5 +1,6 @@
 package tests;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -76,9 +77,32 @@ public class MazeUnitTests extends ApplicationTest {
             //currPrev == current room now
             // assert(pastPrev.equals(currPrev));
         }
-
-
     }
 
+    /**
+     * Tests that the win screen is 6 doors away
+     *
+     * Nathan Malta wrote this test
+     */
+    @Test
+    public void test6Clicks() throws InterruptedException {
+        Button door1Button = (Button) startScreen.getScene().lookup("#door3");
+        clickOn(door1Button);
+
+        for (int i = 0; i < 6; ++i) {
+            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            Button nextDoorLeft = (Button) newRoom.getScene().lookup("#nextDoorLeft");
+
+            //make sure we see the objects that should be in a maze room
+            assert(newRoom.getScene().lookup("#nextDoorLeft") != null);
+            assert(newRoom.getScene().lookup("#prevDoorLeft") != null);
+
+            //go to the next room
+            clickOn(nextDoorLeft);
+        }
+
+        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        assert(lastRoom.getScene().lookup("#lastRoom") != null);
+    }
 }
 
