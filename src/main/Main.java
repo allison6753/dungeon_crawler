@@ -4,17 +4,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 
 public class Main extends Application {
     private static int screenWidth = 1920;
     private static int screenHeight = 1080;
-
-
-
 
     public static void main(String[] args) {
         launch(args);
@@ -22,8 +15,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-
         WelcScreen welcome = new WelcScreen();
         primaryStage.setScene(welcome.getScene());
         primaryStage.setResizable(true);

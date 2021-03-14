@@ -43,7 +43,7 @@ public class InteriorRoom {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + GameScreen1.getBackgroundImgs()[roomNum]);
-        setMoneyLabel();
+        setupLabels();
 
         setupDoors();
 
@@ -90,9 +90,12 @@ public class InteriorRoom {
     }
 
 
-    private void setMoneyLabel() {
+    private void setupLabels() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Room:" + roomNum + "Money: $" + money);
+        moneyLabel.setText("Money: $" + money);
+
+        Label roomNumber = (Label) scene.lookup("#roomNum");
+        roomNumber.setText("Room: " + roomNum);
     }
 
 
@@ -182,55 +185,10 @@ public class InteriorRoom {
         });
 
     }
-        public String getBackgroundImage() {
-            return backGroundImage;
-        }
-
-        public int getRoomNum() {
+    public String getBackgroundImage() {
+        return backGroundImage;
+    }
+    public int getRoomNum() {
         return this.roomNum;
-        }
-
-/**
-
-        Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
-        prevDoor.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/Door.png").toExternalForm()
-                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        prevDoor.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                if (roomIndex == 0) {
-                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
-                    Main.changeWindowTo(currentWindow, screen1.getScene());
-                }
-                if (roomIndex > 0) {
-                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
-                            weapon, money, order);
-                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
-                }
-            }
-        });
-
-        //make the next door
-        Button nextDoor = (Button) scene.lookup("#nextRoomDoor");
-        nextDoor.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/Door.png").toExternalForm()
-                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        nextDoor.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                if (roomIndex < 5) {
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-                            weapon, money, order);
-                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
-                } else {
-                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
-                }
-            }
-        });
-*/
-
+    }
 }

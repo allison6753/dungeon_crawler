@@ -72,7 +72,7 @@ public class LastRoom {
     //setter for money label
     private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Room: Final Room" + "Money: $" + money);
+        moneyLabel.setText("Money: $" + money);
     }
 
     //exit room door to go to congrats screen :)

@@ -20,7 +20,8 @@ public class TriTest extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        startScreen = new GameScreen1(ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR, true);
+        startScreen = new GameScreen1(
+                ConfigScreen.Difficulty.IN_STATE, ConfigScreen.Weapon.CALCULATOR, true);
         primaryStage.setScene(startScreen.getScene());
         primaryStage.show();
     }
@@ -46,32 +47,32 @@ public class TriTest extends ApplicationTest {
         clickOn("#door1");
         int path1 = mazeOrder1.get(0);
         String expectedPath0 = String.valueOf(path1);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath0));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath0));
 
         clickOn("#nextDoorRight");
         int path2 = mazeOrder1.get(1);
         String expectedPath1 = String.valueOf(path2);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath1));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath1));
 
         clickOn("#nextDoorRight");
         int path3 = mazeOrder1.get(2);
         String expectedPath2 = String.valueOf(path3);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath2));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath2));
 
         clickOn("#nextDoorRight");
         int path4 = mazeOrder1.get(3);
         String expectedPath3 = String.valueOf(path4);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath3));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath3));
 
         clickOn("#nextDoorRight");
         int path5 = mazeOrder1.get(4);
         String expectedPath4 = String.valueOf(path5);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath4));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath4));
 
         clickOn("#nextDoorRight");
         int path6 = mazeOrder1.get(5);
         String expectedPath5 = String.valueOf(path6);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath5));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath5));
     }
 
     @Test
@@ -83,22 +84,22 @@ public class TriTest extends ApplicationTest {
         clickOn("#door1");
         int path1 = mazeOrder1.get(0);
         String expectedPath0 = String.valueOf(path1);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath0));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath0));
 
         clickOn("#nextDoorRight");
         int path2 = mazeOrder1.get(1);
         String expectedPath1 = String.valueOf(path2);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath1));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath1));
 
         clickOn("#nextDoorRight");
         int path3 = mazeOrder1.get(2);
         String expectedPath2 = String.valueOf(path3);
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath2));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath2));
 
         clickOn("#prevDoorRight");
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath1));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath1));
 
         clickOn("#prevDoorRight");
-        verifyThat("#money", (Label a) -> a.getText().contains(expectedPath0));
+        verifyThat("#roomNum", (Label a) -> a.getText().contains(expectedPath0));
     }
 }

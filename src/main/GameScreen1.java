@@ -31,7 +31,8 @@ public class GameScreen1 {
 
 
 
-    public GameScreen1(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, boolean setUp) {
+    public GameScreen1(
+            ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, boolean setUp) {
         if (setUp) {
             doSetUp();
         }
@@ -61,12 +62,12 @@ public class GameScreen1 {
 
     private void doSetUp() {
         backgroundImgs = new String[]{
-                "Blue_Room.png",
-                "Pink_Room.png",
-                "Green_Room.png",
-                "Yellow_Room.png",
-                "Side_Room.png",
-                "Side_Room.png"
+            "Blue_Room.png",
+            "Pink_Room.png",
+            "Green_Room.png",
+            "Yellow_Room.png",
+            "Side_Room.png",
+            "Side_Room.png"
         };
 
         mazeOrder1 = new ArrayList<>();
@@ -146,8 +147,8 @@ public class GameScreen1 {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         doorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
-                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    Main.changeWindowTo(currentWindow, next.getScene());
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                Main.changeWindowTo(currentWindow, next.getScene());
             }
         });
     }
