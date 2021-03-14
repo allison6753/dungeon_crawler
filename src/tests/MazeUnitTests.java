@@ -4,12 +4,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import main.ConfigScreen;
-import main.GameScreen1;
-import main.InteriorRoom;
-import main.LastRoom;
+import main.*;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +67,47 @@ public class MazeUnitTests extends ApplicationTest {
     }
 
     /**
-     * Tests to see
+     * Tests to see if restart button goes back to welcScreen
+     * Meiling's test
      */
+
+    @Test
+    public void winToWelc() {
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+        ArrayList<String> roomNums = new ArrayList<>();
+
+        for (int i = 0; i < 6; ++i) {
+            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                    .findFirst().orElse(null);
+
+            Button nextDoorLeft = (Button) newRoom.getScene().lookup("#nextDoorLeft");
+
+            //go to the next room
+            clickOn(nextDoorLeft);
+        }
+
+        //make sure we're in the last room
+        Window last = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        Button lastDoor = (Button) last.getScene().lookup("#Door");
+        clickOn(lastDoor);
+
+        Window win = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        assert(win.getScene().lookup("#buttonStartOver") != null);
+
+        Button restart = (Button) last.getScene().lookup("#buttonStartOver");
+        clickOn(restart);
+
+        Window welc = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        assert(welc.getScene().lookup("#welcScreen") != null);
+
+    }
 
 
     /** Tests that the path backward equals the reverse of the path going forward **/
