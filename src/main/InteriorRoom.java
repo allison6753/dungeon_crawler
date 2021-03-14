@@ -187,7 +187,7 @@ public class InteriorRoom {
         }
 
         public int getRoomNum() {
-        return roomNum;
+        return this.roomNum;
         }
 
 /**

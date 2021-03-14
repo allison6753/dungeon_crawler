@@ -57,7 +57,6 @@ public class GameScreen1 {
         setDoor("#door2", 2);
         setDoor("#door3", 3);
         setDoor("#door4", 4);
-
     }
 
     private void doSetUp() {
