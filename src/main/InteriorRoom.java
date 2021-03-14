@@ -43,7 +43,7 @@ public class InteriorRoom {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + GameScreen1.getBackgroundImgs()[roomNum]);
-        setMoneyLabel();
+        setupLabels();
 
         setupDoors();
 
@@ -90,9 +90,12 @@ public class InteriorRoom {
     }
 
 
-    private void setMoneyLabel() {
+    private void setupLabels() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Room:" + roomNum + "Money: $" + money);
+        moneyLabel.setText("Money: $" + money);
+
+        Label roomNumber = (Label) scene.lookup("#roomNum");
+        roomNumber.setText("Room: " + roomNum);
     }
 
 

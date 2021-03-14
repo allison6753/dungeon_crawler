@@ -2,6 +2,7 @@ package tests;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import main.ConfigScreen;
@@ -11,6 +12,7 @@ import main.LastRoom;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MazeUnitTests extends ApplicationTest {
@@ -101,8 +103,44 @@ public class MazeUnitTests extends ApplicationTest {
             clickOn(nextDoorLeft);
         }
 
+        //make sure we're in the last room
         Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
         assert(lastRoom.getScene().lookup("#lastRoom") != null);
     }
+
+    /**
+     * Tests that the same maze room doesn't sow up twice
+     *
+     * Nathan Malta wrote this test
+     */
+    @Test
+    public void test6RoomsUnique() throws InterruptedException {
+        Button door1Button = (Button) startScreen.getScene().lookup("#door3");
+        clickOn(door1Button);
+        ArrayList<String> roomNums = new ArrayList<>();
+
+        for (int i = 0; i < 6; ++i) {
+            Window newRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+
+            //make sure we see the objects that should be in a maze room
+            assert(newRoom.getScene().lookup("#nextDoorLeft") != null);
+            assert(newRoom.getScene().lookup("#prevDoorLeft") != null);
+            assert(newRoom.getScene().lookup("#roomNum") != null);
+
+            Button nextDoorLeft = (Button) newRoom.getScene().lookup("#nextDoorLeft");
+            Label roomNumLabel = (Label) newRoom.getScene().lookup("#roomNum");
+
+            assert(!roomNums.contains(roomNumLabel.getText()));
+            roomNums.add(roomNumLabel.getText());
+
+            //go to the next room
+            clickOn(nextDoorLeft);
+        }
+
+        //make sure we're in the last room
+        Window lastRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        assert(lastRoom.getScene().lookup("#lastRoom") != null);
+    }
+
 }
 
