@@ -51,15 +51,21 @@ public class MazeUnitTests extends ApplicationTest {
         clickOn(door1Button);
         InteriorRoom room = new InteriorRoom(1, ConfigScreen.Difficulty.IN_STATE,
                 ConfigScreen.Weapon.CALCULATOR, 500, 1);
-        assert (room.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()]));
+        assert (room.getBackgroundImage().equals(
+                "../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()])
+        );
 
         InteriorRoom room2 = new InteriorRoom(2, ConfigScreen.Difficulty.IN_STATE,
                 ConfigScreen.Weapon.CALCULATOR, 500, 2);
-        assert (room2.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room2.getRoomNum()]));
+        assert (room2.getBackgroundImage().equals(
+                "../resources/" + GameScreen1.getBackgroundImgs()[room2.getRoomNum()])
+        );
 
         InteriorRoom room3 = new InteriorRoom(3, ConfigScreen.Difficulty.IN_STATE,
                 ConfigScreen.Weapon.CALCULATOR, 500, 3);
-        assert (room3.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room3.getRoomNum()]));
+        assert (room3.getBackgroundImage().equals(
+                "../resources/" + GameScreen1.getBackgroundImgs()[room3.getRoomNum()])
+        );
     }
 
 
@@ -75,12 +81,14 @@ public class MazeUnitTests extends ApplicationTest {
         //going forward
         Button button = (Button) startScreen.getScene().lookup("#door1");
         clickOn(button);
-        Window nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        Window nextRoom =
+                Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
         forwardScenes[1] = ((Label) nextRoom.getScene().lookup("#roomNum")).getText();
         for (int i = 2; i <= 6; i++) {
             button = (Button) nextRoom.getScene().lookup("#nextDoorLeft");
             clickOn(button);
-            nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            nextRoom =
+                    Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
             forwardScenes[i] = ((Label) nextRoom.getScene().lookup("#roomNum")).getText();
         }
 
@@ -88,24 +96,34 @@ public class MazeUnitTests extends ApplicationTest {
         for (int i = 5; i >= 1; i--) {
             button = (Button) nextRoom.getScene().lookup("#prevDoorLeft");
             clickOn(button);
-            nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-            assertEquals(forwardScenes[i], ((Label) nextRoom.getScene().lookup("#roomNum")).getText());
+            nextRoom =
+                    Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            assertEquals(
+                    forwardScenes[i], ((Label) nextRoom.getScene().lookup("#roomNum")).getText()
+            );
         }
         button = (Button) nextRoom.getScene().lookup("#prevDoorLeft");
         clickOn(button);
-        nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-        assertEquals(forwardScenes[0], ((Label) nextRoom.getScene().lookup("#startingMoney")).getText());
+        nextRoom =
+                Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        assertEquals(
+                forwardScenes[0], ((Label) nextRoom.getScene().lookup("#startingMoney")).getText()
+        );
 
         //going forward again
         button = (Button) nextRoom.getScene().lookup("#door1");
         clickOn(button);
-        nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+        nextRoom =
+                Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
         forwardScenes[1] = ((Label) nextRoom.getScene().lookup("#roomNum")).getText();
         for (int i = 2; i <= 6; i++) {
             button = (Button) nextRoom.getScene().lookup("#nextDoorRight");
             clickOn(button);
-            nextRoom = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
-            assertEquals(forwardScenes[i], ((Label) nextRoom.getScene().lookup("#roomNum")).getText());
+            nextRoom =
+                    Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null);
+            assertEquals(
+                    forwardScenes[i], ((Label) nextRoom.getScene().lookup("#roomNum")).getText()
+            );
         }
     }
 
@@ -138,7 +156,7 @@ public class MazeUnitTests extends ApplicationTest {
             //check that paths in 4 doors are not equal
             for (int x = 0; x < 3; x++) {
                 for (int y = 0; y < 6; y++) {
-                    if (allMazeOrders[i][x].get(y) != allMazeOrders[i][x+1].get(y)) {
+                    if (allMazeOrders[i][x].get(y) != allMazeOrders[i][x + 1].get(y)) {
                         pathsDiffer = true;
                     }
                 }
@@ -149,7 +167,7 @@ public class MazeUnitTests extends ApplicationTest {
         for (int i = 0; i < 4; i++) {
             for (int x = 0; x < 4; x++) {
                 for (int y = 0; y < 6; y++) {
-                    if (allMazeOrders[i][x].get(y) != allMazeOrders[i+1][x].get(y)) {
+                    if (allMazeOrders[i][x].get(y) != allMazeOrders[i + 1][x].get(y)) {
                         randomized = true;
                     }
                 }
