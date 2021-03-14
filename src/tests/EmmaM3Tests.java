@@ -66,22 +66,14 @@ public class EmmaM3Tests extends ApplicationTest {
 
     }
 
-    //test to see if exit room leads to win screen, doesnt work yet
-    @Test(timeout = TIMEOUT)
+    //test to see if exit room leads to win screen
+    @Test
     public void exitToWin() {
-        //Button startOver = (Button) winScreen.getScene().lookup("#buttonStartOver");
         verifyThat("#Door", isVisible());
-
-        Button door = (Button) lastRoom.getScene().lookup("#Door");
-        clickOn(door);
-        //clickOn(startOver);
-        //currWindow = ((List<Window>)Stage.getWindows().stream().filter(Window::isShowing)).get(0);
-
-        //verifyThat("#buttonStartOver", (Button s) -> s.isVisible());
+        clickOn("#Door");
+        verifyThat("#buttonStartOver", (Button s) -> s.isVisible());
 
     }
-
-
 
 
 }
