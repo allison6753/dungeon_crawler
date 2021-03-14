@@ -36,12 +36,26 @@ public class MazeUnitTests extends ApplicationTest {
         //assert(window.getScene() )
     }
 
+    /**
+     * Tests that the maze rooms have the correct backgrounds
+     * Meiling's test
+     */
     @Test
     public void testMazeBackground() {
+
         Button door1Button = (Button) startScreen.getScene().lookup("#door1");
         clickOn(door1Button);
-        assert (room.getBackgroundImage() == "../resources/"
-                + GameScreen1.getBackgroundImgs()[room.getRoomNum()]);
+        InteriorRoom room = new InteriorRoom(1, ConfigScreen.Difficulty.IN_STATE,
+                ConfigScreen.Weapon.CALCULATOR, 500, 1);
+        assert (room.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room.getRoomNum()]));
+
+        InteriorRoom room2 = new InteriorRoom(2, ConfigScreen.Difficulty.IN_STATE,
+                ConfigScreen.Weapon.CALCULATOR, 500, 2);
+        assert (room2.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room2.getRoomNum()]));
+
+        InteriorRoom room3 = new InteriorRoom(3, ConfigScreen.Difficulty.IN_STATE,
+                ConfigScreen.Weapon.CALCULATOR, 500, 3);
+        assert (room3.getBackgroundImage().equals("../resources/" + GameScreen1.getBackgroundImgs()[room3.getRoomNum()]));
     }
 
     /** Tests that there are at least 8 rooms in total **/
