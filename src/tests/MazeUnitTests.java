@@ -97,7 +97,7 @@ public class MazeUnitTests extends ApplicationTest {
         Window win = Stage.getWindows().stream().filter(Window::isShowing)
                 .findFirst().orElse(null);
 
-        assert(win.getScene().lookup("#buttonStartOver") != null);
+        assert (win.getScene().lookup("#buttonStartOver") != null);
 
         Button restart = (Button) last.getScene().lookup("#buttonStartOver");
         clickOn(restart);
@@ -105,7 +105,7 @@ public class MazeUnitTests extends ApplicationTest {
         Window welc = Stage.getWindows().stream().filter(Window::isShowing)
                 .findFirst().orElse(null);
 
-        assert(welc.getScene().lookup("#welcScreen") != null);
+        assert (welc.getScene().lookup("#welcScreen") != null);
 
     }
 
