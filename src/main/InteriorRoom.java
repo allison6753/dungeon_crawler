@@ -24,6 +24,8 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
+    Monster monster = new Monster();
+
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
                         ConfigScreen.Weapon weapon, int money, int order) {
         try {
@@ -43,9 +45,11 @@ public class InteriorRoom {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + GameScreen1.getBackgroundImgs()[roomNum]);
-        setupLabels();
+        setMoneyLabel();
 
         setupDoors();
+        monsterButton();
+        setHealthLabel();
 
     }
 
@@ -90,12 +94,9 @@ public class InteriorRoom {
     }
 
 
-    private void setupLabels() {
+    private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Money: $" + money);
-
-        Label roomNumber = (Label) scene.lookup("#roomNum");
-        roomNumber.setText("Room: " + roomNum);
+        moneyLabel.setText("Room:" + roomNum + "Money: $" + money);
     }
 
 
@@ -185,10 +186,83 @@ public class InteriorRoom {
         });
 
     }
+
     public String getBackgroundImage() {
         return backGroundImage;
     }
+
     public int getRoomNum() {
         return this.roomNum;
     }
+
+    private void setHealthLabel() {
+        Label monHealthLab = (Label) scene.lookup("#monHealth");
+        monHealthLab.setText("Health: " + monster.getHealth());
+    }
+
+    //setting up monster
+    private void monsterButton() {
+        Button monsterButton = (Button) scene.lookup("#examBoss");
+        monsterButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        monsterButton.setText("");
+
+        monsterButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                // when monster is clicked (attacked), health declines by 10
+                Label monHealthLab = (Label) scene.lookup("#monHealth");
+                monster.setHealth(-10);
+                monHealthLab.setText("Health: " + monster.getHealth());
+                //monster.updateHealthLabel();
+            }
+        });
+
+
+
+    }
+
+    /**
+     Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
+     prevDoor.setStyle("-fx-background-image: url('"
+     + Main.class.getResource("../resources/Door.png").toExternalForm()
+     + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+     prevDoor.setOnAction(new EventHandler<ActionEvent>() {
+    @Override public void handle(ActionEvent e) {
+    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+    if (roomIndex == 0) {
+    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
+    Main.changeWindowTo(currentWindow, screen1.getScene());
+    }
+    if (roomIndex > 0) {
+    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
+    weapon, money, order);
+    Main.changeWindowTo(currentWindow, prevRoom.getScene());
+    }
+    }
+    });
+     //make the next door
+     Button nextDoor = (Button) scene.lookup("#nextRoomDoor");
+     nextDoor.setStyle("-fx-background-image: url('"
+     + Main.class.getResource("../resources/Door.png").toExternalForm()
+     + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+     nextDoor.setOnAction(new EventHandler<ActionEvent>() {
+    @Override public void handle(ActionEvent e) {
+    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+    if (roomIndex < 5) {
+    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+    weapon, money, order);
+    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+    } else {
+    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+    Main.changeWindowTo(currentWindow, lastRoom.getScene());
+    }
+    }
+    });
+     */
+
 }

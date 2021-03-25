@@ -17,5 +17,15 @@
                 <Font size="20.0" />
             </font>
         </Label>
+        <Button fx:id="examBoss" layoutX="500.0" layoutY="500.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="">
+            <font>
+                <Font size="37.0" />
+            </font>
+        </Button>
+        <Label fx:id="monHealth" layoutX="550.0" layoutY="650.0" prefHeight="74.0" prefWidth="500.0" text="Health">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
     </children>
 </Pane>

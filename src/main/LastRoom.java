@@ -19,8 +19,10 @@ public class LastRoom {
     private int money;
     private ConfigScreen.Difficulty difficulty;
     private ConfigScreen.Weapon weapon;
+    Monster monster = new Monster();
 
     //constructor for last room
+    //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
     public LastRoom(ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money) {
         try {
             root = FXMLLoader.load(
@@ -38,6 +40,8 @@ public class LastRoom {
         addBackgroundImage();
         exitRoomButton();
         setMoneyLabel();
+        monsterButton();
+        setHealthLabel();
 
     }
 
@@ -72,7 +76,36 @@ public class LastRoom {
     //setter for money label
     private void setMoneyLabel() {
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Money: $" + money);
+        moneyLabel.setText("Room: Final Room " + "Money: $" + money);
+    }
+
+    private void setHealthLabel() {
+        Label monHealthLab = (Label) scene.lookup("#monHealth");
+        monHealthLab.setText("Health: " + monster.getHealth());
+    }
+
+    //setting up monster
+    private void monsterButton() {
+        Button monsterButton = (Button) scene.lookup("#examBoss");
+        monsterButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        monsterButton.setText("");
+
+        monsterButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                // when monster is clicked (attacked), health declines by 10
+                Label monHealthLab = (Label) scene.lookup("#monHealth");
+                monster.setHealth(-10);
+                monHealthLab.setText("Health: " + monster.getHealth());
+                //monster.updateHealthLabel();
+            }
+        });
+
+
+
     }
 
     //exit room door to go to congrats screen :)
@@ -87,12 +120,14 @@ public class LastRoom {
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                // Change to winScreen Screen
+                // Change to Config Screen
                 WinScreen winScreen = new WinScreen();
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Main.changeWindowTo(currentWindow, winScreen.getScene());
             }
         });
+
+
 
     }
 }
