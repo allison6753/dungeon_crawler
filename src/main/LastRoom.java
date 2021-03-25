@@ -98,7 +98,7 @@ public class LastRoom {
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
                 Label monHealthLab = (Label) scene.lookup("#monHealth");
-                monster.setHealth(-10);
+                monster.attack(10);
                 monHealthLab.setText("Health: " + monster.getHealth());
                 //monster.updateHealthLabel();
             }

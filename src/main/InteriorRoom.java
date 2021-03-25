@@ -213,9 +213,7 @@ public class InteriorRoom {
             @Override
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
-                Label monHealthLab = (Label) scene.lookup("#monHealth");
-                monster.setHealth(-10);
-                monHealthLab.setText("Health: " + monster.getHealth());
+                monster.attack(10);
                 //monster.updateHealthLabel();
             }
         });

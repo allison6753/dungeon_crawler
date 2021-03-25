@@ -1,8 +1,12 @@
 package main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.lang.Math;
 
@@ -20,7 +24,12 @@ public class Monster {
         isAlive = true;
     }
 
-    public void attack() {
+    public void attack(int damage) {
+        this.scene = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null).getScene();
+
+        health -= damage;
+        updateHealthLabel();
         checkStatus();
         //implement this later when we have person class
         //person.setHealth(person.getHealth - Math.random() * (10 - 0 + 1) + 1));
@@ -34,6 +43,10 @@ public class Monster {
 
     public void die() {
         //make monster disappear
+        healthLabel.setVisible(false);
+
+        Button monsterButton = (Button) scene.lookup("#examBoss");
+        monsterButton.setVisible(false);
     }
 
     public void checkStatus() {
@@ -43,12 +56,8 @@ public class Monster {
         }
     }
 
-    private void setHealthLabel() {
-        healthLabel = (Label) scene.lookup("#healthLabel");
-        healthLabel.setText("Health: " + health);
-    }
-
     public void updateHealthLabel() {
+        healthLabel = (Label) scene.lookup("#monHealth");
         healthLabel.setText("Health: " + getHealth());
     }
 
@@ -64,10 +73,6 @@ public class Monster {
 
     public int getHealth() {
         return this.health;
-    }
-
-    public void setHealth(int num) {
-        this.health = num + this.health;
     }
 
 }
