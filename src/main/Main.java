@@ -15,6 +15,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         WelcScreen welcome = new WelcScreen();
         primaryStage.setScene(welcome.getScene());
         primaryStage.setResizable(true);
@@ -27,8 +28,6 @@ public class Main extends Application {
         window.show();
     }
 
-
-
     public static int getScreenWidth() {
         return screenWidth;
     }
@@ -36,4 +35,5 @@ public class Main extends Application {
     public static int getScreenHeight() {
         return screenHeight;
     }
+
 }
