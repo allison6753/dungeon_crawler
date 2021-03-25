@@ -15,6 +15,7 @@ import java.io.IOException;
 public class InteriorRoom {
     private Scene scene;
     private Pane root;
+    private Label alertLabel;
 
     private int money;
     private int roomIndex; // 0-5 sequentially in mazOrder
@@ -109,18 +110,24 @@ public class InteriorRoom {
                 + Main.class.getResource("../resources/Open_Door_Left.png").toExternalForm()
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        this.alertLabel = (Label) scene.lookup("#alertLabel");
         nextDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                if (roomIndex < 5) {
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-                            weapon, money, order);
-                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                if (monster.getHealth() == 0) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    if (roomIndex < 5) {
+                        InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+                                weapon, money, order);
+                        Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                    } else {
+                        LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+                        Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                    }
                 } else {
-                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                    alertLabel.setVisible(true);
                 }
+
             }
         });
 
@@ -132,14 +139,18 @@ public class InteriorRoom {
         nextDoorRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                if (roomIndex < 5) {
-                    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-                            weapon, money, order);
-                    Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                if (monster.getHealth() == 0) {
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    if (roomIndex < 5) {
+                        InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
+                                weapon, money, order);
+                        Main.changeWindowTo(currentWindow, nextRoom.getScene());
+                    } else {
+                        LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+                        Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                    }
                 } else {
-                    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-                    Main.changeWindowTo(currentWindow, lastRoom.getScene());
+                    alertLabel.setVisible(true);
                 }
             }
         });
