@@ -33,6 +33,7 @@ public class InteriorRoom {
     private InteriorRoom currRoom;
 
     private Monster monster = new Monster();
+
     private Timeline monsterAttackThread;
 
 
@@ -246,6 +247,10 @@ public class InteriorRoom {
         monHealthLab.setText("Health: " + monster.getHealth());
     }
 
+    private Monster getMonster() {
+        return monster;
+    }
+
     //setting up monster
     private void monsterButton() {
         Button monsterButton = (Button) scene.lookup("#examBoss");
@@ -265,9 +270,6 @@ public class InteriorRoom {
                 }
             }
         });
-
-
-
     }
 
     /**

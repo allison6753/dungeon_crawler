@@ -66,8 +66,8 @@ public class GameScreen1 {
             "Pink_Room.png",
             "Green_Room.png",
             "Yellow_Room.png",
-            "Side_Room.png",
-            "Side_Room.png"
+            "Orange_Room.png",
+            "Purple_Room.png"
         };
 
         mazeOrder1 = new ArrayList<>();
