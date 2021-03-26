@@ -1,13 +1,25 @@
 package main;
 
-public class gameState {
+public class GameState {
     private int money;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    private int[] monsters;
+    private GameScreen1 gameScreen1;
 
-    public gameState(ConfigScreen.Weapon weapon, ConfigScreen.Difficulty difficulty) {
+    private InteriorRoom[][] interiorRooms;
+
+    public GameState(ConfigScreen.Weapon weapon, ConfigScreen.Difficulty difficulty) {
+
+        int[] monsters = new int[]{100,100,100,100,100};
+        interiorRooms = new InteriorRoom[][];
+
+        this.weapon = weapon;
+        this.difficulty = difficulty;
+        setStartingMoney(difficulty);
+    }
+
+    public void setStartingMoney(ConfigScreen.Difficulty difficulty) {
         switch (difficulty) {
             case IN_STATE:
                 money = 500;
@@ -21,14 +33,7 @@ public class gameState {
             default:
                 break;
         }
-
-        this.weapon = weapon;
-        this.difficulty = difficulty;
-
-        monsters = new int[]{100,100,100,100,100};
-
     }
-
 
     public void setMoney(int money) {
         this.money = money;
@@ -51,11 +56,18 @@ public class gameState {
         return difficulty;
     }
 
-    public void setMonsters(int roomIndex) {
-        monsters[roomIndex] -= 10;
+    public void setInteriorRoom(int roomOrder, int roomIndex, InteriorRoom interiorRoom) {
+        interiorRooms[roomOrder][roomIndex] = interiorRoom;
     }
-    public int getMonsters(int roomIndex) {
-        return monsters[roomIndex];
+    public InteriorRoom getInteriorRoom(int roomOrder, int roomIndex) {
+        return interiorRooms[roomOrder][roomIndex];
+    }
+
+    public void setGameScreen1(GameScreen1 gameScreen1) {
+        this.gameScreen1 = gameScreen1;
+    }
+    public GameScreen1 getGameScreen1() {
+        return gameScreen1;
     }
 
 

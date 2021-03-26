@@ -20,6 +20,8 @@ public class ConfigScreen {
     private TextField nameField;
     private Label alertLabel;
 
+    private GameState gameState;
+
 
 
     public enum Difficulty {
@@ -73,7 +75,9 @@ public class ConfigScreen {
             @Override public void handle(ActionEvent e) {
                 if (validation()) {
                     // Change to Initial Game Screen
+                    gameState = new GameState(currentWeapon, currentDiff);
                     GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon, true);
+                    gameState.setGameScreen1(screen1);
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 } else {
