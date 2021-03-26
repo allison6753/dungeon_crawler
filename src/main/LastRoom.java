@@ -15,6 +15,7 @@ import java.io.IOException;
 public class LastRoom {
     private Scene scene;
     private Pane root;
+    private Label alertLabel;
 
     private int money;
     private ConfigScreen.Difficulty difficulty;
@@ -117,13 +118,19 @@ public class LastRoom {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         exitButton.setText("");
 
+        this.alertLabel = (Label) scene.lookup("#alertLabel");
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                // Change to Config Screen
-                WinScreen winScreen = new WinScreen();
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                Main.changeWindowTo(currentWindow, winScreen.getScene());
+                if (monster.getHealth() == 0) {
+                    // Change to Config Screen
+                    WinScreen winScreen = new WinScreen();
+                    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    Main.changeWindowTo(currentWindow, winScreen.getScene());
+                } else {
+                    alertLabel.setVisible(true);
+                }
+
             }
         });
 

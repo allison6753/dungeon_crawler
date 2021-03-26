@@ -107,9 +107,6 @@ public class InteriorRoom {
 
 
     private void setupDoors() {
-        //make the prev door
-
-
         Button nextDoorLeft = (Button) scene.lookup("#nextDoorLeft");
         nextDoorLeft.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Open_Door_Left.png").toExternalForm()
@@ -121,19 +118,7 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 if (monster.getHealth() == 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    // New change
-                    GameState currGameState = ConfigScreen.getGameState();
-                    if (roomIndex < 5) {
-                        // New change
-                        InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-                                weapon, money, order);
-                        // Set interior room for current game state
-                        currGameState.setInteriorRoom(order, roomIndex + 1, nextRoom);
-                        Main.changeWindowTo(currentWindow, nextRoom.getScene());
-                    } else {
-                        LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-                        Main.changeWindowTo(currentWindow, lastRoom.getScene());
-                    }
+                    Main.changeWindowTo(currentWindow, loadRoom(roomIndex + 1));
                 } else {
                     alertLabel.setVisible(true);
                 }
@@ -151,18 +136,7 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 if (monster.getHealth() == 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                    GameState currGameState = ConfigScreen.getGameState();
-                    if (roomIndex < 5) {
-                        // New change
-                        InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-                                weapon, money, order);
-                        // Set interior room for current game state
-                        currGameState.setInteriorRoom(order, roomIndex + 1, nextRoom);
-                        Main.changeWindowTo(currentWindow, nextRoom.getScene());
-                    } else {
-                        LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-                        Main.changeWindowTo(currentWindow, lastRoom.getScene());
-                    }
+                    Main.changeWindowTo(currentWindow, loadRoom(roomIndex + 1));
                 } else {
                     alertLabel.setVisible(true);
                 }
@@ -179,17 +153,7 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 // New change
-                GameState currGameState = ConfigScreen.getGameState();
-                if (roomIndex == 0) {
-                    GameScreen1 screen1 = currGameState.getGameScreen1();
-                    // GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
-                    Main.changeWindowTo(currentWindow, screen1.getScene());
-                }
-                if (roomIndex > 0) {
-                    InteriorRoom prevRoom = currGameState.getInteriorRoom(order, roomIndex - 1);
-                    // InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money, order);
-                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
-                }
+                Main.changeWindowTo(currentWindow, loadRoom(roomIndex - 1));
             }
         });
         Button prevDoorRight = (Button) scene.lookup("#prevDoorRight");
@@ -202,20 +166,29 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 // New change
-                GameState currGameState = ConfigScreen.getGameState();
-                if (roomIndex == 0) {
-                    GameScreen1 screen1 = currGameState.getGameScreen1();
-                    // GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
-                    Main.changeWindowTo(currentWindow, screen1.getScene());
-                }
-                if (roomIndex > 0) {
-                    InteriorRoom prevRoom = currGameState.getInteriorRoom(order, roomIndex - 1);
-                    // InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money, order);
-                    Main.changeWindowTo(currentWindow, prevRoom.getScene());
-                }
+                Main.changeWindowTo(currentWindow, loadRoom(roomIndex - 1));
             }
         });
 
+    }
+
+    private Scene loadRoom(int roomIndex) {
+        GameState currGameState = ConfigScreen.getGameState();
+        if (roomIndex == -1) {
+           return currGameState.getGameScreen1().getScene();
+        } else if (roomIndex < 5) {
+            if (currGameState.getInteriorRoom(order, roomIndex) == null) {
+                InteriorRoom nextRoom = new InteriorRoom(roomIndex, difficulty,
+                        weapon, money, order);
+                currGameState.setInteriorRoom(order, roomIndex, nextRoom);
+                return nextRoom.getScene();
+            } else {
+                return currGameState.getInteriorRoom(order, roomIndex).getScene();
+            }
+        } else {
+            LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+            return lastRoom.getScene();
+        }
     }
 
     public String getBackgroundImage() {

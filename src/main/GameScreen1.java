@@ -54,10 +54,10 @@ public class GameScreen1 {
         setMoneyLabel();
 
 
-        setDoor("#door1", 1);
-        setDoor("#door2", 2);
-        setDoor("#door3", 3);
-        setDoor("#door4", 4);
+        setDoor("#door1", 0);
+        setDoor("#door2", 1);
+        setDoor("#door3", 2);
+        setDoor("#door4", 3);
     }
 
     private void doSetUp() {
@@ -149,8 +149,14 @@ public class GameScreen1 {
             @Override public void handle(ActionEvent e) {
                 // New change
                 GameState currGameState = ConfigScreen.getGameState();
-                InteriorRoom next = new InteriorRoom(0, difficulty, weapon, startingMoney, pathNum);
-                currGameState.setInteriorRoom(pathNum, 0, next);
+                InteriorRoom next;
+                if (currGameState.getInteriorRoom(pathNum, 0) == null) {
+                     next = new InteriorRoom(0, difficulty,
+                            weapon, startingMoney, pathNum);
+                    currGameState.setInteriorRoom(pathNum, 0, next);
+                } else {
+                    next = currGameState.getInteriorRoom(pathNum, 0);
+                }
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Main.changeWindowTo(currentWindow, next.getScene());
             }
