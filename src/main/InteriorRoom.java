@@ -25,7 +25,11 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
+    private GameState currGameState;
+    private InteriorRoom currRoom;
+
     Monster monster = new Monster();
+
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
                         ConfigScreen.Weapon weapon, int money, int order) {
@@ -37,6 +41,7 @@ public class InteriorRoom {
             //the fxml loader can't find the file
         }
 
+        // We can change weapon, difficulty, and money
         this.weapon = weapon;
         this.difficulty = difficulty;
         this.money = money;
@@ -49,9 +54,9 @@ public class InteriorRoom {
         setMoneyLabel();
 
         setupDoors();
+        // Monster image and health label
         monsterButton();
         setHealthLabel();
-
     }
 
     private void checkOrder(int order) {
@@ -116,9 +121,14 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 if (monster.getHealth() == 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    // New change
+                    GameState currGameState = ConfigScreen.getGameState();
                     if (roomIndex < 5) {
+                        // New change
                         InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
                                 weapon, money, order);
+                        // Set interior room for current game state
+                        currGameState.setInteriorRoom(order, roomIndex + 1, nextRoom);
                         Main.changeWindowTo(currentWindow, nextRoom.getScene());
                     } else {
                         LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
@@ -141,9 +151,13 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 if (monster.getHealth() == 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                    GameState currGameState = ConfigScreen.getGameState();
                     if (roomIndex < 5) {
+                        // New change
                         InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
                                 weapon, money, order);
+                        // Set interior room for current game state
+                        currGameState.setInteriorRoom(order, roomIndex + 1, nextRoom);
                         Main.changeWindowTo(currentWindow, nextRoom.getScene());
                     } else {
                         LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
@@ -164,13 +178,16 @@ public class InteriorRoom {
             @Override
             public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                // New change
+                GameState currGameState = ConfigScreen.getGameState();
                 if (roomIndex == 0) {
-                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
+                    GameScreen1 screen1 = currGameState.getGameScreen1();
+                    // GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 }
                 if (roomIndex > 0) {
-                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
-                            weapon, money, order);
+                    InteriorRoom prevRoom = currGameState.getInteriorRoom(order, roomIndex - 1);
+                    // InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money, order);
                     Main.changeWindowTo(currentWindow, prevRoom.getScene());
                 }
             }
@@ -184,13 +201,16 @@ public class InteriorRoom {
             @Override
             public void handle(ActionEvent e) {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                // New change
+                GameState currGameState = ConfigScreen.getGameState();
                 if (roomIndex == 0) {
-                    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
+                    GameScreen1 screen1 = currGameState.getGameScreen1();
+                    // GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
                     Main.changeWindowTo(currentWindow, screen1.getScene());
                 }
                 if (roomIndex > 0) {
-                    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
-                            weapon, money, order);
+                    InteriorRoom prevRoom = currGameState.getInteriorRoom(order, roomIndex - 1);
+                    // InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty, weapon, money, order);
                     Main.changeWindowTo(currentWindow, prevRoom.getScene());
                 }
             }

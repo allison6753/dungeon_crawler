@@ -11,8 +11,8 @@ public class GameState {
 
     public GameState(ConfigScreen.Weapon weapon, ConfigScreen.Difficulty difficulty) {
 
-        int[] monsters = new int[]{100,100,100,100,100};
-        interiorRooms = new InteriorRoom[][];
+        // int[] monsters = new int[]{100,100,100,100,100};
+        interiorRooms = new InteriorRoom[4][5];
 
         this.weapon = weapon;
         this.difficulty = difficulty;

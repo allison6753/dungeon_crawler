@@ -29,7 +29,7 @@ public class GameScreen1 {
     private static List<Integer> mazeOrder3;
     private static List<Integer> mazeOrder4;
 
-
+    private GameState currGameState;
 
     public GameScreen1(
             ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, boolean setUp) {
@@ -139,7 +139,7 @@ public class GameScreen1 {
 
 
     private void setDoor(String id, int pathNum) {
-        InteriorRoom next = new InteriorRoom(0, difficulty, weapon, startingMoney, pathNum);
+
         Button doorButton = (Button) scene.lookup(id);
         doorButton.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Door.png").toExternalForm()
@@ -147,6 +147,10 @@ public class GameScreen1 {
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         doorButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent e) {
+                // New change
+                GameState currGameState = ConfigScreen.getGameState();
+                InteriorRoom next = new InteriorRoom(0, difficulty, weapon, startingMoney, pathNum);
+                currGameState.setInteriorRoom(pathNum, 0, next);
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Main.changeWindowTo(currentWindow, next.getScene());
             }

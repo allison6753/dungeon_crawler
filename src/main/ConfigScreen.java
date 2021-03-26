@@ -20,7 +20,7 @@ public class ConfigScreen {
     private TextField nameField;
     private Label alertLabel;
 
-    private GameState gameState;
+    private static GameState gameState;
 
 
 
@@ -72,6 +72,7 @@ public class ConfigScreen {
         startButton.setText(""); //Image already has the text on it so remove it
         this.alertLabel = (Label) scene.lookup("#alertLabel");
         startButton.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override public void handle(ActionEvent e) {
                 if (validation()) {
                     // Change to Initial Game Screen
@@ -228,4 +229,7 @@ public class ConfigScreen {
         return this.alertLabel;
     }
 
+    public static GameState getGameState() {
+        return gameState;
+    }
 }
