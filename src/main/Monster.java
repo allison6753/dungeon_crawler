@@ -1,14 +1,10 @@
 package main;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
-import java.lang.Math;
 
 public class Monster {
 
@@ -16,7 +12,7 @@ public class Monster {
     private int health;
     private boolean isAlive;
     @FXML
-    Label healthLabel;
+    private Label healthLabel;
     private Scene scene;
 
     public Monster() {
@@ -73,6 +69,10 @@ public class Monster {
 
     public int getHealth() {
         return this.health;
+    }
+
+    public void setHealth(int num) {
+        this.health = num;
     }
 
 }

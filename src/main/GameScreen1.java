@@ -66,8 +66,8 @@ public class GameScreen1 {
             "Pink_Room.png",
             "Green_Room.png",
             "Yellow_Room.png",
-            "Side_Room.png",
-            "Side_Room.png"
+            "Orange_Room.png",
+            "Purple_Room.png"
         };
 
         mazeOrder1 = new ArrayList<>();
@@ -151,7 +151,7 @@ public class GameScreen1 {
                 GameState currGameState = ConfigScreen.getGameState();
                 InteriorRoom next;
                 if (currGameState.getInteriorRoom(pathNum, 0) == null) {
-                     next = new InteriorRoom(0, difficulty,
+                    next = new InteriorRoom(0, difficulty,
                             weapon, startingMoney, pathNum);
                     currGameState.setInteriorRoom(pathNum, 0, next);
                 } else {
