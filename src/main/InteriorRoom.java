@@ -1,5 +1,7 @@
 package main;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -25,6 +29,7 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
     private Monster monster;
+    Timeline monsterAttackThread;
 
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
@@ -47,13 +52,41 @@ public class InteriorRoom {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/" + GameScreen1.getBackgroundImgs()[roomNum]);
-        setMoneyLabel();
+        updateLabels();
 
         setupDoors();
         // Monster image and health label
         this.monster = new Monster();
         monsterButton();
         setHealthLabel();
+
+        this.monsterAttackThread = new Timeline(
+                new KeyFrame(Duration.seconds(2),
+                        new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent e) {
+                                GameState currGameState = ConfigScreen.getGameState();
+                                currGameState.damagePlayer(10);
+                                System.out.println("monster attacks...");
+                                System.out.println(currGameState.getPlayerHealth());
+                                if (!currGameState.isPlayerAlive()) {
+                                    DieScreen screen = new DieScreen();
+                                    Stage currentWindow = (Stage) Stage.getWindows().stream().filter(Window::isShowing)
+                                            .findFirst().orElse(null);
+                                    Main.changeWindowTo(currentWindow, screen.getScene());
+                                    monsterAttackThread.stop();
+                                } else {
+                                    scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                            .findFirst().orElse(null).getScene();
+                                    updateLabels();
+                                }
+                            }
+                        }));
+        monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
+
+        if (this.monster.getIsAlive()) {
+            monsterAttackThread.play();
+        }
     }
 
     private void checkOrder(int order) {
@@ -97,9 +130,17 @@ public class InteriorRoom {
     }
 
 
-    private void setMoneyLabel() {
+    private void updateLabels() {
+        money = ConfigScreen.getGameState().getMoney();
         Label moneyLabel = (Label) scene.lookup("#money");
-        moneyLabel.setText("Room:" + roomNum + "Money: $" + money);
+        moneyLabel.setText("Money: $" + money);
+
+        Label roomNumLabel = (Label) scene.lookup("#roomNum");
+        roomNumLabel.setText("Room: " + roomNum);
+
+        int health = ConfigScreen.getGameState().getPlayerHealth();
+        Label healthLabel = (Label) scene.lookup("#playerHealth");
+        healthLabel.setText("Player Health: " + health);
     }
 
 
@@ -215,7 +256,9 @@ public class InteriorRoom {
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
                 monster.attack(10);
-                //monster.updateHealthLabel();
+                if (!monster.getIsAlive()) {
+                    monsterAttackThread.stop();
+                }
             }
         });
 

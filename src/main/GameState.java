@@ -2,6 +2,7 @@ package main;
 
 public class GameState {
     private int money;
+    private int playerHealth;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
@@ -15,6 +16,7 @@ public class GameState {
 
         this.weapon = weapon;
         this.difficulty = difficulty;
+        this.playerHealth = 100;
         setStartingMoney(difficulty);
     }
 
@@ -67,6 +69,22 @@ public class GameState {
     }
     public GameScreen1 getGameScreen1() {
         return gameScreen1;
+    }
+
+    public int getPlayerHealth() {
+        return this.playerHealth;
+    }
+
+    public void setPlayerHealth(int newHealth) {
+        this.playerHealth = newHealth;
+    }
+
+    public void damagePlayer(int damage) {
+        this.playerHealth -= damage;
+    }
+
+    public boolean isPlayerAlive() {
+        return this.playerHealth > 0;
     }
 
 
