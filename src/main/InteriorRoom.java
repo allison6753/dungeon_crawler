@@ -28,7 +28,7 @@ public class InteriorRoom {
     private GameState currGameState;
     private InteriorRoom currRoom;
 
-    Monster monster = new Monster();
+    private Monster monster = new Monster();
 
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
@@ -204,6 +204,10 @@ public class InteriorRoom {
         monHealthLab.setText("Health: " + monster.getHealth());
     }
 
+    private Monster getMonster() {
+        return monster;
+    }
+
     //setting up monster
     private void monsterButton() {
         Button monsterButton = (Button) scene.lookup("#examBoss");
@@ -221,9 +225,6 @@ public class InteriorRoom {
                 //monster.updateHealthLabel();
             }
         });
-
-
-
     }
 
     /**
