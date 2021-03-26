@@ -21,17 +21,17 @@ public class GameState {
 
     public void setStartingMoney(ConfigScreen.Difficulty difficulty) {
         switch (difficulty) {
-            case IN_STATE:
-                money = 500;
-                break;
-            case OUT_OF_STATE:
-                money = 300;
-                break;
-            case INTERNATIONAL:
-                money = 100;
-                break;
-            default:
-                break;
+        case IN_STATE:
+            money = 500;
+            break;
+        case OUT_OF_STATE:
+            money = 300;
+            break;
+        case INTERNATIONAL:
+            money = 100;
+            break;
+        default:
+            break;
         }
     }
 

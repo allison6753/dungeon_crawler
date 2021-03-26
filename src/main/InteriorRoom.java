@@ -28,7 +28,7 @@ public class InteriorRoom {
     private GameState currGameState;
     private InteriorRoom currRoom;
 
-    Monster monster = new Monster();
+    private Monster monster = new Monster();
 
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
@@ -175,7 +175,7 @@ public class InteriorRoom {
     private Scene loadRoom(int roomIndex) {
         GameState currGameState = ConfigScreen.getGameState();
         if (roomIndex == -1) {
-           return currGameState.getGameScreen1().getScene();
+            return currGameState.getGameScreen1().getScene();
         } else if (roomIndex < 5) {
             if (currGameState.getInteriorRoom(order, roomIndex) == null) {
                 InteriorRoom nextRoom = new InteriorRoom(roomIndex, difficulty,

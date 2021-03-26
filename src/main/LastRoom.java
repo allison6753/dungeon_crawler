@@ -20,7 +20,7 @@ public class LastRoom {
     private int money;
     private ConfigScreen.Difficulty difficulty;
     private ConfigScreen.Weapon weapon;
-    Monster monster = new Monster();
+    private Monster monster = new Monster();
 
     //constructor for last room
     //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
