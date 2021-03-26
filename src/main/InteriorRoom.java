@@ -103,6 +103,19 @@ public class InteriorRoom {
         }
     }
 
+    /**
+     * Run whenever the room is entered
+     */
+    public void update() {
+        //reload money, health
+        this.updateLabels();
+
+        //restart monster attacks
+        if (monster.getIsAlive()) {
+            monsterAttackThread.play();
+        }
+    }
+
     public Scene getScene() {
         return this.scene;
     }
@@ -222,10 +235,13 @@ public class InteriorRoom {
             if (currGameState.getInteriorRoom(order, roomIndex) == null) {
                 InteriorRoom nextRoom = new InteriorRoom(roomIndex, difficulty,
                         weapon, money, order);
+                nextRoom.update();
                 currGameState.setInteriorRoom(order, roomIndex, nextRoom);
                 return nextRoom.getScene();
             } else {
-                return currGameState.getInteriorRoom(order, roomIndex).getScene();
+                InteriorRoom nextRoom = currGameState.getInteriorRoom(order, roomIndex);
+                nextRoom.update();
+                return nextRoom.getScene();
             }
         } else {
             LastRoom lastRoom = new LastRoom(difficulty, weapon, money);

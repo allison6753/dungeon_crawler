@@ -153,9 +153,11 @@ public class GameScreen1 {
                 if (currGameState.getInteriorRoom(pathNum, 0) == null) {
                     next = new InteriorRoom(0, difficulty,
                             weapon, startingMoney, pathNum);
+                    next.update();
                     currGameState.setInteriorRoom(pathNum, 0, next);
                 } else {
                     next = currGameState.getInteriorRoom(pathNum, 0);
+                    next.update();
                 }
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 Main.changeWindowTo(currentWindow, next.getScene());
