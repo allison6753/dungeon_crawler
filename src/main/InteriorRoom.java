@@ -70,8 +70,6 @@ public class InteriorRoom {
                             public void handle(ActionEvent e) {
                                 GameState currGameState = ConfigScreen.getGameState();
                                 currGameState.damagePlayer(10);
-                                System.out.println("monster attacks...");
-                                System.out.println(currGameState.getPlayerHealth());
                                 if (!currGameState.isPlayerAlive()) {
                                     DieScreen screen = new DieScreen();
                                     Stage currentWindow = (Stage) Stage.getWindows().stream().filter(Window::isShowing)
@@ -195,6 +193,7 @@ public class InteriorRoom {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 // New change
                 Main.changeWindowTo(currentWindow, loadRoom(roomIndex - 1));
+                monsterAttackThread.stop();
             }
         });
         Button prevDoorRight = (Button) scene.lookup("#prevDoorRight");
@@ -208,6 +207,7 @@ public class InteriorRoom {
                 Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 // New change
                 Main.changeWindowTo(currentWindow, loadRoom(roomIndex - 1));
+                monsterAttackThread.stop();
             }
         });
 
