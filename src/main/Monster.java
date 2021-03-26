@@ -71,4 +71,8 @@ public class Monster {
         return this.health;
     }
 
+    public void setHealth(int num) {
+        this.health = num;
+    }
+
 }

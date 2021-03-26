@@ -24,7 +24,11 @@ public class InteriorRoom {
     private String backGroundImage;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
-    private Monster monster;
+
+    private GameState currGameState;
+    private InteriorRoom currRoom;
+
+    private Monster monster = new Monster();
 
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
@@ -51,7 +55,6 @@ public class InteriorRoom {
 
         setupDoors();
         // Monster image and health label
-        this.monster = new Monster();
         monsterButton();
         setHealthLabel();
     }
@@ -198,6 +201,7 @@ public class InteriorRoom {
 
     private void setHealthLabel() {
         Label monHealthLab = (Label) scene.lookup("#monHealth");
+        monster.setHealth((roomIndex + 1) * 20);
         monHealthLab.setText("Health: " + monster.getHealth());
     }
 
