@@ -38,7 +38,7 @@ public class DieScreen {
 
     private void addBackgroundImage() {
         root.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/techMenu.png").toExternalForm()
+                + Main.class.getResource("../resources/Die_Screen.png").toExternalForm()
                 + "');\n-fx-background-position: center center; \n-fx-background-repeat: stretch;");
     }
 

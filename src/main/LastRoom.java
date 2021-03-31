@@ -130,10 +130,9 @@ public class LastRoom {
     private void monsterButton() {
         Button monsterButton = (Button) scene.lookup("#examBoss");
         monsterButton.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
+                + Main.class.getResource("../resources/Final_Boss.png").toExternalForm()
                 + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
                 + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        monsterButton.setText("");
 
         monsterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

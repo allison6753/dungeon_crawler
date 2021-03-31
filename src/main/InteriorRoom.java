@@ -15,6 +15,7 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.Random;
 
 public class InteriorRoom {
     private Scene scene;
@@ -270,11 +271,19 @@ public class InteriorRoom {
     //setting up monster
     private void monsterButton() {
         Button monsterButton = (Button) scene.lookup("#examBoss");
-        monsterButton.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
-                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        monsterButton.setText("");
+        Random rand = new Random();
+        int random = rand.nextInt(2);
+        if (random == 0) {
+            monsterButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        } else if (random == 1){
+            monsterButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource("../resources/Quiz_Boss.png").toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        }
 
         monsterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
