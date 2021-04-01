@@ -67,24 +67,24 @@ public class InteriorRoom {
 
         this.monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
-                        new EventHandler<ActionEvent>() {
-                            @Override
+                    new EventHandler<ActionEvent>() {
+                        @Override
                             public void handle(ActionEvent e) {
-                                GameState currGameState = ConfigScreen.getGameState();
-                                currGameState.damagePlayer(10);
-                                if (!currGameState.isPlayerAlive()) {
-                                    DieScreen screen = new DieScreen();
-                                    Stage currentWindow = (Stage) Stage.getWindows().stream().filter(Window::isShowing)
-                                            .findFirst().orElse(null);
-                                    Main.changeWindowTo(currentWindow, screen.getScene());
-                                    monsterAttackThread.stop();
-                                } else {
-                                    scene = Stage.getWindows().stream().filter(Window::isShowing)
-                                            .findFirst().orElse(null).getScene();
-                                    updateLabels();
-                                }
+                            GameState currGameState = ConfigScreen.getGameState();
+                            currGameState.damagePlayer(10);
+                            if (!currGameState.isPlayerAlive()) {
+                                DieScreen screen = new DieScreen();
+                                Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                        .filter(Window::isShowing).findFirst().orElse(null);
+                                Main.changeWindowTo(currentWindow, screen.getScene());
+                                monsterAttackThread.stop();
+                            } else {
+                                scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                        .findFirst().orElse(null).getScene();
+                                updateLabels();
                             }
-                        }));
+                        }
+                    }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
         if (this.monster.getIsAlive()) {
@@ -276,12 +276,14 @@ public class InteriorRoom {
         if (random == 0) {
             monsterButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "'); \n-fx-background-position: center center;"
+                    + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        } else if (random == 1){
+        } else if (random == 1) {
             monsterButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource("../resources/Quiz_Boss.png").toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "'); \n-fx-background-position: center center; "
+                    + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
         }
 
