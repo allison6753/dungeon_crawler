@@ -25,7 +25,8 @@ public class LastRoom {
     private ConfigScreen.Difficulty difficulty;
     private ConfigScreen.Weapon weapon;
     private Monster monster = new Monster();
-    Timeline monsterAttackThread;
+    private Timeline monsterAttackThread;
+
 
     //constructor for last room
     //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
@@ -52,25 +53,25 @@ public class LastRoom {
         this.monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
                         new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                GameState currGameState = ConfigScreen.getGameState();
-                                currGameState.damagePlayer(10);
-                                System.out.println("monster attacks...");
-                                System.out.println(currGameState.getPlayerHealth());
-                                if (!currGameState.isPlayerAlive()) {
-                                    DieScreen screen = new DieScreen();
-                                    Stage currentWindow = (Stage) Stage.getWindows().stream().filter(Window::isShowing)
-                                            .findFirst().orElse(null);
-                                    Main.changeWindowTo(currentWindow, screen.getScene());
-                                    monsterAttackThread.stop();
-                                } else {
-                                    scene = Stage.getWindows().stream().filter(Window::isShowing)
-                                            .findFirst().orElse(null).getScene();
-                                    updateLabels();
-                                }
+                        @Override
+                        public void handle(ActionEvent e) {
+                            GameState currGameState = ConfigScreen.getGameState();
+                            currGameState.damagePlayer(10);
+                            System.out.println("monster attacks...");
+                            System.out.println(currGameState.getPlayerHealth());
+                            if (!currGameState.isPlayerAlive()) {
+                                DieScreen screen = new DieScreen();
+                                Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                        .filter(Window::isShowing).findFirst().orElse(null);
+                                Main.changeWindowTo(currentWindow, screen.getScene());
+                                monsterAttackThread.stop();
+                            } else {
+                                scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                        .findFirst().orElse(null).getScene();
+                                updateLabels();
                             }
-                        }));
+                        }
+                    }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
         if (this.monster.getIsAlive()) {
@@ -124,6 +125,10 @@ public class LastRoom {
     private void setHealthLabel() {
         Label monHealthLab = (Label) scene.lookup("#monHealth");
         monHealthLab.setText("Health: " + monster.getHealth());
+    }
+
+    public Timeline getMonsterAttackThread() {
+        return this.monsterAttackThread;
     }
 
     //setting up monster
