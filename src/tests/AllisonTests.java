@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import org.testfx.framework.junit.ApplicationTest;
 
 public class AllisonTests extends ApplicationTest {
