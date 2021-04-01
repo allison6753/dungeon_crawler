@@ -232,4 +232,8 @@ public class ConfigScreen {
     public static GameState getGameState() {
         return gameState;
     }
+
+    public static void setGameState(GameState state) {
+        gameState = state;
+    }
 }
