@@ -22,8 +22,6 @@ public class ConfigScreen {
 
     private static GameState gameState;
 
-
-
     public enum Difficulty {
         INVALID,
         IN_STATE,
