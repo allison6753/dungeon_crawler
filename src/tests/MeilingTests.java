@@ -40,7 +40,8 @@ public class MeilingTests extends ApplicationTest {
         Thread.sleep(2500); //wait 2.5 seconds ensure the monster attacks
         int finalHealth = Integer.parseInt(healthLabel.getText().substring(15));
 
-        //if the initial health is greater than final health the player's health decreased when the monster attacked
+        // if the initial health is greater than final health the player's
+        // health decreased when the monster attacked
         assert (initHealth > finalHealth);
     }
 

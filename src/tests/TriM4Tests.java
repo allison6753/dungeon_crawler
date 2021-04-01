@@ -46,7 +46,8 @@ public class TriM4Tests extends ApplicationTest {
         verifyThat("#examBoss", (Button monsterImage) -> !monsterImage.isVisible());
     }
 
-    // Test when in a room with living monsters in it, the player should be able to retreat to the previous room
+    // Test when in a room with living monsters in it,
+    // the player should be able to retreat to the previous room
     @Test
     public void testReturnInMonsterRoom() {
         // Attacking the monster to go to the second room
@@ -60,7 +61,9 @@ public class TriM4Tests extends ApplicationTest {
         clickOn("#prevDoorLeft");
         // Check the room number
         GameState currGameState = ConfigScreen.getGameState();
-        Label expectedRoom0 = (Label) currGameState.getInteriorRoom(0,0).getScene().lookup("#roomNum");
-        verifyThat("#roomNum", (Label roomNum) -> roomNum.getText().contains(expectedRoom0.getText()));
+        Label expectedRoom0 = (Label) currGameState.getInteriorRoom(0, 0)
+                .getScene().lookup("#roomNum");
+        verifyThat("#roomNum", (Label roomNum) ->
+                roomNum.getText().contains(expectedRoom0.getText()));
     }
 }
