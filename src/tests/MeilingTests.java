@@ -1,0 +1,66 @@
+package tests;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import main.ConfigScreen;
+import main.GameScreen1;
+import main.GameState;
+import org.junit.Test;
+import org.testfx.framework.junit.ApplicationTest;
+
+public class MeilingTests extends ApplicationTest {
+    private GameScreen1 startScreen;
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        ConfigScreen.setGameState(new GameState(ConfigScreen.Weapon.TEXTBOOK,
+                ConfigScreen.Difficulty.OUT_OF_STATE));
+
+        startScreen = new GameScreen1(ConfigScreen.Difficulty.OUT_OF_STATE,
+                ConfigScreen.Weapon.TEXTBOOK, true);
+        stage.setScene(startScreen.getScene());
+        stage.show();
+    }
+
+    // tests to see if player's health decreases when the monster attacks
+    @Test
+    public void playerHealthDecrease() throws InterruptedException {
+
+        //advance to the first room
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+
+        Window firstRoom = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+        Label healthLabel = (Label) firstRoom.getScene().lookup("#playerHealth");
+
+        int initHealth = Integer.parseInt(healthLabel.getText().substring(15));
+        Thread.sleep(2500); //wait 2.5 seconds ensure the monster attacks
+        int finalHealth = Integer.parseInt(healthLabel.getText().substring(15));
+
+        //if the initial health is greater than final health the player's health decreased when the monster attacked
+        assert (initHealth > finalHealth);
+    }
+
+    //tests to see if the death screen pops up when player's health = 0
+    @Test
+    public void dieScreen() throws InterruptedException {
+
+        //advance to the first room
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+
+        GameState currGameState = ConfigScreen.getGameState();
+        currGameState.damagePlayer(90);
+
+        Thread.sleep(5000); //wait 5 seconds ensure the monster attacks
+
+        Window die = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        assert (die.getScene().lookup("#DieLabel") != null);
+    }
+}
+
