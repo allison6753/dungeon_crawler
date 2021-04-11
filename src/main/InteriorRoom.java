@@ -291,7 +291,12 @@ public class InteriorRoom {
             @Override
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
-                monster.attack(10);
+                if (currGameState.getArmour().getAlive()) {
+                    monster.attack(5);
+                    currGameState.getArmour().use();
+                } else {
+                    monster.attack(10);
+                }
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
                 }
