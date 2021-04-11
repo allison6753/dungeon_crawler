@@ -8,22 +8,24 @@ public class Weapon {
     private boolean alive;
 
     public Weapon(ConfigScreen.Weapon weapon) {
-        switch(weapon) {
-            case PENCIL:
-                cost = 10;
-                damage = 2;
-                healthDamage = 5;
-                break;
-            case TEXTBOOK:
-                cost = 25;
-                damage = 5;
-                healthDamage = 10;
-                break;
-            case CALCULATOR:
-                cost = 50;
-                damage = 10;
-                healthDamage = 20;
-                break;
+        switch (weapon) {
+        case PENCIL:
+            cost = 10;
+            damage = 2;
+            healthDamage = 5;
+            break;
+        case TEXTBOOK:
+            cost = 25;
+            damage = 5;
+            healthDamage = 10;
+            break;
+        case CALCULATOR:
+            cost = 50;
+            damage = 10;
+            healthDamage = 20;
+            break;
+        default:
+            break;
         }
         health = 100;
         alive = true;
