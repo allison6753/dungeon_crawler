@@ -6,6 +6,8 @@ public class GameState {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
     private Armour armour = new Armour();
+    private int roomOrder;
+    private int roomIndex;
 
     private GameScreen1 gameScreen1;
 
@@ -21,6 +23,8 @@ public class GameState {
         this.playerHealth = 100;
         setStartingMoney(difficulty);
     }
+
+
 
     public void setStartingMoney(ConfigScreen.Difficulty difficulty) {
         switch (difficulty) {
@@ -49,7 +53,7 @@ public class GameState {
         this.weapon = weapon;
     }
     public ConfigScreen.Weapon getWeapon() {
-        return weapon;
+        return this.weapon;
     }
 
     public void setDifficulty(ConfigScreen.Difficulty difficulty) {
@@ -96,5 +100,19 @@ public class GameState {
         return this.playerHealth > 0;
     }
 
+    public void setRoomOrder(int order) {
+        this.roomOrder = order;
+    }
 
+    public void setRoomIndex(int roomIndex) {
+        this.roomIndex = roomIndex;
+    }
+
+    public int getRoomOrder() {
+        return this.roomOrder;
+    }
+
+    public int getRoomIndex() {
+        return this.roomIndex;
+    }
 }

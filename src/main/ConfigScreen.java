@@ -33,7 +33,7 @@ public class ConfigScreen {
         INVALID,
         PENCIL,
         TEXTBOOK,
-        CALCULATOR
+        CALCULATOR;
     }
 
     private Difficulty currentDiff = Difficulty.INVALID;

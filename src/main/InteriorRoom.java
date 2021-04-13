@@ -162,7 +162,7 @@ public class InteriorRoom extends DungeonRoomParent{
     }
 
 
-    private void updateLabels() {
+    protected void updateLabels() {
         money = ConfigScreen.getGameState().getMoney();
         Label moneyLabel = (Label) scene.lookup("#money");
         moneyLabel.setText("Money: $" + money);
@@ -253,6 +253,8 @@ public class InteriorRoom extends DungeonRoomParent{
                 InteriorRoom nextRoom = new InteriorRoom(roomIndex, difficulty,
                         weapon, money, order);
                 nextRoom.update();
+                currGameState.setRoomOrder(order);
+                currGameState.setRoomIndex(roomIndex);
                 currGameState.setInteriorRoom(order, roomIndex, nextRoom);
                 return nextRoom.getScene();
             } else {
@@ -312,6 +314,7 @@ public class InteriorRoom extends DungeonRoomParent{
                     monster.attack(5);
                     currGameState.getArmour().use();
                 } else {
+                    // Change to weapon damage?
                     monster.attack(10);
                 }
                 if (!monster.getIsAlive()) {

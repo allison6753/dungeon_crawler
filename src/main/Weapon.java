@@ -10,33 +10,33 @@ public class Weapon {
     public Weapon(ConfigScreen.Weapon weapon) {
         switch (weapon) {
         case PENCIL:
-            cost = 10;
-            damage = 2;
-            healthDamage = 5;
+            this.cost = 10;
+            this.damage = 2;
+            this.healthDamage = 5;
             break;
         case TEXTBOOK:
-            cost = 25;
-            damage = 5;
-            healthDamage = 10;
+            this.cost = 25;
+            this.damage = 5;
+            this.healthDamage = 10;
             break;
         case CALCULATOR:
-            cost = 50;
-            damage = 10;
-            healthDamage = 20;
+            this.cost = 50;
+            this.damage = 10;
+            this.healthDamage = 20;
             break;
         default:
             break;
         }
-        health = 100;
-        alive = true;
+        this.health = 100;
+        this.alive = true;
     }
 
     public void use() {
         if (alive) {
-            health -= healthDamage;
+            this.health -= healthDamage;
         }
         if (health == 0) {
-            alive = false;
+            this.alive = false;
         }
     }
 
