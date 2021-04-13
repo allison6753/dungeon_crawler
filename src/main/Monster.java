@@ -1,11 +1,15 @@
 package main;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
+import javafx.util.Duration;
+import javafx.event.ActionEvent;
 import java.util.Random;
 
 public class Monster {
@@ -58,16 +62,40 @@ public class Monster {
 
     private void processRandom(int randomNum) {
         GameState currGameState = ConfigScreen.getGameState();
+        int currRoomOrder = currGameState.getRoomOrder();
+        int currRoomIndex = currGameState.getRoomIndex();
+        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
         if (randomNum == 0) {
             // Money Drop (+100), maybe (the number of room index can change money?
             int currMoney = currGameState.getMoney();
             currGameState.setMoney(currMoney + 100);
+            currRoom.updateLabels();
         } else if (randomNum == 1) {
             // Potion Drop (+10 Health)
-            int currHealth = currGameState.getPlayerHealth();
-            currGameState.setPlayerHealth(currHealth + 10);
+            Item dropItem = new HealthPotion();
+            Button itemButton = (Button) scene.lookup("#examBoss");
+            itemButton.setVisible(true);
+            itemButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource(dropItem.getImage()).toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            //set item size
+            itemButton.setPrefSize(100, 100);
+            // TODO: put into inventory? right now automatically use
+
+            // TODO: Time wait
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
+                @Override
+                        public void handle(ActionEvent e) {
+                            int currHealth = currGameState.getPlayerHealth();
+                            currGameState.setPlayerHealth(currHealth + 10);
+                            itemButton.setVisible(false);
+                            currRoom.updateLabels();
+                }
+            }));
+            timeline.play();
         } /*
-        else {
+        else { // TODO: attack potion drop
             // Attack Potion : increase attack power of current weapon (+10) - Problem: cannot access weapon;
 
             ConfigScreen.Weapon currWeapon = currGameState.getWeapon();
@@ -80,10 +108,7 @@ public class Monster {
             currGameState.setWeapon(currWeapon);
         }
         */
-        int currRoomOrder = currGameState.getRoomOrder();
-        int currRoomIndex = currGameState.getRoomIndex();
-        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
-        currRoom.updateLabels();
+
     }
 
 
