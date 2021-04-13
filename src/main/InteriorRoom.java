@@ -264,6 +264,7 @@ public class InteriorRoom extends DungeonRoomParent{
             }
         } else {
             LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
+            currGameState.setLastRoom(lastRoom);
             return lastRoom.getScene();
         }
     }

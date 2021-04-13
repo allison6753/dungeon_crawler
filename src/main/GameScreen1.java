@@ -177,6 +177,8 @@ public class GameScreen1 extends DungeonRoomParent {
                     next = new InteriorRoom(0, difficulty,
                             weapon, startingMoney, pathNum);
                     next.update();
+                    currGameState.setRoomOrder(pathNum);
+                    currGameState.setRoomIndex(0);
                     currGameState.setInteriorRoom(pathNum, 0, next);
                 } else {
                     next = currGameState.getInteriorRoom(pathNum, 0);
