@@ -66,15 +66,29 @@ public class Monster {
         int currRoomIndex = currGameState.getRoomIndex();
         if (randomNum == 0) {
             // Money Drop (+100), maybe (the number of room index can change money?
-            int currMoney = currGameState.getMoney();
-            currGameState.setMoney(currMoney + 100);
-            if (currRoomIndex < 5) {
-                InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
-                currRoom.updateLabels();
-            } else {
-                LastRoom lastRoom = currGameState.getLastRoom();
-                lastRoom.update();
-            }
+            Button itemButton = (Button) scene.lookup("#examBoss");
+            itemButton.setVisible(true);
+            itemButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource("../resources/Coin.png").toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            //set item size
+            itemButton.setPrefSize(100, 100);
+            itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    int currMoney = currGameState.getMoney();
+                    currGameState.setMoney(currMoney + 100);
+                    if (currRoomIndex < 5) {
+                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        currRoom.updateLabels();
+                    } else {
+                        LastRoom lastRoom = currGameState.getLastRoom();
+                        lastRoom.update();
+                    }
+                    itemButton.setVisible(false);
+                }
+            });
         } else if (randomNum == 1) {
             // Potion Drop (+10 Health)
             Item dropItem = new HealthPotion();
