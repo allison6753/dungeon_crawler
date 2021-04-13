@@ -9,7 +9,9 @@ public class HealthPotion extends Item {
     }
 
     public void useItem() {
-        playerHealth += 20;
+        GameState currGameState = ConfigScreen.getGameState();
+        int currHealth = currGameState.getPlayerHealth();
+        currGameState.setPlayerHealth(currHealth + 10);
     }
 
     public String getImage() {

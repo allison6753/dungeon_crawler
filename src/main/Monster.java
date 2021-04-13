@@ -89,9 +89,11 @@ public class Monster {
             itemButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    int currHealth = currGameState.getPlayerHealth();
-                    currGameState.setPlayerHealth(currHealth + 10);
-                    itemButton.setVisible(false);
+
+                    if (InventoryScreen.hasSpaceForItems()) {
+                        InventoryScreen.addItem(dropItem);
+                        itemButton.setVisible(false);
+                    }
                     if (currRoomIndex < 5) {
                         InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
                         currRoom.updateLabels();
