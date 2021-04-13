@@ -9,6 +9,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -17,7 +19,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Random;
 
-public class InteriorRoom {
+public class InteriorRoom extends DungeonRoomParent{
     private Scene scene;
     private Pane root;
     private Label alertLabel;
@@ -30,13 +32,9 @@ public class InteriorRoom {
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
 
-    private GameState currGameState;
     private InteriorRoom currRoom;
 
     private Monster monster = new Monster();
-
-    private Timeline monsterAttackThread;
-
 
     public InteriorRoom(int roomIndex, ConfigScreen.Difficulty difficulty,
                         ConfigScreen.Weapon weapon, int money, int order) {
@@ -65,11 +63,14 @@ public class InteriorRoom {
         monsterButton();
         setHealthLabel();
 
-        this.monsterAttackThread = new Timeline(
+        monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
                     new EventHandler<ActionEvent>() {
                         @Override
                             public void handle(ActionEvent e) {
+                            scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                    .findFirst().orElse(null).getScene();
+
                             GameState currGameState = ConfigScreen.getGameState();
                             currGameState.damagePlayer(10);
                             if (!currGameState.isPlayerAlive()) {
@@ -79,8 +80,6 @@ public class InteriorRoom {
                                 Main.changeWindowTo(currentWindow, screen.getScene());
                                 monsterAttackThread.stop();
                             } else {
-                                scene = Stage.getWindows().stream().filter(Window::isShowing)
-                                        .findFirst().orElse(null).getScene();
                                 updateLabels();
                             }
                         }
@@ -90,6 +89,23 @@ public class InteriorRoom {
         if (this.monster.getIsAlive()) {
             monsterAttackThread.play();
         }
+
+        DungeonRoomParent thisRoom = this;
+        // when you press i enter the inventory screen
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.I) {
+                    // i key was pressed
+                    InventoryScreen inv = new InventoryScreen(thisRoom);
+                    Stage currentWindow = (Stage) Stage.getWindows().stream()
+                            .filter(Window::isShowing).findFirst().orElse(null);
+                    Main.changeWindowTo(currentWindow, inv.getScene());
+                    monsterAttackThread.stop();
+                }
+            }
+        });
+
     }
 
     private void checkOrder(int order) {
@@ -291,6 +307,7 @@ public class InteriorRoom {
             @Override
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
+                GameState currGameState = ConfigScreen.getGameState();
                 if (currGameState.getArmour().getAlive()) {
                     monster.attack(5);
                     currGameState.getArmour().use();

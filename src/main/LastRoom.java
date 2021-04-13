@@ -8,6 +8,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 
-public class LastRoom {
+public class LastRoom extends DungeonRoomParent {
     private Scene scene;
     private Pane root;
     private Label alertLabel;
@@ -25,8 +27,6 @@ public class LastRoom {
     private ConfigScreen.Difficulty difficulty;
     private ConfigScreen.Weapon weapon;
     private Monster monster = new Monster();
-    private Timeline monsterAttackThread;
-
 
     //constructor for last room
     //ConfigScreen.Difficulty difficulty, ConfigScreen.Weapon weapon, int money
@@ -78,6 +78,33 @@ public class LastRoom {
             monsterAttackThread.play();
         }
 
+        DungeonRoomParent thisRoom = this;
+        // when you press i enter the inventory screen
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.I) {
+                    // i key was pressed
+                    InventoryScreen inv = new InventoryScreen(thisRoom);
+                    Stage currentWindow = (Stage) Stage.getWindows().stream()
+                            .filter(Window::isShowing).findFirst().orElse(null);
+                    Main.changeWindowTo(currentWindow, inv.getScene());
+                    monsterAttackThread.stop();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    void update() {
+        //reload money, health
+        this.updateLabels();
+
+        //restart monster attacks
+        if (monster.getIsAlive()) {
+            monsterAttackThread.play();
+        }
     }
 
     public Scene getScene() {

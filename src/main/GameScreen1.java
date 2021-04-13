@@ -6,16 +6,19 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GameScreen1 {
+public class GameScreen1 extends DungeonRoomParent {
     private Scene scene;
     private Pane root;
 
@@ -58,6 +61,22 @@ public class GameScreen1 {
         setDoor("#door2", 1);
         setDoor("#door3", 2);
         setDoor("#door4", 3);
+
+        DungeonRoomParent thisRoom = this;
+        // when you press i enter the inventory screen
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.I) {
+                    // i key was pressed
+                    InventoryScreen inv = new InventoryScreen(thisRoom);
+                    Stage currentWindow = (Stage) Stage.getWindows().stream()
+                            .filter(Window::isShowing).findFirst().orElse(null);
+                    Main.changeWindowTo(currentWindow, inv.getScene());
+                    monsterAttackThread.stop();
+                }
+            }
+        });
     }
 
     private void doSetUp() {
@@ -86,6 +105,11 @@ public class GameScreen1 {
         Collections.shuffle(mazeOrder2);
         Collections.shuffle(mazeOrder3);
         Collections.shuffle(mazeOrder4);
+    }
+
+    @Override
+    void update() {
+        //no update needed for this class
     }
 
     public Scene getScene() {
