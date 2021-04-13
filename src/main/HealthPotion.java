@@ -8,7 +8,11 @@ public class HealthPotion extends Item {
         cost = 50;
     }
 
-    public void useHealthPotion() {
+    public void useItem() {
         playerHealth += 20;
+    }
+
+    public String getImage() {
+        return "../resources/Health_Potion.png";
     }
 }

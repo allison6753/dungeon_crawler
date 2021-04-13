@@ -23,4 +23,13 @@ public class AttackPotion extends Item {
                 break;
         }
     }
+
+    public void useItem() {
+        // TODO: make attack potion attack
+    }
+
+    @Override
+    String getImage() {
+        return "../resources/Attack_Potion.png";
+    }
 }

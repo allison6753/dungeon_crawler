@@ -6,4 +6,7 @@ abstract class Item {
     public int getCost() {
         return cost;
     }
+
+    abstract String getImage();
+    abstract void useItem();
 }
