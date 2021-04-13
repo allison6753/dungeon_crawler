@@ -73,7 +73,6 @@ public class GameScreen1 extends DungeonRoomParent {
                     Stage currentWindow = (Stage) Stage.getWindows().stream()
                             .filter(Window::isShowing).findFirst().orElse(null);
                     Main.changeWindowTo(currentWindow, inv.getScene());
-                    monsterAttackThread.stop();
                 }
             }
         });
