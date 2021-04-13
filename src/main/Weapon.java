@@ -51,11 +51,11 @@ public class Weapon extends Item {
     public String getImage() {
         switch (weaponType) {
             case 0:
-                return "./resources/Pencil.png";
+                return "../resources/Pencil.png";
             case 1:
-                return "./resources/Textbook.png";
+                return "../resources/Textbook.png";
             case 2:
-                return "./resources/Calculator.png";
+                return "../resources/Calculator.png";
             default:
                 return null;
         }
@@ -89,5 +89,10 @@ public class Weapon extends Item {
     }
     public int getHealthDamage() {
         return healthDamage;
+    }
+
+    @Override
+    public boolean isSingleUse() {
+        return false;
     }
 }
