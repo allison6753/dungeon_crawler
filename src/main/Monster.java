@@ -64,12 +64,17 @@ public class Monster {
         GameState currGameState = ConfigScreen.getGameState();
         int currRoomOrder = currGameState.getRoomOrder();
         int currRoomIndex = currGameState.getRoomIndex();
-        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
         if (randomNum == 0) {
             // Money Drop (+100), maybe (the number of room index can change money?
             int currMoney = currGameState.getMoney();
             currGameState.setMoney(currMoney + 100);
-            currRoom.updateLabels();
+            if (currRoomIndex < 5) {
+                InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                currRoom.updateLabels();
+            } else {
+                LastRoom lastRoom = currGameState.getLastRoom();
+                lastRoom.update();
+            }
         } else if (randomNum == 1) {
             // Potion Drop (+10 Health)
             Item dropItem = new HealthPotion();
@@ -81,9 +86,27 @@ public class Monster {
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
             //set item size
             itemButton.setPrefSize(100, 100);
-            // TODO: put into inventory? right now automatically use
+            itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
 
-            // TODO: Time wait
+                    if (InventoryScreen.hasSpaceForItems()) {
+                        InventoryScreen.addItem(dropItem);
+                        itemButton.setVisible(false);
+                    }
+                    if (currRoomIndex < 5) {
+                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        currRoom.updateLabels();
+                    } else {
+                        LastRoom lastRoom = currGameState.getLastRoom();
+                        lastRoom.update();
+                    }
+                }
+            });
+            // TODO: put into inventory? right now automatically use
+        }
+        /*
+        Time wait
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
                 @Override
                         public void handle(ActionEvent e) {
@@ -94,8 +117,7 @@ public class Monster {
                 }
             }));
             timeline.play();
-        } /*
-        else { // TODO: attack potion drop
+        else {  attack potion drop
             // Attack Potion : increase attack power of current weapon (+10) - Problem: cannot access weapon;
 
             ConfigScreen.Weapon currWeapon = currGameState.getWeapon();
@@ -110,7 +132,6 @@ public class Monster {
         */
 
     }
-
 
     public void checkStatus() {
         if (health <= 0) {

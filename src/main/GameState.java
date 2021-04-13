@@ -8,6 +8,7 @@ public class GameState {
     private Armour armour = new Armour();
     private int roomOrder;
     private int roomIndex;
+    private LastRoom lastRoom;
 
     private GameScreen1 gameScreen1;
 
@@ -114,5 +115,13 @@ public class GameState {
 
     public int getRoomIndex() {
         return this.roomIndex;
+    }
+
+    public void setLastRoom(LastRoom lastRoom) {
+        this.lastRoom = lastRoom;
+    }
+
+    public LastRoom getLastRoom() {
+        return this.lastRoom;
     }
 }

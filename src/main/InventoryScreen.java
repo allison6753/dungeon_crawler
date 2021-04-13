@@ -118,7 +118,7 @@ public class InventoryScreen {
         return this.scene;
     }
 
-    public boolean hasSpaceForItems() {
+    public static boolean hasSpaceForItems() {
         for (int i = 0; i < InventoryScreen.items.length; ++i) {
             if (InventoryScreen.items[i] == null) {
                 return true;
@@ -127,7 +127,7 @@ public class InventoryScreen {
         return false;
     }
 
-    public void addItem(Item newItem) {
+    public static void addItem(Item newItem) {
         for (int i = 0; i < InventoryScreen.items.length; ++i) {
             if (InventoryScreen.items[i] == null) {
                 InventoryScreen.items[i] = newItem;
