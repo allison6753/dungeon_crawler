@@ -313,7 +313,7 @@ public class InteriorRoom extends DungeonRoomParent{
                 GameState currGameState = ConfigScreen.getGameState();
                 if (currGameState.getArmour().getAlive()) {
                     monster.attack(5);
-                    currGameState.getArmour().use();
+                    currGameState.getArmour().useItem();
                 } else {
                     // Change to weapon damage?
                     monster.attack(10);
