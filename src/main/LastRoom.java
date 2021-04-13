@@ -49,6 +49,8 @@ public class LastRoom extends DungeonRoomParent {
         updateLabels();
         monsterButton();
         setHealthLabel();
+        GameState currGameState = ConfigScreen.getGameState();
+        currGameState.setRoomIndex(6);
 
         this.monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
@@ -208,8 +210,5 @@ public class LastRoom extends DungeonRoomParent {
 
             }
         });
-
-
-
     }
 }

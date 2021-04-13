@@ -64,13 +64,12 @@ public class Monster {
         GameState currGameState = ConfigScreen.getGameState();
         int currRoomOrder = currGameState.getRoomOrder();
         int currRoomIndex = currGameState.getRoomIndex();
-        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
         if (randomNum == 0) {
             // Money Drop (+100), maybe (the number of room index can change money?
             int currMoney = currGameState.getMoney();
             currGameState.setMoney(currMoney + 100);
-            currRoom.updateLabels();
             if (currRoomIndex < 5) {
+                InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
                 currRoom.updateLabels();
             } else {
                 LastRoom lastRoom = currGameState.getLastRoom();
@@ -94,6 +93,7 @@ public class Monster {
                     currGameState.setPlayerHealth(currHealth + 10);
                     itemButton.setVisible(false);
                     if (currRoomIndex < 5) {
+                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
                         currRoom.updateLabels();
                     } else {
                         LastRoom lastRoom = currGameState.getLastRoom();
@@ -101,12 +101,9 @@ public class Monster {
                     }
                 }
             });
-
-
             // TODO: put into inventory? right now automatically use
-
-
-        } /*
+        }
+        /*
         Time wait
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
                 @Override
