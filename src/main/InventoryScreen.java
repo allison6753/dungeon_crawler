@@ -21,7 +21,7 @@ public class InventoryScreen {
     private DungeonRoomParent prevRoom;
     private Pane root;
     //TODO: remove starting items in inventory -- this is just for testing
-    private static Item[] items = new Item[]{new AttackPotion(), new HealthPotion(), new AttackPotion(), new AttackPotion(), new AttackPotion(), new HealthPotion(), new HealthPotion(), new HealthPotion()};
+    private static Item[] items = new Item[8];
     private static int[][] itemPoses = {
             {415, 340}, {715, 340}, {1015, 340}, {1315, 340},
             {415, 640}, {715, 640}, {1015, 640}, {1315, 640} };
@@ -91,8 +91,10 @@ public class InventoryScreen {
             itemButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override public void handle(ActionEvent e) {
                     item.useItem(); //use the item
-                    items[itemIndex] = null; //remove item from array
-                    updateItemDisplay(); //update visualization of items
+                    if (item.isSingleUse()) {
+                        items[itemIndex] = null; //remove item from array
+                        updateItemDisplay(); //update visualization of items
+                    }
                 }
             });
 
@@ -137,5 +139,9 @@ public class InventoryScreen {
 
         //item could not be added - throw exception
         throw new IndexOutOfBoundsException("cannot add item to full inventory!");
+    }
+
+    public static void clear() {
+        InventoryScreen.items = new Item[8];
     }
 }

@@ -75,6 +75,9 @@ public class ConfigScreen {
                 if (validation()) {
                     // Change to Initial Game Screen
                     gameState = new GameState(currentWeapon, currentDiff);
+                    InventoryScreen.clear(); //reset inventory screen for new game
+                    InventoryScreen.addItem(new main.Weapon(currentWeapon)); //add weapon to inventory
+
                     GameScreen1 screen1 = new GameScreen1(currentDiff, currentWeapon, true);
                     gameState.setGameScreen1(screen1);
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();

@@ -56,7 +56,7 @@ public class Monster {
     // Get the drop item
     private void dropItem() {
         Random rand = new Random();
-        int randomNum = rand.nextInt(2);
+        int randomNum = rand.nextInt(3);
         processRandom(randomNum);
     }
 
@@ -118,6 +118,34 @@ public class Monster {
                 }
             });
             // TODO: put into inventory? right now automatically use
+        } else { // Drop Weapon
+            Random rand = new Random();
+            int randNum = rand.nextInt(3);
+            ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
+            Item dropWeapon = new Weapon(randWeapon);
+            Button itemButton = (Button) scene.lookup("#examBoss");
+            itemButton.setVisible(true);
+            itemButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource(dropWeapon.getImage()).toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            itemButton.setPrefSize(100, 100);
+            itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    if (InventoryScreen.hasSpaceForItems()) {
+                        InventoryScreen.addItem(dropWeapon);
+                        itemButton.setVisible(false);
+                    }
+                    if (currRoomIndex < 5) {
+                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        currRoom.updateLabels();
+                    } else {
+                        LastRoom lastRoom = currGameState.getLastRoom();
+                        lastRoom.update();
+                    }
+                }
+            });
         }
         /*
         Time wait
@@ -145,6 +173,16 @@ public class Monster {
         }
         */
 
+    }
+
+    private ConfigScreen.Weapon randomizeWeapon(int randNum) {
+        if (randNum == 0) {
+            return ConfigScreen.Weapon.PENCIL;
+        } else if (randNum == 1) {
+            return ConfigScreen.Weapon.CALCULATOR;
+        } else {
+            return ConfigScreen.Weapon.TEXTBOOK;
+        }
     }
 
     public void checkStatus() {

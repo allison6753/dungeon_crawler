@@ -9,4 +9,8 @@ abstract class Item {
 
     abstract String getImage();
     abstract void useItem();
+
+    boolean isSingleUse() {
+        return true;
+    }
 }
