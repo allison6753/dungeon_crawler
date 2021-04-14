@@ -74,7 +74,13 @@ public class InteriorRoom extends DungeonRoomParent{
                                     .findFirst().orElse(null).getScene();
 
                             GameState currGameState = ConfigScreen.getGameState();
-                            currGameState.damagePlayer(10);
+
+                            if (currGameState.getArmour() != null && currGameState.getArmour().getAlive()) {
+                                currGameState.damagePlayer(5); //reduce damage by half if the player is wearing armor
+                            } else {
+                                currGameState.damagePlayer(10);
+                            }
+
                             if (!currGameState.isPlayerAlive()) {
                                 DieScreen screen = new DieScreen();
                                 Stage currentWindow = (Stage) Stage.getWindows().stream()
@@ -111,6 +117,8 @@ public class InteriorRoom extends DungeonRoomParent{
         //add current weapon to screen
         this.updateWeaponDisplay();
 
+        //add current armour to screen
+        this.updateArmourDisplay();
     }
 
     private void checkOrder(int order) {
@@ -134,6 +142,9 @@ public class InteriorRoom extends DungeonRoomParent{
 
         //reload current weapon display
         this.updateWeaponDisplay();
+
+        //reload current armour display
+        this.updateArmourDisplay();
 
         //restart monster attacks
         if (monster.getIsAlive()) {
@@ -222,6 +233,53 @@ public class InteriorRoom extends DungeonRoomParent{
         itemButton.setLayoutY(950);
 
         itemButton.setId("currentWeapon");
+
+        root.getChildren().add(itemButton);
+    }
+
+    protected void updateArmourDisplay() {
+        //add current armour label
+        Label armourLabel = (Label)scene.lookup("armourLabel");
+        if (armourLabel == null) {
+            //weapon label does not exit - setup
+            armourLabel = new Label();
+            armourLabel.setPrefSize(150, 20);
+            armourLabel.setLayoutX(1475);
+            armourLabel.setLayoutY(925);
+            armourLabel.setFont(new Font(20));
+            armourLabel.setText("Current Armour:");
+            root.getChildren().add(armourLabel);
+        }
+
+        //remove old armour image display from screen
+        for (int i = root.getChildren().size() - 1; i >= 0; --i) {
+            Node n = root.getChildren().get(i);
+            if (n != null && n.getId() != null && n.getId().equals("currentArmour")) {
+                root.getChildren().remove(i);
+                break;
+            }
+        }
+
+        //add new armour display to screen
+        Button itemButton = new Button();
+        Armour currArmour = ConfigScreen.getGameState().getArmour();
+        if (currArmour == null) {
+            return;
+        }
+
+        itemButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource(currArmour.getImage()).toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+
+        //set item size
+        itemButton.setPrefSize(100, 100);
+
+        //set item pos
+        itemButton.setLayoutX(1500);
+        itemButton.setLayoutY(950);
+
+        itemButton.setId("currentArmour");
 
         root.getChildren().add(itemButton);
     }
@@ -367,13 +425,8 @@ public class InteriorRoom extends DungeonRoomParent{
                 if (hasAttackPotion(currGameState)) {
                     currDam *= 2;
                 }
-                if (currGameState.getArmour().getAlive()) {
-                    monster.attack(currDam / 2);
-                    currGameState.getArmour().useItem();
-                } else {
-                    // Change to weapon damage?
-                    monster.attack(currDam);
-                }
+                // Change to weapon damage?
+                monster.attack(currDam);
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
                 }

@@ -6,25 +6,32 @@ public class Armour extends Item {
     private int cost;
     private int usesLeft;
     private boolean alive;
+    private boolean didUseInInv;
 
     public Armour() {
         cost = 80;
         usesLeft = 5;
-        alive = false;
+        alive = true;
+        didUseInInv = false;
     }
 
     @Override
     public void useItem() {
-        usesLeft--;
-        if (usesLeft == 0) {
-            alive = false;
+//        usesLeft--;
+//        if (usesLeft == 0) {
+//            alive = false;
+//        }
+        GameState currentState = ConfigScreen.getGameState();
+        if (currentState.getArmour() == null) {
+            currentState.setArmour(this);
+            ConfigScreen.setGameState(currentState);
+            didUseInInv = true;
         }
     }
 
     @Override
     public String getImage() {
         return "../resources/Armour.png";
-
     }
 
     public void buy() {
@@ -38,6 +45,11 @@ public class Armour extends Item {
     @Override
     public int getCost() {
         return cost;
+    }
+
+    @Override
+    protected boolean isSingleUse() {
+        return didUseInInv;
     }
 
     public void setAlive(boolean alive) {

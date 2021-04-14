@@ -5,7 +5,7 @@ public class GameState {
     private int playerHealth;
     private ConfigScreen.Weapon weapon;
     private ConfigScreen.Difficulty difficulty;
-    private Armour armour = new Armour();
+    private Armour armour = null;
     private int roomOrder;
     private int roomIndex;
     private LastRoom lastRoom;

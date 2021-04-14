@@ -96,7 +96,7 @@ public class Weapon extends Item {
     }
 
     @Override
-    public boolean isSingleUse() {
+    protected boolean isSingleUse() {
         return false;
     }
 }

@@ -10,7 +10,7 @@ abstract class Item {
     abstract String getImage();
     abstract void useItem();
 
-    boolean isSingleUse() {
+    protected boolean isSingleUse() {
         return true;
     }
 }

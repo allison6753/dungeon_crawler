@@ -98,6 +98,7 @@ public class LastRoom extends DungeonRoomParent {
         });
 
         this.updateWeaponDisplay();
+        this.updateArmourDisplay();
 
     }
 
@@ -108,6 +109,7 @@ public class LastRoom extends DungeonRoomParent {
 
         //reload current weapon indicator
         this.updateWeaponDisplay();
+        this.updateArmourDisplay();
 
         //restart monster attacks
         if (monster.getIsAlive()) {
@@ -257,6 +259,53 @@ public class LastRoom extends DungeonRoomParent {
         itemButton.setLayoutY(950);
 
         itemButton.setId("currentWeapon");
+
+        root.getChildren().add(itemButton);
+    }
+
+    protected void updateArmourDisplay() {
+        //add current armour label
+        Label armourLabel = (Label)scene.lookup("armourLabel");
+        if (armourLabel == null) {
+            //weapon label does not exit - setup
+            armourLabel = new Label();
+            armourLabel.setPrefSize(150, 20);
+            armourLabel.setLayoutX(1475);
+            armourLabel.setLayoutY(925);
+            armourLabel.setFont(new Font(20));
+            armourLabel.setText("Current Armour:");
+            root.getChildren().add(armourLabel);
+        }
+
+        //remove old armour image display from screen
+        for (int i = root.getChildren().size() - 1; i >= 0; --i) {
+            Node n = root.getChildren().get(i);
+            if (n != null && n.getId() != null && n.getId().equals("currentArmour")) {
+                root.getChildren().remove(i);
+                break;
+            }
+        }
+
+        //add new armour display to screen
+        Button itemButton = new Button();
+        Armour currArmour = ConfigScreen.getGameState().getArmour();
+        if (currArmour == null) {
+            return;
+        }
+
+        itemButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource(currArmour.getImage()).toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+
+        //set item size
+        itemButton.setPrefSize(100, 100);
+
+        //set item pos
+        itemButton.setLayoutX(1500);
+        itemButton.setLayoutY(950);
+
+        itemButton.setId("currentArmour");
 
         root.getChildren().add(itemButton);
     }
