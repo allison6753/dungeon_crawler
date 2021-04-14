@@ -180,20 +180,23 @@ public class LastRoom extends DungeonRoomParent {
             @Override
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
-                Label monHealthLab = (Label) scene.lookup("#monHealth");
-                monster.attack(10);
-                monHealthLab.setText("Health: " + monster.getHealth());
-                //monster.updateHealthLabel();
+                GameState currGameState = ConfigScreen.getGameState();
+                Weapon currWeapon = new Weapon(currGameState.getWeapon());
+                int currDam = currWeapon.getDamage();
+                if (hasAttackPotion(currGameState)) {
+                    currDam *= 2;
+                }
+                // Change to weapon damage?
+                monster.attack(currDam);
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
                 }
             }
         });
-
-
-
     }
-
+    private boolean hasAttackPotion(GameState currGameState) {
+        return currGameState.getAttackPotion();
+    }
     //exit room door to go to congrats screen :)
     private void exitRoomButton() {
         Button exitButton = (Button) scene.lookup("#Door");
