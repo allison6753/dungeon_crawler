@@ -1,10 +1,13 @@
 package main;
 
 abstract class Item {
-    int cost;
+    private int cost;
 
     public int getCost() {
         return cost;
+    }
+    public void setCost(int num) {
+        cost = num;
     }
 
     abstract String getImage();
@@ -13,4 +16,6 @@ abstract class Item {
     protected boolean isSingleUse() {
         return true;
     }
+
+
 }

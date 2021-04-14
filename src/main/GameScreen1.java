@@ -213,7 +213,7 @@ public class GameScreen1 extends DungeonRoomParent {
 
     protected void updateWeaponDisplay() {
         //add current weapon label
-        Label weaponLabel = (Label)scene.lookup("weaponLabel");
+        Label weaponLabel = (Label) scene.lookup("weaponLabel");
         if (weaponLabel == null) {
             //weapon label does not exit - setup
             weaponLabel = new Label();
@@ -256,7 +256,7 @@ public class GameScreen1 extends DungeonRoomParent {
 
     protected void updateArmourDisplay() {
         //add current armour label
-        Label armourLabel = (Label)scene.lookup("armourLabel");
+        Label armourLabel = (Label) scene.lookup("armourLabel");
         if (armourLabel == null) {
             //weapon label does not exit - setup
             armourLabel = new Label();

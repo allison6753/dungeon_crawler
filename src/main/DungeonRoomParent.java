@@ -1,12 +1,7 @@
 package main;
 
 import javafx.animation.Timeline;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 abstract class DungeonRoomParent {
     protected Timeline monsterAttackThread;
@@ -21,6 +16,7 @@ abstract class DungeonRoomParent {
 
     /**
      * Returns the scene associated with the given dungeon room
+     * @return Scene scene associated with given dungeon room.
      */
     abstract Scene getScene();
 

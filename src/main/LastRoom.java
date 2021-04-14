@@ -59,11 +59,7 @@ public class LastRoom extends DungeonRoomParent {
                         @Override
                         public void handle(ActionEvent e) {
                             GameState currGameState = ConfigScreen.getGameState();
-                            if (currGameState.getArmour() != null && currGameState.getArmour().getAlive()) {
-                                currGameState.damagePlayer(5); //reduce damage by half if the player is wearing armor
-                            } else {
-                                currGameState.damagePlayer(10);
-                            }
+                            currGameState.damagePlayer(10);
                             System.out.println("monster attacks...");
                             System.out.println(currGameState.getPlayerHealth());
                             if (!currGameState.isPlayerAlive()) {
@@ -226,7 +222,7 @@ public class LastRoom extends DungeonRoomParent {
 
     protected void updateWeaponDisplay() {
         //add current weapon label
-        Label weaponLabel = (Label)scene.lookup("weaponLabel");
+        Label weaponLabel = (Label) scene.lookup("weaponLabel");
         if (weaponLabel == null) {
             //weapon label does not exit - setup
             weaponLabel = new Label();
@@ -269,7 +265,7 @@ public class LastRoom extends DungeonRoomParent {
 
     protected void updateArmourDisplay() {
         //add current armour label
-        Label armourLabel = (Label)scene.lookup("armourLabel");
+        Label armourLabel = (Label) scene.lookup("armourLabel");
         if (armourLabel == null) {
             //weapon label does not exit - setup
             armourLabel = new Label();

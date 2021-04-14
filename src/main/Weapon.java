@@ -41,12 +41,6 @@ public class Weapon extends Item {
 
     @Override
     public void useItem() {
-//        if (alive) {
-//            this.health -= healthDamage;
-//        }
-//        if (health == 0) {
-//            this.alive = false;
-//        }
         GameState currentState = ConfigScreen.getGameState();
         currentState.setWeapon(this.weaponEnum);
     }
@@ -54,14 +48,14 @@ public class Weapon extends Item {
     @Override
     public String getImage() {
         switch (weaponType) {
-            case 0:
-                return "../resources/Pencil.png";
-            case 1:
-                return "../resources/Textbook.png";
-            case 2:
-                return "../resources/Calculator.png";
-            default:
-                return null;
+        case 0:
+            return "../resources/Pencil.png";
+        case 1:
+            return "../resources/Textbook.png";
+        case 2:
+            return "../resources/Calculator.png";
+        default:
+            return null;
         }
     }
 

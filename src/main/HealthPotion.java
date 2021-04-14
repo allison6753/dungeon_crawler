@@ -5,7 +5,7 @@ public class HealthPotion extends Item {
     private int playerHealth = state.getPlayerHealth();
 
     public HealthPotion() {
-        cost = 50;
+        setCost(50);
     }
 
     public void useItem() {
