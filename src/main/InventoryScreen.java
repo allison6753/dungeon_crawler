@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -58,10 +60,11 @@ public class InventoryScreen {
     }
 
     private void updateItemDisplay() {
+        this.updateWeaponDisplay();
         //remove existing items from the display
         for (int i = root.getChildren().size() - 1; i >= 0; --i) {
             Node n = root.getChildren().get(i);
-            if (n.getId().contains("item")) {
+            if (n.getId() != null && n.getId().contains("item")) {
                 root.getChildren().remove(i);
             }
         }
@@ -93,8 +96,8 @@ public class InventoryScreen {
                     item.useItem(); //use the item
                     if (item.isSingleUse()) {
                         items[itemIndex] = null; //remove item from array
-                        updateItemDisplay(); //update visualization of items
                     }
+                    updateItemDisplay(); //update visualization of items
                 }
             });
 
@@ -143,5 +146,48 @@ public class InventoryScreen {
 
     public static void clear() {
         InventoryScreen.items = new Item[8];
+    }
+
+    protected void updateWeaponDisplay() {
+        //add current weapon label
+        Label weaponLabel = (Label)scene.lookup("weaponLabel");
+        if (weaponLabel == null) {
+            //weapon label does not exit - setup
+            weaponLabel = new Label();
+            weaponLabel.setPrefSize(150, 20);
+            weaponLabel.setLayoutX(1675);
+            weaponLabel.setLayoutY(925);
+            weaponLabel.setFont(new Font(20));
+            weaponLabel.setText("Current Weapon:");
+            root.getChildren().add(weaponLabel);
+        }
+
+        //remove old weapon image display from screen
+        for (int i = root.getChildren().size() - 1; i >= 0; --i) {
+            Node n = root.getChildren().get(i);
+            if (n != null && n.getId() != null && n.getId().equals("currentWeapon")) {
+                root.getChildren().remove(i);
+                break;
+            }
+        }
+
+        //add new weapon display to screen
+        Button itemButton = new Button();
+        Weapon currWeapon = new Weapon(ConfigScreen.getGameState().getWeapon());
+        itemButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource(currWeapon.getImage()).toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+
+        //set item size
+        itemButton.setPrefSize(100, 100);
+
+        //set item pos
+        itemButton.setLayoutX(1700);
+        itemButton.setLayoutY(950);
+
+        itemButton.setId("currentWeapon");
+
+        root.getChildren().add(itemButton);
     }
 }

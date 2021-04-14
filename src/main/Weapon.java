@@ -9,8 +9,10 @@ public class Weapon extends Item {
     private int healthDamage;
     private boolean alive;
     private int weaponType;
+    private ConfigScreen.Weapon weaponEnum;
 
     public Weapon(ConfigScreen.Weapon weapon) {
+        this.weaponEnum = weapon;
         switch (weapon) {
         case PENCIL:
             this.cost = 10;
@@ -39,12 +41,14 @@ public class Weapon extends Item {
 
     @Override
     public void useItem() {
-        if (alive) {
-            this.health -= healthDamage;
-        }
-        if (health == 0) {
-            this.alive = false;
-        }
+//        if (alive) {
+//            this.health -= healthDamage;
+//        }
+//        if (health == 0) {
+//            this.alive = false;
+//        }
+        GameState currentState = ConfigScreen.getGameState();
+        currentState.setWeapon(this.weaponEnum);
     }
 
     @Override
