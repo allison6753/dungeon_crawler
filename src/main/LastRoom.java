@@ -59,7 +59,11 @@ public class LastRoom extends DungeonRoomParent {
                         @Override
                         public void handle(ActionEvent e) {
                             GameState currGameState = ConfigScreen.getGameState();
-                            currGameState.damagePlayer(10);
+                            if (currGameState.getArmour() != null && currGameState.getArmour().getAlive()) {
+                                currGameState.damagePlayer(5); //reduce damage by half if the player is wearing armor
+                            } else {
+                                currGameState.damagePlayer(10);
+                            }
                             System.out.println("monster attacks...");
                             System.out.println(currGameState.getPlayerHealth());
                             if (!currGameState.isPlayerAlive()) {
