@@ -56,7 +56,7 @@ public class Monster {
     // Get the drop item
     private void dropItem() {
         Random rand = new Random();
-        int randomNum = rand.nextInt(3);
+        int randomNum = rand.nextInt(4);
         processRandom(randomNum);
     }
 
@@ -90,7 +90,7 @@ public class Monster {
                 }
             });
         } else if (randomNum == 1) {
-            // Potion Drop (+10 Health)
+            // Health Potion Drop (+10 Health)
             Item dropItem = new HealthPotion();
             Button itemButton = (Button) scene.lookup("#examBoss");
             itemButton.setVisible(true);
@@ -118,7 +118,7 @@ public class Monster {
                 }
             });
             // TODO: put into inventory? right now automatically use
-        } else { // Drop Weapon
+        } else if (randomNum == 2) { // Drop Weapon
             Random rand = new Random();
             int randNum = rand.nextInt(3);
             ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
@@ -146,7 +146,37 @@ public class Monster {
                     }
                 }
             });
+        } else {
+            // Attack Potion Drop (+10 Health)
+            Item dropItem = new AttackPotion();
+            Button itemButton = (Button) scene.lookup("#examBoss");
+            itemButton.setVisible(true);
+            itemButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource(dropItem.getImage()).toExternalForm()
+                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            //set item size
+            itemButton.setPrefSize(100, 100);
+            itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+
+                    if (InventoryScreen.hasSpaceForItems()) {
+                        InventoryScreen.addItem(dropItem);
+                        itemButton.setVisible(false);
+                    }
+                    if (currRoomIndex < 5) {
+                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        currRoom.updateLabels();
+                    } else {
+                        LastRoom lastRoom = currGameState.getLastRoom();
+                        lastRoom.update();
+                    }
+                }
+            });
         }
+
+
         /*
         Time wait
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {

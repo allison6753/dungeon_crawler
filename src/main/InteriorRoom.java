@@ -311,12 +311,17 @@ public class InteriorRoom extends DungeonRoomParent{
             public void handle(ActionEvent e) {
                 // when monster is clicked (attacked), health declines by 10
                 GameState currGameState = ConfigScreen.getGameState();
+                Weapon currWeapon = new Weapon(currGameState.getWeapon());
+                int currDam = currWeapon.getDamage();
+                if (hasAttackPotion(currGameState)) {
+                    currDam *= 2;
+                }
                 if (currGameState.getArmour().getAlive()) {
-                    monster.attack(5);
+                    monster.attack(currDam / 2);
                     currGameState.getArmour().useItem();
                 } else {
                     // Change to weapon damage?
-                    monster.attack(10);
+                    monster.attack(currDam);
                 }
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
@@ -324,6 +329,11 @@ public class InteriorRoom extends DungeonRoomParent{
             }
         });
     }
+
+    private boolean hasAttackPotion(GameState currGameState) {
+        return currGameState.getAttackPotion();
+    }
+
 
     /**
      Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
