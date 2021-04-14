@@ -26,6 +26,8 @@ public class AttackPotion extends Item {
 
     public void useItem() {
         // TODO: make attack potion attack
+        GameState currGameState = ConfigScreen.getGameState();
+        currGameState.setAttackPotion();
     }
 
     @Override

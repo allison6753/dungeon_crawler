@@ -9,6 +9,7 @@ public class GameState {
     private int roomOrder;
     private int roomIndex;
     private LastRoom lastRoom;
+    private boolean attackPotion;
 
     private GameScreen1 gameScreen1;
 
@@ -123,5 +124,13 @@ public class GameState {
 
     public LastRoom getLastRoom() {
         return this.lastRoom;
+    }
+
+    public void setAttackPotion() {
+        this.attackPotion = true;
+    }
+
+    public boolean getAttackPotion() {
+        return this.attackPotion;
     }
 }
