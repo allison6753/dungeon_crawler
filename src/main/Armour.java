@@ -23,8 +23,7 @@ public class Armour extends Item {
 
     @Override
     public String getImage() {
-        /*TODO: change image */
-        return "../resources/Attack_Potion.png";
+        return "../resources/Armour.png";
 
     }
 

@@ -56,7 +56,7 @@ public class Monster {
     // Get the drop item
     private void dropItem() {
         Random rand = new Random();
-        int randomNum = rand.nextInt(3);
+        int randomNum = rand.nextInt(4);
         processRandom(randomNum);
     }
 
@@ -89,9 +89,19 @@ public class Monster {
                     itemButton.setVisible(false);
                 }
             });
-        } else if (randomNum == 1) {
-            // Potion Drop (+10 Health)
-            Item dropItem = new HealthPotion();
+        } else {
+            Item dropItem;
+            if (randomNum == 1) {
+                // Potion Drop (+10 Health)
+                dropItem = new HealthPotion();
+            } else if (randomNum == 2) {
+                dropItem = new Armour();
+            } else {
+                Random rand = new Random();
+                int randNum = rand.nextInt(3);
+                ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
+                dropItem = new Weapon(randWeapon);
+            }
             Button itemButton = (Button) scene.lookup("#examBoss");
             itemButton.setVisible(true);
             itemButton.setStyle("-fx-background-image: url('"
@@ -100,12 +110,13 @@ public class Monster {
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
             //set item size
             itemButton.setPrefSize(100, 100);
+            Item finalDropItem = dropItem;
             itemButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
 
                     if (InventoryScreen.hasSpaceForItems()) {
-                        InventoryScreen.addItem(dropItem);
+                        InventoryScreen.addItem(finalDropItem);
                         itemButton.setVisible(false);
                     }
                     if (currRoomIndex < 5) {
@@ -117,35 +128,63 @@ public class Monster {
                     }
                 }
             });
-            // TODO: put into inventory? right now automatically use
-        } else { // Drop Weapon
-            Random rand = new Random();
-            int randNum = rand.nextInt(3);
-            ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
-            Item dropWeapon = new Weapon(randWeapon);
-            Button itemButton = (Button) scene.lookup("#examBoss");
-            itemButton.setVisible(true);
-            itemButton.setStyle("-fx-background-image: url('"
-                    + Main.class.getResource(dropWeapon.getImage()).toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-            itemButton.setPrefSize(100, 100);
-            itemButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    if (InventoryScreen.hasSpaceForItems()) {
-                        InventoryScreen.addItem(dropWeapon);
-                        itemButton.setVisible(false);
-                    }
-                    if (currRoomIndex < 5) {
-                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
-                        currRoom.updateLabels();
-                    } else {
-                        LastRoom lastRoom = currGameState.getLastRoom();
-                        lastRoom.update();
-                    }
-                }
-            });
+//            } else if (randomNum == 2) {
+//                // Armour drop
+//                Item dropItem = new Armour();
+//                Button itemButton = (Button) scene.lookup("#examBoss");
+//                itemButton.setVisible(true);
+//                itemButton.setStyle("-fx-background-image: url('"
+//                        + Main.class.getResource(dropItem.getImage()).toExternalForm()
+//                        + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+//                        + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+//                //set item size
+//                itemButton.setPrefSize(100, 100);
+//                itemButton.setOnAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent actionEvent) {
+//
+//                        if (InventoryScreen.hasSpaceForItems()) {
+//                            InventoryScreen.addItem(dropItem);
+//                            itemButton.setVisible(false);
+//                        }
+//                        if (currRoomIndex < 5) {
+//                            InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+//                            currRoom.updateLabels();
+//                        } else {
+//                            LastRoom lastRoom = currGameState.getLastRoom();
+//                            lastRoom.update();
+//                        }
+//                    }
+//                });
+//            } else { // Drop Weapon
+//                Random rand = new Random();
+//                int randNum = rand.nextInt(3);
+//                ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
+//                Item dropWeapon = new Weapon(randWeapon);
+//                Button itemButton = (Button) scene.lookup("#examBoss");
+//                itemButton.setVisible(true);
+//                itemButton.setStyle("-fx-background-image: url('"
+//                        + Main.class.getResource(dropWeapon.getImage()).toExternalForm()
+//                        + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+//                        + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+//                itemButton.setPrefSize(100, 100);
+//                itemButton.setOnAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent actionEvent) {
+//                        if (InventoryScreen.hasSpaceForItems()) {
+//                            InventoryScreen.addItem(dropWeapon);
+//                            itemButton.setVisible(false);
+//                        }
+//                        if (currRoomIndex < 5) {
+//                            InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+//                            currRoom.updateLabels();
+//                        } else {
+//                            LastRoom lastRoom = currGameState.getLastRoom();
+//                            lastRoom.update();
+//                        }
+//                    }
+//                });
+//            }
         }
         /*
         Time wait
