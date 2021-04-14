@@ -237,7 +237,7 @@ public class InteriorRoom extends DungeonRoomParent{
         nextDoorLeft.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                if (monster.getHealth() == 0) {
+                if (monster.getHealth() <= 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     Main.changeWindowTo(currentWindow, loadRoom(roomIndex + 1));
                 } else {
@@ -255,7 +255,7 @@ public class InteriorRoom extends DungeonRoomParent{
         nextDoorRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                if (monster.getHealth() == 0) {
+                if (monster.getHealth() <= 0) {
                     Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
                     Main.changeWindowTo(currentWindow, loadRoom(roomIndex + 1));
                 } else {
