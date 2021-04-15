@@ -7,11 +7,13 @@ import javafx.stage.Window;
 import main.ConfigScreen;
 import main.GameScreen1;
 import main.GameState;
+import main.InteriorRoom;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 public class MeilingTests extends ApplicationTest {
     private GameScreen1 startScreen;
+    private InteriorRoom room;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -62,6 +64,55 @@ public class MeilingTests extends ApplicationTest {
                 .findFirst().orElse(null);
 
         assert (die.getScene().lookup("#DieLabel") != null);
+    }
+
+    // milestone 5 tests
+    @Test
+    public void skipDroppedItem() throws InterruptedException {
+        //advance to the first room
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+
+        Window room = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        Button monsterButton = (Button) room.getScene().lookup("#examBoss");
+        clickOn(monsterButton);
+        clickOn(monsterButton);
+        clickOn(monsterButton);
+        clickOn(monsterButton);
+
+        Button nextRoom = (Button) room.getScene().lookup("#nextDoorLeft");
+        clickOn(nextRoom);
+
+        Window next = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        assert (next.getScene().lookup("#examBoss") != null);
+    }
+
+    @Test
+    public void testAttackPotion() throws InterruptedException {
+        Button button = (Button) startScreen.getScene().lookup("#door1");
+        clickOn(button);
+
+        Window room = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        GameState currGameState = ConfigScreen.getGameState();
+        currGameState.setAttackPotion();
+
+        Button monsterButton = (Button) room.getScene().lookup("#examBoss");
+        clickOn(monsterButton);
+        clickOn(monsterButton);
+
+        Button nextRoom = (Button) room.getScene().lookup("#nextDoorLeft");
+        clickOn(nextRoom);
+
+        Window next = Stage.getWindows().stream().filter(Window::isShowing)
+                .findFirst().orElse(null);
+
+        assert (next.getScene().lookup("#examBoss") != null);
     }
 }
 
