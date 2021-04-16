@@ -238,4 +238,8 @@ public class InventoryScreen {
 
         root.getChildren().add(itemButton);
     }
+
+    public static Item[] getItems() {
+        return items;
+    }
 }

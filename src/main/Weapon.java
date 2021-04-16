@@ -95,6 +95,13 @@ public class Weapon extends Item {
         return healthDamage;
     }
 
+    public void setWeaponType(int weaponType) {
+        this.weaponType = weaponType;
+    }
+    public int getWeaponType() {
+        return weaponType;
+    }
+
     @Override
     protected boolean isSingleUse() {
         return false;

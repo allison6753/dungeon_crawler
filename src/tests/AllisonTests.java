@@ -4,6 +4,9 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import main.ConfigScreen;
+import main.InventoryScreen;
+import main.Armour;
+import main.Weapon;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,5 +53,24 @@ public class AllisonTests extends ApplicationTest {
         clickOn("#prevDoorLeft");
         clickOn("#door1");
         assertEquals(monsterHP, (Label) currRoom.getScene().lookup("#monHealth"));
+    }
+
+    /** Milestone 5 tests **/
+    //tests that correct starting weapon is in inventory when start game
+    @Test
+    public void testStartingWeapon() {
+        assertEquals(((Weapon)InventoryScreen.getItems()[0]).getWeaponType(), new Weapon(ConfigScreen.Weapon.PENCIL).getWeaponType());
+        assertEquals(((Weapon)InventoryScreen.getItems()[1]), null);
+    }
+
+    //Test that armour decreases monster attack damage by 50%
+    @Test
+    public void testArmour() {
+        int startingHealth = ConfigScreen.getGameState().getPlayerHealth();
+        while (ConfigScreen.getGameState().getPlayerHealth() != startingHealth);
+        int endingHealth = ConfigScreen.getGameState().getPlayerHealth();
+        ConfigScreen.getGameState().setArmour(new Armour());
+        while (ConfigScreen.getGameState().getPlayerHealth() != endingHealth);
+        assertEquals(endingHealth - startingHealth, (ConfigScreen.getGameState().getPlayerHealth() - endingHealth) * 2);
     }
 }

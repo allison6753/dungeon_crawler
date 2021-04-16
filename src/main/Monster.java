@@ -95,13 +95,16 @@ public class Monster {
                 // Potion Drop (+10 Health)
                 dropItem = new HealthPotion();
             } else if (randomNum == 2) {
+                // health potion
                 dropItem = new Armour();
             } else if (randomNum == 3) {
+                // weapon
                 Random rand = new Random();
                 int randNum = rand.nextInt(3);
                 ConfigScreen.Weapon randWeapon = randomizeWeapon(randNum);
                 dropItem = new Weapon(randWeapon);
             } else {
+                // attack potion
                 dropItem = new AttackPotion();
             }
             Button itemButton = (Button) scene.lookup("#examBoss");
@@ -130,36 +133,6 @@ public class Monster {
                     }
                 }
             });
-
-//        } else {
-//            // Attack Potion Drop (+10 Health)
-//            Item dropItem = new AttackPotion();
-//            Button itemButton = (Button) scene.lookup("#examBoss");
-//            itemButton.setVisible(true);
-//            itemButton.setStyle("-fx-background-image: url('"
-//                    + Main.class.getResource(dropItem.getImage()).toExternalForm()
-//                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-//                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-//            //set item size
-//            itemButton.setPrefSize(100, 100);
-//            itemButton.setOnAction(new EventHandler<ActionEvent>() {
-//                @Override
-//                public void handle(ActionEvent actionEvent) {
-//
-//                    if (InventoryScreen.hasSpaceForItems()) {
-//                        InventoryScreen.addItem(dropItem);
-//                        itemButton.setVisible(false);
-//                    }
-//                    if (currRoomIndex < 5) {
-//                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
-//                        currRoom.updateLabels();
-//                    } else {
-//                        LastRoom lastRoom = currGameState.getLastRoom();
-//                        lastRoom.update();
-//                    }
-//                }
-//            });
-//>>>>>>> 121ab5fbc73da360d3ac5f346176553ecc860ab6
         }
 
 
