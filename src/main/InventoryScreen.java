@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -22,7 +21,7 @@ public class InventoryScreen {
     private Scene scene;
     private DungeonRoomParent prevRoom;
     private Pane root;
-    //TODO: remove starting items in inventory -- this is just for testing
+    //to-do: remove starting items in inventory -- this is just for testing
     private static Item[] items = new Item[8];
     private static int[][] itemPoses = {
             {415, 340}, {715, 340}, {1015, 340}, {1315, 340},
@@ -80,8 +79,10 @@ public class InventoryScreen {
             Button itemButton = new Button();
             itemButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource(item.getImage()).toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+                    + "'); \n-fx-background-position: center center; "
+                    + "\n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;"
+                    + "\n-fx-background-color: transparent;");
 
             //set item size
             itemButton.setPrefSize(200, 200);
@@ -151,7 +152,7 @@ public class InventoryScreen {
 
     protected void updateWeaponDisplay() {
         //add current weapon label
-        Label weaponLabel = (Label)scene.lookup("weaponLabel");
+        Label weaponLabel = (Label) scene.lookup("weaponLabel");
         if (weaponLabel == null) {
             //weapon label does not exit - setup
             weaponLabel = new Label();
@@ -194,7 +195,7 @@ public class InventoryScreen {
 
     protected void updateArmourDisplay() {
         //add current armour label
-        Label armourLabel = (Label)scene.lookup("armourLabel");
+        Label armourLabel = (Label) scene.lookup("armourLabel");
         if (armourLabel == null) {
             //weapon label does not exit - setup
             armourLabel = new Label();

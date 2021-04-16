@@ -59,18 +59,25 @@ public class AllisonTests extends ApplicationTest {
     //tests that correct starting weapon is in inventory when start game
     @Test
     public void testStartingWeapon() {
-        assertEquals(((Weapon)InventoryScreen.getItems()[0]).getWeaponType(), new Weapon(ConfigScreen.Weapon.PENCIL).getWeaponType());
-        assertEquals(((Weapon)InventoryScreen.getItems()[1]), null);
+        assertEquals(((Weapon) InventoryScreen.getItems()[0]).getWeaponType(),
+                new Weapon(ConfigScreen.Weapon.PENCIL).getWeaponType());
+        assertEquals(((Weapon) InventoryScreen.getItems()[1]), null);
     }
 
     //Test that armour decreases monster attack damage by 50%
     @Test
     public void testArmour() {
+        int dummy = 0;
         int startingHealth = ConfigScreen.getGameState().getPlayerHealth();
-        while (ConfigScreen.getGameState().getPlayerHealth() != startingHealth);
+        while (ConfigScreen.getGameState().getPlayerHealth() != startingHealth) {
+            dummy++;
+        }
         int endingHealth = ConfigScreen.getGameState().getPlayerHealth();
         ConfigScreen.getGameState().setArmour(new Armour());
-        while (ConfigScreen.getGameState().getPlayerHealth() != endingHealth);
-        assertEquals(endingHealth - startingHealth, (ConfigScreen.getGameState().getPlayerHealth() - endingHealth) * 2);
+        while (ConfigScreen.getGameState().getPlayerHealth() != endingHealth) {
+            dummy++;
+        }
+        assertEquals(endingHealth - startingHealth,
+                (ConfigScreen.getGameState().getPlayerHealth() - endingHealth) * 2);
     }
 }

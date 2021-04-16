@@ -17,10 +17,10 @@ public class Armour extends Item {
 
     @Override
     public void useItem() {
-//        usesLeft--;
-//        if (usesLeft == 0) {
-//            alive = false;
-//        }
+        //usesLeft--;
+        //      if (usesLeft == 0) {
+        //          alive = false;
+        //      }
         GameState currentState = ConfigScreen.getGameState();
         if (currentState.getArmour() == null) {
             currentState.setArmour(this);

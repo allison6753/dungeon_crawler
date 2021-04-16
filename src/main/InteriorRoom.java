@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.WeakEventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -21,7 +20,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.Random;
 
-public class InteriorRoom extends DungeonRoomParent{
+public class InteriorRoom extends DungeonRoomParent {
     private Scene scene;
     private Pane root;
     private Label alertLabel;
@@ -75,8 +74,10 @@ public class InteriorRoom extends DungeonRoomParent{
 
                             GameState currGameState = ConfigScreen.getGameState();
 
-                            if (currGameState.getArmour() != null && currGameState.getArmour().getAlive()) {
-                                currGameState.damagePlayer(5); //reduce damage by half if the player is wearing armor
+                            if (currGameState.getArmour() != null
+                                    && currGameState.getArmour().getAlive()) {
+                                //reduce damage by half if the player is wearing armor
+                                currGameState.damagePlayer(5);
                             } else {
                                 currGameState.damagePlayer(10);
                             }
@@ -196,7 +197,7 @@ public class InteriorRoom extends DungeonRoomParent{
 
     protected void updateWeaponDisplay() {
         //add current weapon label
-        Label weaponLabel = (Label)scene.lookup("weaponLabel");
+        Label weaponLabel = (Label) scene.lookup("weaponLabel");
         if (weaponLabel == null) {
             //weapon label does not exit - setup
             weaponLabel = new Label();
@@ -239,7 +240,7 @@ public class InteriorRoom extends DungeonRoomParent{
 
     protected void updateArmourDisplay() {
         //add current armour label
-        Label armourLabel = (Label)scene.lookup("armourLabel");
+        Label armourLabel = (Label) scene.lookup("armourLabel");
         if (armourLabel == null) {
             //weapon label does not exit - setup
             armourLabel = new Label();

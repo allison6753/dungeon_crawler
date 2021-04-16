@@ -1,6 +1,4 @@
 package main;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -8,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import javafx.util.Duration;
 import javafx.event.ActionEvent;
 import java.util.Random;
 
@@ -70,7 +67,8 @@ public class Monster {
             itemButton.setVisible(true);
             itemButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource("../resources/Coin.png").toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "'); \n-fx-background-position: center center; "
+                    + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
             //set item size
             itemButton.setPrefSize(100, 100);
@@ -80,7 +78,8 @@ public class Monster {
                     int currMoney = currGameState.getMoney();
                     currGameState.setMoney(currMoney + 100);
                     if (currRoomIndex < 5) {
-                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        InteriorRoom currRoom =
+                                currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
                         currRoom.updateLabels();
                     } else {
                         LastRoom lastRoom = currGameState.getLastRoom();
@@ -111,7 +110,8 @@ public class Monster {
             itemButton.setVisible(true);
             itemButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource(dropItem.getImage()).toExternalForm()
-                    + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                    + "'); \n-fx-background-position: center center; "
+                    + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
             //set item size
             itemButton.setPrefSize(100, 100);
@@ -125,7 +125,8 @@ public class Monster {
                         itemButton.setVisible(false);
                     }
                     if (currRoomIndex < 5) {
-                        InteriorRoom currRoom = currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                        InteriorRoom currRoom =
+                                currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
                         currRoom.updateLabels();
                     } else {
                         LastRoom lastRoom = currGameState.getLastRoom();
@@ -136,9 +137,11 @@ public class Monster {
         }
 
 
+
         /*
         Time wait
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<>() {
+            Timeline timeline = new Timeline
+                (new KeyFrame(Duration.seconds(1), new EventHandler<>() {
                 @Override
                         public void handle(ActionEvent e) {
                             int currHealth = currGameState.getPlayerHealth();
@@ -149,7 +152,8 @@ public class Monster {
             }));
             timeline.play();
         else {  attack potion drop
-            // Attack Potion : increase attack power of current weapon (+10) - Problem: cannot access weapon;
+            // Attack Potion : increase attack power of current weapon (+10)
+            //- Problem: cannot access weapon;
 
             ConfigScreen.Weapon currWeapon = currGameState.getWeapon();
             int currDam = currWeapon.getDamage();
