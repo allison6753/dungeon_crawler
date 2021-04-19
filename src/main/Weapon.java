@@ -2,7 +2,7 @@ package main;
 
 import static main.ConfigScreen.Weapon.*;
 
-public class Weapon extends Item {
+public class Weapon implements Item {
     private int damage;
     private int cost;
     private int health;
@@ -70,7 +70,6 @@ public class Weapon extends Item {
         this.cost = cost;
     }
 
-    @Override
     public int getCost() {
         return cost;
     }
@@ -97,7 +96,7 @@ public class Weapon extends Item {
     }
 
     @Override
-    protected boolean isSingleUse() {
+    public boolean isSingleUse() {
         return false;
     }
 }

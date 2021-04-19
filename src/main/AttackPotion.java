@@ -1,13 +1,13 @@
 package main;
 
-public class AttackPotion extends Item {
+public class AttackPotion implements Item {
     private int damage;
 
 
 
-    public AttackPotion() {
-        setCost(50);
-    }
+//    public AttackPotion() {
+//        setCost(50);
+//    }
 
     public void useAttackPotion(ConfigScreen.Weapon weapon) {
         switch (weapon) {
@@ -32,7 +32,7 @@ public class AttackPotion extends Item {
     }
 
     @Override
-    String getImage() {
+    public String getImage() {
         return "../resources/Attack_Potion.png";
     }
 }

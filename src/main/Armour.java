@@ -1,6 +1,6 @@
 package main;
 
-public class Armour extends Item {
+public class Armour implements Item {
     //use if making different types of armour -> private int protection;
     //use if making different types of armour -> private int healthDamage;
     private int cost;
@@ -42,13 +42,13 @@ public class Armour extends Item {
         this.cost = cost;
     }
 
-    @Override
+
     public int getCost() {
         return cost;
     }
 
     @Override
-    protected boolean isSingleUse() {
+    public boolean isSingleUse() {
         return didUseInInv;
     }
 

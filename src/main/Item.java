@@ -1,19 +1,11 @@
 package main;
 
-abstract class Item {
-    private int cost;
+public interface Item {
 
-    public int getCost() {
-        return cost;
-    }
-    public void setCost(int num) {
-        cost = num;
-    }
+    String getImage();
+    void useItem();
 
-    abstract String getImage();
-    abstract void useItem();
-
-    protected boolean isSingleUse() {
+    default boolean isSingleUse() {
         return true;
     }
 
