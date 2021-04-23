@@ -59,9 +59,10 @@ public class ChallengeRoom {
     public void setupChallenge() {
         for (int i = 1; i <= monsters; i++) {
             Monster monster = new Monster();
+            monster.setHealthLabelID("#monHealth" + String.valueOf(i));
             monstersList.add (monster);
             monsterButton("#examBoss" + String.valueOf(i), monster);
-            setMonsterHealth("#monHealth" + String.valueOf(i), monster);
+            setMonsterHealth("#monHealth" + String.valueOf(i), monster, 100);
         }
 
         monsterAttackThread = new Timeline(
@@ -232,9 +233,9 @@ public class ChallengeRoom {
         return backGroundImage;
     }
 
-    private void setMonsterHealth(String id, Monster monster) {
+    private void setMonsterHealth(String id, Monster monster, int health) {
         Label monHealthLab = (Label) scene.lookup(id);
-        monster.setHealth(100);
+        monster.setHealth(health);
         monHealthLab.setText("Health: " + monster.getHealth());
     }
 
@@ -296,6 +297,7 @@ public class ChallengeRoom {
                 }
                 // Change to weapon damage?
                 monster.attack(currDam);
+                setMonsterHealth(monsterID, monster, monster.getHealth());
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
                     monsters--;

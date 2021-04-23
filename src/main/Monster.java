@@ -14,6 +14,7 @@ public class Monster {
     //instance variables for attributes
     private int health;
     private boolean isAlive;
+    private String healthLabelID;
     @FXML
     private Label healthLabel;
     private Scene scene;
@@ -21,6 +22,11 @@ public class Monster {
     public Monster() {
         health = 100;
         isAlive = true;
+        healthLabelID = "#monHealth";
+    }
+
+    public void setHealthLabelID(String h) {
+        this.healthLabelID = h;
     }
 
     public void attack(int damage) {
@@ -186,7 +192,7 @@ public class Monster {
     }
 
     public void updateHealthLabel() {
-        healthLabel = (Label) scene.lookup("#monHealth");
+        healthLabel = (Label) scene.lookup(healthLabelID);
         healthLabel.setText("Health: " + getHealth());
     }
 
