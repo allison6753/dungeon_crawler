@@ -13,7 +13,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -481,7 +480,7 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(rect);
 
                     Label speech = new Label();
-                    speech.setText("I could let you into tech tower\nBut it'll cost ya $500\nWhat do you say?");
+                    speech.setText("I could let you into tech tower\nBut it'll cost ya $300\nWhat do you say?");
 
                     //set label pos
                     speech.setLayoutX(1625);
@@ -495,9 +494,9 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(speech);
 
                 } else {
-                    if (money >= 500) {
+                    if (money >= 300) {
                         // we have enough money - use to enter the room
-                        money -= 500;
+                        money -= 300;
 
                         GameState state = ConfigScreen.getGameState();
                         state.setMoney(money);
