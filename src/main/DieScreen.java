@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -18,6 +19,8 @@ import java.io.IOException;
 public class DieScreen {
     private Scene scene;
     private Pane root;
+    private int money;
+    private InteriorRoom currRoom;
 
     public DieScreen() {
         try {
@@ -29,6 +32,7 @@ public class DieScreen {
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
         startOverButton();
+        displayStats();
 
     }
 
@@ -60,5 +64,28 @@ public class DieScreen {
                 Main.changeWindowTo(currentWindow, welcScreen.getScene());
             }
         });
+    }
+
+    //displaying stats: money, playerHealth, monsters killed
+    private void displayStats() {
+        money = ConfigScreen.getGameState().getMoney();
+        Label moneyLabel = (Label) scene.lookup("#stat1");
+        moneyLabel.setText("Money: $" + money);
+
+        int health = ConfigScreen.getGameState().getPlayerHealth();
+        Label healthLabel = (Label) scene.lookup("#stat2");
+        healthLabel.setText("Remaining health: " + health);
+
+        int roomNum = ConfigScreen.getGameState().getRoomIndex();
+        Label roomNumLabel = (Label) scene.lookup("#stat3");
+        roomNumLabel.setText("Monsters killed: " + roomNum);
+    }
+
+    private int getMoney() {
+        return money;
+    }
+
+    private void setMoney(int num) {
+        money = num;
     }
 }
