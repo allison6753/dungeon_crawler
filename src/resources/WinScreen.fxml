@@ -13,6 +13,21 @@
                 <Font size="50.0" />
             </font>
         </Label>
+        <Label fx:id="stat1" layoutX="680.0" layoutY="400.0" prefHeight="51.0" prefWidth="900.0" text="Money: " textFill="WHITE">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Label fx:id="stat2" layoutX="680.0" layoutY="450.0" prefHeight="51.0" prefWidth="900.0" text="Remaining health: " textFill="WHITE">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Label fx:id="stat3" layoutX="680.0" layoutY="500.0" prefHeight="51.0" prefWidth="900.0" text="Third stat: " textFill="WHITE">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
         <Button fx:id="buttonStartOver" layoutX="710.0" layoutY="779.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="500.0" text="">
             <font>
                 <Font size="37.0" />
