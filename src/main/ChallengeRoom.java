@@ -58,7 +58,7 @@ public class ChallengeRoom {
 
     public void setupChallenge() {
         for (int i = 1; i <= monsters; i++) {
-            Monster monster = new Monster();
+            Monster monster = new Monster(String.valueOf(i));
             monster.setHealthLabelID("#monHealth" + String.valueOf(i));
             monstersList.add (monster);
             monsterButton("#examBoss" + String.valueOf(i), monster);
@@ -78,9 +78,9 @@ public class ChallengeRoom {
                         if (currGameState.getArmour() != null
                                 && currGameState.getArmour().getAlive()) {
                             //reduce damage by half if the player is wearing armor
-                            currGameState.damagePlayer(10 * monsters);
+                            currGameState.damagePlayer(5 * monsters);
                         } else {
-                            currGameState.damagePlayer(15 * monsters);
+                            currGameState.damagePlayer(10 * monsters);
                         }
 
                         if (!currGameState.isPlayerAlive()) {
@@ -96,7 +96,10 @@ public class ChallengeRoom {
                 }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
-        monsterAttackThread.play();
+        if (monsters > 0) {
+            monsterAttackThread.play();
+        }
+
     }
 
     /**
@@ -237,6 +240,7 @@ public class ChallengeRoom {
         Label monHealthLab = (Label) scene.lookup(id);
         monster.setHealth(health);
         monHealthLab.setText("Health: " + monster.getHealth());
+        monHealthLab.setVisible(true);
     }
 
 //    private Monster getMonster() {
@@ -285,6 +289,7 @@ public class ChallengeRoom {
                     + "'); \n-fx-background-position: center center;"
                     + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        monsterButton.setVisible(true);
         monsterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -299,9 +304,9 @@ public class ChallengeRoom {
                 monster.attack(currDam);
                 setMonsterHealth(monsterID, monster, monster.getHealth());
                 if (!monster.getIsAlive()) {
-                    monsterAttackThread.stop();
                     monsters--;
                     if (monsters == 0) {
+                        monsterAttackThread.stop();
                         dropItem();
                         exitRoomButton();
                     }

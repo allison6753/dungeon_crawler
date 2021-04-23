@@ -50,12 +50,12 @@
             </font>
         </Label>
 
-        <Button fx:id="examBoss1" layoutX="500.0" layoutY="500.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="">
+        <Button fx:id="examBoss1" layoutX="500.0" layoutY="500.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="" visible="false">
             <font>
                 <Font size="37.0" />
             </font>
         </Button>
-        <Label fx:id="monHealth1" layoutX="550.0" layoutY="650.0" prefHeight="74.0" prefWidth="500.0" text="">
+        <Label fx:id="monHealth1" layoutX="550.0" layoutY="650.0" prefHeight="74.0" prefWidth="500.0" text="" visible="false">
             <font>
                 <Font size="20.0" />
             </font>
@@ -65,22 +65,22 @@
                 <Font size="20.0" />
             </font>
         </Label>
-      <Button fx:id="examBoss2" layoutX="142.0" layoutY="51.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="">
+      <Button fx:id="examBoss2" layoutX="142.0" layoutY="51.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="" visible="false">
          <font>
             <Font size="37.0" />
          </font>
       </Button>
-      <Label fx:id="monHealth2" layoutX="892.0" layoutY="262.0" prefHeight="74.0" prefWidth="500.0" text="">
+      <Label fx:id="monHealth2" layoutX="892.0" layoutY="262.0" prefHeight="74.0" prefWidth="500.0" text="" visible="false">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="examBoss3" layoutX="1236.0" layoutY="507.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="">
+      <Button fx:id="examBoss3" layoutX="1236.0" layoutY="507.0" mnemonicParsing="false" prefHeight="180.0" prefWidth="180.0" text="" visible="false">
          <font>
             <Font size="37.0" />
          </font>
       </Button>
-      <Label fx:id="monHealth3" layoutX="1286.0" layoutY="657.0" prefHeight="74.0" prefWidth="500.0" text="">
+      <Label fx:id="monHealth3" layoutX="1286.0" layoutY="657.0" prefHeight="74.0" prefWidth="500.0" text="" visible="false">
          <font>
             <Font size="20.0" />
          </font>
