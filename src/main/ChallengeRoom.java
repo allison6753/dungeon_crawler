@@ -17,6 +17,8 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChallengeRoom {
@@ -25,9 +27,8 @@ public class ChallengeRoom {
     private String backGroundImage;
     private int monsters = 3;
     private int index;
+    private List<Monster> monstersList = new ArrayList<>();
 
-
-    private Monster monster = new Monster();
     private Timeline monsterAttackThread;
 
     public ChallengeRoom(int index) {
@@ -41,9 +42,8 @@ public class ChallengeRoom {
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage("../resources/Challenge_Room.png");
-        updateLabels();
 
-        setHealthLabel();
+        update();
         yesButton();
         noButton();
 
@@ -59,10 +59,12 @@ public class ChallengeRoom {
     }
 
     public void setupChallenge() {
-        // Monster image and health label
-        monsterButton("#examBoss1");
-        monsterButton("#examBoss2");
-        monsterButton("#examBoss3");
+        for (int i = 0; i < monsters; i++) {
+            Monster monster = new Monster();
+            monstersList.add (monster);
+            monsterButton("#examBoss" + String.valueOf(i), monster);
+            setMonsterHealth("#monHealth" + String.valueOf(i), monster);
+        }
 
         monsterAttackThread = new Timeline(
             new KeyFrame(Duration.seconds(2),
@@ -77,9 +79,9 @@ public class ChallengeRoom {
                         if (currGameState.getArmour() != null
                                 && currGameState.getArmour().getAlive()) {
                             //reduce damage by half if the player is wearing armor
-                            currGameState.damagePlayer(15);
+                            currGameState.damagePlayer(10 * monsters);
                         } else {
-                            currGameState.damagePlayer(15);
+                            currGameState.damagePlayer(15 * monsters);
                         }
 
                         if (!currGameState.isPlayerAlive()) {
@@ -95,9 +97,7 @@ public class ChallengeRoom {
                 }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
-        if (this.monster.getIsAlive()) {
-            monsterAttackThread.play();
-        }
+        monsterAttackThread.play();
     }
 
     private void exitRoomButton() {
@@ -255,15 +255,15 @@ public class ChallengeRoom {
         return backGroundImage;
     }
 
-    private void setHealthLabel() {
-        Label monHealthLab = (Label) scene.lookup("#monHealth");
+    private void setMonsterHealth(String id, Monster monster) {
+        Label monHealthLab = (Label) scene.lookup(id);
         monster.setHealth(100);
         monHealthLab.setText("Health: " + monster.getHealth());
     }
 
-    private Monster getMonster() {
-        return monster;
-    }
+//    private Monster getMonster() {
+//        return monster;
+//    }
 
     //setting up yes button
     private void yesButton() {
@@ -271,6 +271,9 @@ public class ChallengeRoom {
         yesButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                (scene.lookup("#acceptLabel")).setVisible(false);
+                (scene.lookup("#yes")).setVisible(false);
+                (scene.lookup("#no")).setVisible(false);
                 setupChallenge();
             }
         });
@@ -282,14 +285,17 @@ public class ChallengeRoom {
         yesButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                ((Label) scene.lookup("#noLabel")).setVisible(true);
+                (scene.lookup("#acceptLabel")).setVisible(false);
+                (scene.lookup("#yes")).setVisible(false);
+                (scene.lookup("#no")).setVisible(false);
+                (scene.lookup("#noLabel")).setVisible(true);
                 exitRoomButton();
             }
         });
     }
 
     //setting up monster
-    private void monsterButton(String monsterID) {
+    private void monsterButton(String monsterID, Monster monster) {
         Button monsterButton = (Button) scene.lookup(monsterID);
         monsterButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()

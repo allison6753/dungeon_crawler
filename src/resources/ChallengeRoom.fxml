@@ -85,7 +85,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="735.0" layoutY="14.0" prefHeight="36.0" prefWidth="395.0" text="Do you dare to try graduating with honors?\nBEWARE: it'll be a challenge!" />
+      <Label id="acceptLabel" layoutX="735.0" layoutY="14.0" prefHeight="36.0" prefWidth="395.0" text="Do you dare to try graduating with honors?\nBEWARE: it'll be a challenge!" />
       <Button id="yes" layoutX="853.0" layoutY="47.0" mnemonicParsing="false" text="YES!" />
       <Button id="no" layoutX="892.0" layoutY="47.0" mnemonicParsing="false" text="No, C's get degrees" />
       <Label id="noLabel" layoutX="804.0" layoutY="81.0" text="Okay, now you can go back to the original room" visible="false" />
