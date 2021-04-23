@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -19,6 +20,10 @@ import java.io.IOException;
 public class WinScreen {
     private Scene scene;
     private Pane root;
+    private int money;
+
+    private ConfigScreen.Difficulty difficulty;
+    private ConfigScreen.Weapon weapon;
 
     public WinScreen() {
         try {
@@ -30,6 +35,7 @@ public class WinScreen {
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
         startOverButton();
+        displayStats();
 
     }
 
@@ -61,5 +67,27 @@ public class WinScreen {
                 Main.changeWindowTo(currentWindow, welcScreen.getScene());
             }
         });
+    }
+
+    //displaying stats: money, playerHealth, monsters killed
+    private void displayStats() {
+        money = ConfigScreen.getGameState().getMoney();
+        Label moneyLabel = (Label) scene.lookup("#stat1");
+        moneyLabel.setText("Money: $" + money);
+
+        int health = ConfigScreen.getGameState().getPlayerHealth();
+        Label healthLabel = (Label) scene.lookup("#stat2");
+        healthLabel.setText("Remaining health: " + health);
+
+        Label roomNumLabel = (Label) scene.lookup("#stat3");
+        roomNumLabel.setText("Monsters killed: 6");
+    }
+
+    private int getMoney() {
+        return money;
+    }
+
+    private void setMoney(int num) {
+        money = num;
     }
 }
