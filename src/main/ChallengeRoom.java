@@ -44,9 +44,11 @@ public class ChallengeRoom {
         updateLabels();
 
         // Monster image and health label
-        monsterButton();
-        setHealthLabel();
+        monsterButton("#examBoss1");
+        monsterButton("#examBoss2");
+        monsterButton("#examBoss3");
 
+        setHealthLabel();
         monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
                         new EventHandler<ActionEvent>() {
@@ -60,9 +62,9 @@ public class ChallengeRoom {
                                 if (currGameState.getArmour() != null
                                         && currGameState.getArmour().getAlive()) {
                                     //reduce damage by half if the player is wearing armor
-                                    currGameState.damagePlayer(5);
+                                    currGameState.damagePlayer(15);
                                 } else {
-                                    currGameState.damagePlayer(10);
+                                    currGameState.damagePlayer(15);
                                 }
 
                                 if (!currGameState.isPlayerAlive()) {
@@ -236,24 +238,13 @@ public class ChallengeRoom {
     }
 
     //setting up monster
-    private void monsterButton() {
-        Button monsterButton = (Button) scene.lookup("#examBoss");
-        Random rand = new Random();
-        int random = rand.nextInt(2);
-        if (random == 0) {
-            monsterButton.setStyle("-fx-background-image: url('"
-                    + Main.class.getResource("../resources/Exam_Boss.png").toExternalForm()
+    private void monsterButton(String monsterID) {
+        Button monsterButton = (Button) scene.lookup(monsterID);
+        monsterButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
                     + "'); \n-fx-background-position: center center;"
                     + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        } else if (random == 1) {
-            monsterButton.setStyle("-fx-background-image: url('"
-                    + Main.class.getResource("../resources/Quiz_Boss.png").toExternalForm()
-                    + "'); \n-fx-background-position: center center; "
-                    + "\n-fx-background-repeat: stretch;"
-                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        }
-
         monsterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
