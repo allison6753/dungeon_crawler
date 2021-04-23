@@ -39,7 +39,6 @@ public class ConfigScreen {
     private Difficulty currentDiff = Difficulty.INVALID;
     private Weapon currentWeapon = Weapon.INVALID;
 
-
     public ConfigScreen() {
 
         try {
@@ -56,6 +55,7 @@ public class ConfigScreen {
         setupDifficultyButtons();
         setupWeaponButtons();
     }
+
 
     public Scene getScene() {
         return this.scene;

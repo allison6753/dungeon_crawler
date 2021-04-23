@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class GameScreen1 extends DungeonRoomParent {
     private Scene scene;
@@ -32,6 +33,8 @@ public class GameScreen1 extends DungeonRoomParent {
     private static List<Integer> mazeOrder2;
     private static List<Integer> mazeOrder3;
     private static List<Integer> mazeOrder4;
+
+    private static int challengeEntryRoom = 0; //room number that we allow entry into the challenge room
 
     private GameState currGameState;
 
@@ -80,6 +83,7 @@ public class GameScreen1 extends DungeonRoomParent {
 
         this.updateWeaponDisplay();
         this.updateArmourDisplay();
+        this.setupChallengeRoomEntrance();
     }
 
     private void doSetUp() {
@@ -299,5 +303,14 @@ public class GameScreen1 extends DungeonRoomParent {
         itemButton.setId("currentArmour");
 
         root.getChildren().add(itemButton);
+    }
+
+    private void setupChallengeRoomEntrance() {
+        Random r = new Random();
+        challengeEntryRoom = r.nextInt(6);
+    }
+
+    public static int getChallengeEntryRoom() {
+        return challengeEntryRoom;
     }
 }

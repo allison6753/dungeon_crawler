@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -120,6 +123,11 @@ public class InteriorRoom extends DungeonRoomParent {
 
         //add current armour to screen
         this.updateArmourDisplay();
+
+        //add challenge room entrance if needed
+        if (GameScreen1.getChallengeEntryRoom() == this.roomNum) {
+            this.addChallengeEntrance();
+        }
     }
 
     private void checkOrder(int order) {
@@ -440,45 +448,78 @@ public class InteriorRoom extends DungeonRoomParent {
     }
 
 
-    /**
-     Button prevDoor = (Button) scene.lookup("#prevRoomDoor");
-     prevDoor.setStyle("-fx-background-image: url('"
-     + Main.class.getResource("../resources/Door.png").toExternalForm()
-     + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-     prevDoor.setOnAction(new EventHandler<ActionEvent>() {
-    @Override public void handle(ActionEvent e) {
-    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-    if (roomIndex == 0) {
-    GameScreen1 screen1 = new GameScreen1(difficulty, weapon, false);
-    Main.changeWindowTo(currentWindow, screen1.getScene());
+    private void addChallengeEntrance() {
+        Button securityGuard = new Button();
+        securityGuard.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; "
+                + "\n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;"
+                + "\n-fx-background-color: transparent;");
+
+        //set guard size
+        securityGuard.setPrefSize(100, 130);
+
+        //set guard pos
+        securityGuard.setLayoutX(1625);
+        securityGuard.setLayoutY(450);
+
+        DungeonRoomParent currRoom = this;
+
+        //setup click handler
+        securityGuard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent e) {
+                if (root.lookup("#speech") == null) {
+
+                    Rectangle rect = new Rectangle();
+                    rect.setHeight(90);
+                    rect.setWidth(250);
+                    rect.setFill(Color.WHITE);
+                    rect.setLayoutX(1620);
+                    rect.setLayoutY(600);
+
+                    root.getChildren().add(rect);
+
+                    Label speech = new Label();
+                    speech.setText("I could let you into tech tower\nBut it'll cost ya $500\nWhat do you say?");
+
+                    //set label pos
+                    speech.setLayoutX(1625);
+                    speech.setLayoutY(600);
+
+                    speech.setFont(new Font(20));
+
+                    //set label id
+                    speech.setId("speech");
+
+                    root.getChildren().add(speech);
+
+                } else {
+                    if (money >= 500) {
+                        // we have enough money - use to enter the room
+                        money -= 500;
+
+                        GameState state = ConfigScreen.getGameState();
+                        state.setMoney(money);
+                        ConfigScreen.setGameState(state);
+
+                        ChallengeRoom cRoom = new ChallengeRoom(currRoom);
+                        Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                .filter(Window::isShowing).findFirst().orElse(null);
+                        Main.changeWindowTo(currentWindow, cRoom.getScene());
+                        monsterAttackThread.stop();
+                    } else {
+                        Label speech = (Label)root.lookup("#speech");
+                        speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                    }
+                }
+
+            }
+        });
+
+        securityGuard.setId("securityGuard");
+
+        root.getChildren().add(securityGuard);
     }
-    if (roomIndex > 0) {
-    InteriorRoom prevRoom = new InteriorRoom(roomIndex - 1, difficulty,
-    weapon, money, order);
-    Main.changeWindowTo(currentWindow, prevRoom.getScene());
-    }
-    }
-    });
-     //make the next door
-     Button nextDoor = (Button) scene.lookup("#nextRoomDoor");
-     nextDoor.setStyle("-fx-background-image: url('"
-     + Main.class.getResource("../resources/Door.png").toExternalForm()
-     + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-     nextDoor.setOnAction(new EventHandler<ActionEvent>() {
-    @Override public void handle(ActionEvent e) {
-    Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-    if (roomIndex < 5) {
-    InteriorRoom nextRoom = new InteriorRoom(roomIndex + 1, difficulty,
-    weapon, money, order);
-    Main.changeWindowTo(currentWindow, nextRoom.getScene());
-    } else {
-    LastRoom lastRoom = new LastRoom(difficulty, weapon, money);
-    Main.changeWindowTo(currentWindow, lastRoom.getScene());
-    }
-    }
-    });
-     */
 
 }

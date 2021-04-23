@@ -26,15 +26,17 @@ public class ChallengeRoom {
     private Pane root;
     private String backGroundImage;
     private int monsters = 3;
-    private int index;
     private List<Monster> monstersList = new ArrayList<>();
 
     private Timeline monsterAttackThread;
+    private DungeonRoomParent prevRoom;
 
-    public ChallengeRoom(int index) {
+    public ChallengeRoom(DungeonRoomParent prevRoom) {
+        this.prevRoom = prevRoom;
+
         try {
             root = FXMLLoader.load(
-                    GameScreen1.class.getResource("../resources/LectureRoom.fxml")
+                    GameScreen1.class.getResource("../resources/ChallengeRoom.fxml")
             );
         } catch (IOException except) {
             //the fxml loader can't find the file
@@ -47,19 +49,15 @@ public class ChallengeRoom {
         yesButton();
         noButton();
 
-
-
         //add current weapon to screen
         this.updateWeaponDisplay();
 
         //add current armour to screen
         this.updateArmourDisplay();
-
-        this.index = index;
     }
 
     public void setupChallenge() {
-        for (int i = 0; i < monsters; i++) {
+        for (int i = 1; i <= monsters; i++) {
             Monster monster = new Monster();
             monstersList.add (monster);
             monsterButton("#examBoss" + String.valueOf(i), monster);
@@ -99,27 +97,6 @@ public class ChallengeRoom {
 
         monsterAttackThread.play();
     }
-
-    private void exitRoomButton() {
-        Button exitButton = (Button) scene.lookup("#Door");
-        exitButton.setStyle("-fx-background-image: url('"
-                + Main.class.getResource("../resources/Door.png").toExternalForm()
-                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
-                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
-        exitButton.setText("");
-        exitButton.setVisible(true);
-
-        exitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                //TODO: make so go back to original room (for Nathan :) )
-                WinScreen winScreen = new WinScreen();
-                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                Main.changeWindowTo(currentWindow, winScreen.getScene());
-            }
-        });
-    }
-
 
     /**
      * Run whenever the room is entered
@@ -289,7 +266,12 @@ public class ChallengeRoom {
                 (scene.lookup("#yes")).setVisible(false);
                 (scene.lookup("#no")).setVisible(false);
                 (scene.lookup("#noLabel")).setVisible(true);
-                exitRoomButton();
+
+                //go back to the original room
+                Stage currentWindow = (Stage) Stage.getWindows().stream()
+                        .filter(Window::isShowing).findFirst().orElse(null);
+                Main.changeWindowTo(currentWindow, prevRoom.getScene());
+                prevRoom.update();
             }
         });
     }
@@ -318,7 +300,7 @@ public class ChallengeRoom {
                     monsterAttackThread.stop();
                     monsters--;
                     if (monsters == 0) {
-                        dropItem(index);
+                        dropItem();
                         exitRoomButton();
                     }
                 }
@@ -327,8 +309,34 @@ public class ChallengeRoom {
     }
 
     // TODO: implement drop
-    private void dropItem(int index) {
+    private void dropItem() {
 
+    }
+
+    private void exitRoomButton() {
+        Button exitButton = (Button) scene.lookup("#Door");
+        exitButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        exitButton.setText("");
+        exitButton.setVisible(true);
+
+        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+
+                //go back to the previous room
+                Stage currentWindow = (Stage) Stage.getWindows().stream()
+                        .filter(Window::isShowing).findFirst().orElse(null);
+                Main.changeWindowTo(currentWindow, prevRoom.getScene());
+                prevRoom.update();
+
+//                WinScreen winScreen = new WinScreen();
+//                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+//                Main.changeWindowTo(currentWindow, winScreen.getScene());
+            }
+        });
     }
 
     private boolean hasAttackPotion(GameState currGameState) {
