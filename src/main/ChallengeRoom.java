@@ -17,20 +17,20 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.Random;
 
 
 public class ChallengeRoom {
     private Scene scene;
     private Pane root;
-    private Label alertLabel;
     private String backGroundImage;
+    private int monsters = 3;
+    private int index;
 
 
     private Monster monster = new Monster();
     private Timeline monsterAttackThread;
 
-    public ChallengeRoom() {
+    public ChallengeRoom(int index) {
         try {
             root = FXMLLoader.load(
                     GameScreen1.class.getResource("../resources/LectureRoom.fxml")
@@ -43,46 +43,10 @@ public class ChallengeRoom {
         addBackgroundImage("../resources/Challenge_Room.png");
         updateLabels();
 
-        // Monster image and health label
-        monsterButton("#examBoss1");
-        monsterButton("#examBoss2");
-        monsterButton("#examBoss3");
-
         setHealthLabel();
-        monsterAttackThread = new Timeline(
-                new KeyFrame(Duration.seconds(2),
-                        new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                scene = Stage.getWindows().stream().filter(Window::isShowing)
-                                        .findFirst().orElse(null).getScene();
+        yesButton();
+        noButton();
 
-                                GameState currGameState = ConfigScreen.getGameState();
-
-                                if (currGameState.getArmour() != null
-                                        && currGameState.getArmour().getAlive()) {
-                                    //reduce damage by half if the player is wearing armor
-                                    currGameState.damagePlayer(15);
-                                } else {
-                                    currGameState.damagePlayer(15);
-                                }
-
-                                if (!currGameState.isPlayerAlive()) {
-                                    DieScreen screen = new DieScreen();
-                                    Stage currentWindow = (Stage) Stage.getWindows().stream()
-                                            .filter(Window::isShowing).findFirst().orElse(null);
-                                    Main.changeWindowTo(currentWindow, screen.getScene());
-                                    monsterAttackThread.stop();
-                                } else {
-                                    updateLabels();
-                                }
-                            }
-                        }));
-        monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
-
-        if (this.monster.getIsAlive()) {
-            monsterAttackThread.play();
-        }
 
 
         //add current weapon to screen
@@ -90,6 +54,70 @@ public class ChallengeRoom {
 
         //add current armour to screen
         this.updateArmourDisplay();
+
+        this.index = index;
+    }
+
+    public void setupChallenge() {
+        // Monster image and health label
+        monsterButton("#examBoss1");
+        monsterButton("#examBoss2");
+        monsterButton("#examBoss3");
+
+        monsterAttackThread = new Timeline(
+            new KeyFrame(Duration.seconds(2),
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent e) {
+                        scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                .findFirst().orElse(null).getScene();
+
+                        GameState currGameState = ConfigScreen.getGameState();
+
+                        if (currGameState.getArmour() != null
+                                && currGameState.getArmour().getAlive()) {
+                            //reduce damage by half if the player is wearing armor
+                            currGameState.damagePlayer(15);
+                        } else {
+                            currGameState.damagePlayer(15);
+                        }
+
+                        if (!currGameState.isPlayerAlive()) {
+                            DieScreen screen = new DieScreen();
+                            Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                    .filter(Window::isShowing).findFirst().orElse(null);
+                            Main.changeWindowTo(currentWindow, screen.getScene());
+                            monsterAttackThread.stop();
+                        } else {
+                            updateLabels();
+                        }
+                    }
+                }));
+        monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
+
+        if (this.monster.getIsAlive()) {
+            monsterAttackThread.play();
+        }
+    }
+
+    private void exitRoomButton() {
+        Button exitButton = (Button) scene.lookup("#Door");
+        exitButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Door.png").toExternalForm()
+                + "'); \n-fx-background-position: center center; \n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        exitButton.setText("");
+        exitButton.setVisible(true);
+
+        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                //TODO: make so go back to original room (for Nathan :) )
+                WinScreen winScreen = new WinScreen();
+                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                Main.changeWindowTo(currentWindow, winScreen.getScene());
+            }
+        });
     }
 
 
@@ -237,6 +265,29 @@ public class ChallengeRoom {
         return monster;
     }
 
+    //setting up yes button
+    private void yesButton() {
+        Button yesButton = (Button) scene.lookup("#yes");
+        yesButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                setupChallenge();
+            }
+        });
+    }
+
+    //setting up no button
+    private void noButton() {
+        Button yesButton = (Button) scene.lookup("#no");
+        yesButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+                ((Label) scene.lookup("#noLabel")).setVisible(true);
+                exitRoomButton();
+            }
+        });
+    }
+
     //setting up monster
     private void monsterButton(String monsterID) {
         Button monsterButton = (Button) scene.lookup(monsterID);
@@ -259,9 +310,19 @@ public class ChallengeRoom {
                 monster.attack(currDam);
                 if (!monster.getIsAlive()) {
                     monsterAttackThread.stop();
+                    monsters--;
+                    if (monsters == 0) {
+                        dropItem(index);
+                        exitRoomButton();
+                    }
                 }
             }
         });
+    }
+
+    // TODO: implement drop
+    private void dropItem(int index) {
+
     }
 
     private boolean hasAttackPotion(GameState currGameState) {
