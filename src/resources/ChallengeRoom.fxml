@@ -89,11 +89,11 @@
       <Button id="yes" layoutX="853.0" layoutY="47.0" mnemonicParsing="false" text="YES!" />
       <Button id="no" layoutX="892.0" layoutY="47.0" mnemonicParsing="false" text="No, C's get degrees" />
       <Label id="noLabel" layoutX="804.0" layoutY="81.0" text="Okay, now you can go back to the original room" visible="false" />
-      <ImageView layoutX="862.0" layoutY="98.0" visible="false">
-         <image>
-            <Image url="@Door.png" />
-         </image>
-      </ImageView>
-
+      <Button fx:id="reward" layoutX="906.0" layoutY="261.0" mnemonicParsing="false" text="" visible="false"/>
+        <Button fx:id="Door" layoutX="862.0" layoutY="98.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="100.0" text="">
+            <font>
+                <Font size="37.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>

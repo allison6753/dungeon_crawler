@@ -35,6 +35,10 @@ public class Monster {
         this.healthLabelID = h;
     }
 
+    public String getHealthLabelID() {
+        return this.healthLabelID;
+    }
+
     public void attack(int damage) {
         this.scene = Stage.getWindows().stream().filter(Window::isShowing)
                 .findFirst().orElse(null).getScene();
@@ -54,7 +58,8 @@ public class Monster {
 
     public void die() {
         //make monster disappear
-        healthLabel.setVisible(false);
+        Label monsterHealth = (Label) scene.lookup(healthLabelID);
+        monsterHealth.setVisible(false);
 
         Button monsterButton = (Button) scene.lookup("#examBoss" + extension);
         monsterButton.setVisible(false);
