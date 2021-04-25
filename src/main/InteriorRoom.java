@@ -124,8 +124,10 @@ public class InteriorRoom extends DungeonRoomParent {
         this.updateArmourDisplay();
 
         //add challenge room entrance if needed
-        if (GameScreen1.getChallengeEntryRoom() == this.roomNum) {
-            this.addChallengeEntrance();
+        if (GameScreen1.getChallengeEntryRoom1() == this.roomNum) {
+            this.addChallengeEntrance(1);
+        } else if (GameScreen1.getChallengeEntryRoom2() == this.roomNum) {
+            this.addChallengeEntrance(2);
         }
     }
 
@@ -447,7 +449,7 @@ public class InteriorRoom extends DungeonRoomParent {
     }
 
 
-    private void addChallengeEntrance() {
+    private void addChallengeEntrance(int type) {
         Button securityGuard = new Button();
         securityGuard.setStyle("-fx-background-image: url('"
                 + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
@@ -471,8 +473,8 @@ public class InteriorRoom extends DungeonRoomParent {
                 if (root.lookup("#speech") == null) {
 
                     Rectangle rect = new Rectangle();
-                    rect.setHeight(90);
-                    rect.setWidth(250);
+                    rect.setHeight(120);
+                    rect.setWidth(270);
                     rect.setFill(Color.WHITE);
                     rect.setLayoutX(1620);
                     rect.setLayoutY(600);
@@ -480,7 +482,11 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(rect);
 
                     Label speech = new Label();
-                    speech.setText("I could let you into tech tower\nBut it'll cost ya $300\nWhat do you say?");
+                    if (type == 1) {
+                        speech.setText("I could let you into tech tower\nBut it'll cost ya $300\nWhat do you say?");
+                    } else {
+                        speech.setText("Interested in getting\non the honors list?\nBut it'll cost ya $200 to try\nWhat do you say?");
+                    }
 
                     //set label pos
                     speech.setLayoutX(1625);

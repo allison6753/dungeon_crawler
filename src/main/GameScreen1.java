@@ -34,7 +34,8 @@ public class GameScreen1 extends DungeonRoomParent {
     private static List<Integer> mazeOrder3;
     private static List<Integer> mazeOrder4;
 
-    private static int challengeEntryRoom = 0; //room number that we allow entry into the challenge room
+    private static int challengeEntryRoom1 = 0; //room number that we allow entry into the challenge room 1
+    private static int challengeEntryRoom2 = 0; //room number that we allow entry into the challenge room 2
 
     private GameState currGameState;
 
@@ -83,7 +84,7 @@ public class GameScreen1 extends DungeonRoomParent {
 
         this.updateWeaponDisplay();
         this.updateArmourDisplay();
-        this.setupChallengeRoomEntrance();
+        this.setupChallengeRoomEntrances();
     }
 
     private void doSetUp() {
@@ -305,12 +306,19 @@ public class GameScreen1 extends DungeonRoomParent {
         root.getChildren().add(itemButton);
     }
 
-    private void setupChallengeRoomEntrance() {
+    private void setupChallengeRoomEntrances() {
         Random r = new Random();
-        challengeEntryRoom = r.nextInt(6);
+        challengeEntryRoom1 = r.nextInt(6);
+        challengeEntryRoom2 = r.nextInt(6);
+        while (challengeEntryRoom2 == challengeEntryRoom1) {
+            challengeEntryRoom2 = r.nextInt(6);
+        }
     }
 
-    public static int getChallengeEntryRoom() {
-        return challengeEntryRoom;
+    public static int getChallengeEntryRoom1() {
+        return challengeEntryRoom1;
+    }
+    public static int getChallengeEntryRoom2() {
+        return challengeEntryRoom2;
     }
 }
