@@ -321,7 +321,6 @@ public class ChallengeRoom {
         });
     }
 
-    // TODO: implement drop
     private void dropItem() {
         GameState currGameState = ConfigScreen.getGameState();
         int currRoomOrder = currGameState.getRoomOrder();
