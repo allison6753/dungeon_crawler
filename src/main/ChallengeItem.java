@@ -1,6 +1,12 @@
 package main;
 
-public class ChallengeItem implements Item{
+public class ChallengeItem implements Item {
+
+    int itemType;
+
+    public ChallengeItem(int type) {
+        this.itemType = type;
+    }
 
     // Effect of the T's
     public void useItem() {
@@ -38,6 +44,10 @@ public class ChallengeItem implements Item{
     }
 
     public String getImage() {
-        return "../resources/T.png";
+        if (itemType == 1) {
+            return "../resources/T.png";
+        } else {
+            return "../resources/Honor_Certificate.png";
+        }
     }
 }

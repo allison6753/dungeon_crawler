@@ -500,9 +500,15 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(speech);
 
                 } else {
-                    if (ConfigScreen.didChallengeTechTower() && type == 1 || ConfigScreen.didChallengeHonors() && type != 1) {
+                    if ((ConfigScreen.didChallengeTechTower() && type == 1) || (ConfigScreen.didChallengeHonors() && type != 1)) {
                         Label speech = (Label) root.lookup("#speech");
-                        speech.setText("You can't come through here,\nThere's an investigation going on!\nSomeone stole the T from tech towers!");
+                        if (type == 1) {
+                            //player already defeated tech tower
+                            speech.setText("You can't come through here,\nThere's an investigation \ngoing on! Someone stole the \nT from tech towers!");
+                        } else {
+                            speech.setText("You already got Honors!\nCongrats!");
+
+                        }
                     } else {
                         if (money >= 300) {
                             // we have enough money - use to enter the room
@@ -512,17 +518,18 @@ public class InteriorRoom extends DungeonRoomParent {
                             state.setMoney(money);
                             ConfigScreen.setGameState(state);
 
-                            ChallengeRoom cRoom = new ChallengeRoom(currRoom);
+                            ChallengeRoom cRoom = new ChallengeRoom(type, currRoom);
                             Stage currentWindow = (Stage) Stage.getWindows().stream()
                                     .filter(Window::isShowing).findFirst().orElse(null);
                             Main.changeWindowTo(currentWindow, cRoom.getScene());
                             monsterAttackThread.stop();
                         } else {
-                            Label speech = (Label) root.lookup("#speech");
-                            speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                                Label speech = (Label) root.lookup("#speech");
+                                speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                            }
                         }
                     }
-                }
+
 
             }
         });

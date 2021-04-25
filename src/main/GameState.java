@@ -146,7 +146,7 @@ public class GameState {
     }
 
     public boolean getDidChallengeTechTowers() {
-        return didChallengeHonors;
+        return didChallengeTechTowers;
     }
 
     public boolean getDidChallengeHonors() {
