@@ -15,6 +15,9 @@ public class GameState {
 
     private InteriorRoom[][] interiorRooms;
 
+    private boolean didChallengeTechTowers = false;
+    private boolean didChallengeHonors = false;
+
     public GameState(ConfigScreen.Weapon weapon, ConfigScreen.Difficulty difficulty) {
 
         // int[] monsters = new int[]{100,100,100,100,100};
@@ -132,5 +135,21 @@ public class GameState {
 
     public boolean getAttackPotion() {
         return this.attackPotion;
+    }
+
+    public void setTechTowersChallengeComplete(boolean didComplete) {
+        this.didChallengeTechTowers = didComplete;
+    }
+
+    public void setHonorsComplete(boolean didComplete) {
+        this.didChallengeHonors = didComplete;
+    }
+
+    public boolean getDidChallengeTechTowers() {
+        return didChallengeHonors;
+    }
+
+    public boolean getDidChallengeHonors() {
+        return didChallengeHonors;
     }
 }

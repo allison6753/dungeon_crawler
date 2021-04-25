@@ -500,22 +500,27 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(speech);
 
                 } else {
-                    if (money >= 300) {
-                        // we have enough money - use to enter the room
-                        money -= 300;
-
-                        GameState state = ConfigScreen.getGameState();
-                        state.setMoney(money);
-                        ConfigScreen.setGameState(state);
-
-                        ChallengeRoom cRoom = new ChallengeRoom(currRoom);
-                        Stage currentWindow = (Stage) Stage.getWindows().stream()
-                                .filter(Window::isShowing).findFirst().orElse(null);
-                        Main.changeWindowTo(currentWindow, cRoom.getScene());
-                        monsterAttackThread.stop();
+                    if (ConfigScreen.didChallengeTechTower() && type == 1 || ConfigScreen.didChallengeHonors() && type != 1) {
+                        Label speech = (Label) root.lookup("#speech");
+                        speech.setText("You can't come through here,\nThere's an investigation going on!\nSomeone stole the T from tech towers!");
                     } else {
-                        Label speech = (Label)root.lookup("#speech");
-                        speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                        if (money >= 300) {
+                            // we have enough money - use to enter the room
+                            money -= 300;
+
+                            GameState state = ConfigScreen.getGameState();
+                            state.setMoney(money);
+                            ConfigScreen.setGameState(state);
+
+                            ChallengeRoom cRoom = new ChallengeRoom(currRoom);
+                            Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                    .filter(Window::isShowing).findFirst().orElse(null);
+                            Main.changeWindowTo(currentWindow, cRoom.getScene());
+                            monsterAttackThread.stop();
+                        } else {
+                            Label speech = (Label) root.lookup("#speech");
+                            speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                        }
                     }
                 }
 

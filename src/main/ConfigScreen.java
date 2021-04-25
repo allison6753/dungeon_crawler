@@ -238,4 +238,21 @@ public class ConfigScreen {
     public static void setGameState(GameState state) {
         gameState = state;
     }
+
+    public static boolean didChallengeTechTower() {
+        return gameState.getDidChallengeTechTowers();
+    }
+
+    public static boolean didChallengeHonors() {
+        return gameState.getDidChallengeHonors();
+    }
+
+    public static void completeTechTower() {
+        gameState.setTechTowersChallengeComplete(true);
+    }
+
+    public static void completeHonors() {
+        gameState.setHonorsComplete(true);
+    }
+
 }
