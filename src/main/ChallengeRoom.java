@@ -31,7 +31,10 @@ public class ChallengeRoom {
     private Timeline monsterAttackThread;
     private DungeonRoomParent prevRoom;
 
-    public ChallengeRoom(DungeonRoomParent prevRoom) {
+    private int roomType;
+
+    public ChallengeRoom(int roomType, DungeonRoomParent prevRoom) {
+        this.roomType = roomType;
         this.prevRoom = prevRoom;
 
         try {
@@ -323,7 +326,7 @@ public class ChallengeRoom {
         GameState currGameState = ConfigScreen.getGameState();
         int currRoomOrder = currGameState.getRoomOrder();
         int currRoomIndex = currGameState.getRoomIndex();
-        Item dropItem = new ChallengeItem();
+        Item dropItem = new ChallengeItem(roomType);
         Button itemButton = (Button) scene.lookup("#reward");
         itemButton.setVisible(true);
         itemButton.setVisible(true);

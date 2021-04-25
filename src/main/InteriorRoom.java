@@ -508,7 +508,7 @@ public class InteriorRoom extends DungeonRoomParent {
                         state.setMoney(money);
                         ConfigScreen.setGameState(state);
 
-                        ChallengeRoom cRoom = new ChallengeRoom(currRoom);
+                        ChallengeRoom cRoom = new ChallengeRoom(type, currRoom);
                         Stage currentWindow = (Stage) Stage.getWindows().stream()
                                 .filter(Window::isShowing).findFirst().orElse(null);
                         Main.changeWindowTo(currentWindow, cRoom.getScene());
