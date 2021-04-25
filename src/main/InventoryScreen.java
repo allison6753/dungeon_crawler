@@ -51,8 +51,11 @@ public class InventoryScreen {
                 }
             }
         });
-
         updateItemDisplay();
+
+    }
+
+    private void updateMoneyLabel() {
         int money = ConfigScreen.getGameState().getMoney();
         Label moneyLabel = (Label) scene.lookup("#money");
         moneyLabel.setText("Money: $" + money);
@@ -61,6 +64,7 @@ public class InventoryScreen {
     private void updateItemDisplay() {
         this.updateWeaponDisplay();
         this.updateArmourDisplay();
+        this.updateMoneyLabel();
         //remove existing items from the display
         for (int i = root.getChildren().size() - 1; i >= 0; --i) {
             Node n = root.getChildren().get(i);

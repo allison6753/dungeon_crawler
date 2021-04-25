@@ -18,11 +18,13 @@ public class Monster {
     @FXML
     private Label healthLabel;
     private Scene scene;
+    private Item dropItem;
     private String extension = "";
 
     public Monster() {
         health = 100;
         isAlive = true;
+        dropItem = null;
         healthLabelID = "#monHealth";
     }
 
@@ -33,6 +35,11 @@ public class Monster {
 
     public void setHealthLabelID(String h) {
         this.healthLabelID = h;
+    }
+
+    public void setDropItem(Item item) {
+        //if dropItem == null, drop random item, else drop specified item
+        dropItem = item;
     }
 
     public String getHealthLabelID() {
@@ -69,9 +76,29 @@ public class Monster {
 
     // Get the drop item
     private void dropItem() {
-        Random rand = new Random();
-        int randomNum = rand.nextInt(5);
-        processRandom(randomNum);
+        if (dropItem == null) {
+            Random rand = new Random();
+            int randomNum = rand.nextInt(5);
+            processRandom(randomNum);
+        } else {
+            Button itemButton = (Button) scene.lookup("#examBoss");
+            itemButton.setVisible(true);
+            itemButton.setStyle("-fx-background-image: url('"
+                    + Main.class.getResource(dropItem.getImage()).toExternalForm()
+                    + "'); \n-fx-background-position: center center; "
+                    + "\n-fx-background-repeat: stretch;"
+                    + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+            //set item size
+            itemButton.setPrefSize(100, 100);
+            itemButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    InventoryScreen.addItem(dropItem);
+                    itemButton.setVisible(false);
+                }
+            });
+        }
+
     }
 
     private void processRandom(int randomNum) {
