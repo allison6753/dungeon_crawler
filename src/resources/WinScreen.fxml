@@ -23,7 +23,12 @@
                 <Font size="40.0" />
             </font>
         </Label>
-        <Label fx:id="stat3" layoutX="680.0" layoutY="500.0" prefHeight="51.0" prefWidth="900.0" text="Third stat: " textFill="WHITE">
+        <Label fx:id="stat3" layoutX="680.0" layoutY="500.0" prefHeight="51.0" prefWidth="900.0" text="" textFill="WHITE">
+            <font>
+                <Font size="40.0" />
+            </font>
+        </Label>
+        <Label fx:id="stat4" layoutX="680.0" layoutY="550.0" prefHeight="51.0" prefWidth="900.0" text="" textFill="WHITE">
             <font>
                 <Font size="40.0" />
             </font>
