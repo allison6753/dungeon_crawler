@@ -520,5 +520,4 @@ public class InteriorRoom extends DungeonRoomParent {
 
         root.getChildren().add(securityGuard);
     }
-
 }

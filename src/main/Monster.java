@@ -19,12 +19,18 @@ public class Monster {
     private Label healthLabel;
     private Scene scene;
     private Item dropItem;
+    private String extension = "";
 
     public Monster() {
         health = 100;
         isAlive = true;
         dropItem = null;
         healthLabelID = "#monHealth";
+    }
+
+    public Monster(String extension) {
+        this();
+        this.extension = extension;
     }
 
     public void setHealthLabelID(String h) {
@@ -34,6 +40,10 @@ public class Monster {
     public void setDropItem(Item item) {
         //if dropItem == null, drop random item, else drop specified item
         dropItem = item;
+    }
+
+    public String getHealthLabelID() {
+        return this.healthLabelID;
     }
 
     public void attack(int damage) {
@@ -55,9 +65,10 @@ public class Monster {
 
     public void die() {
         //make monster disappear
-        healthLabel.setVisible(false);
+        Label monsterHealth = (Label) scene.lookup(healthLabelID);
+        monsterHealth.setVisible(false);
 
-        Button monsterButton = (Button) scene.lookup("#examBoss");
+        Button monsterButton = (Button) scene.lookup("#examBoss" + extension);
         monsterButton.setVisible(false);
         // Item (random money, weapon, potion) drop
         dropItem();
@@ -96,7 +107,7 @@ public class Monster {
         int currRoomIndex = currGameState.getRoomIndex();
         if (randomNum == 0) {
             // Money Drop (+100), maybe (the number of room index can change money?
-            Button itemButton = (Button) scene.lookup("#examBoss");
+            Button itemButton = (Button) scene.lookup("#examBoss" + extension);
             itemButton.setVisible(true);
             itemButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource("../resources/Coin.png").toExternalForm()
@@ -139,7 +150,7 @@ public class Monster {
                 // attack potion
                 dropItem = new AttackPotion();
             }
-            Button itemButton = (Button) scene.lookup("#examBoss");
+            Button itemButton = (Button) scene.lookup("#examBoss" + extension);
             itemButton.setVisible(true);
             itemButton.setStyle("-fx-background-image: url('"
                     + Main.class.getResource(dropItem.getImage()).toExternalForm()

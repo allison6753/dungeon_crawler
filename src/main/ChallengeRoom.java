@@ -25,7 +25,7 @@ public class ChallengeRoom {
     private Scene scene;
     private Pane root;
     private String backGroundImage;
-    private int monsters = 3;
+    private int monsters;
     private List<Monster> monstersList = new ArrayList<>();
 
     private Timeline monsterAttackThread;
@@ -57,12 +57,13 @@ public class ChallengeRoom {
     }
 
     public void setupChallenge() {
+        monsters = 3;
         for (int i = 1; i <= monsters; i++) {
-            Monster monster = new Monster();
-            monster.setHealthLabelID("#monHealth" + String.valueOf(i));
+            Monster monster = new Monster(String.valueOf(i));
+            monster.setHealthLabelID("#monHealth" + i);
             monstersList.add (monster);
-            monsterButton("#examBoss" + String.valueOf(i), monster);
-            setMonsterHealth("#monHealth" + String.valueOf(i), monster, 100);
+            monsterButton("#examBoss" + i, monster);
+            setMonsterHealth("#monHealth" + i, monster, 100);
         }
 
         monsterAttackThread = new Timeline(
@@ -78,9 +79,9 @@ public class ChallengeRoom {
                         if (currGameState.getArmour() != null
                                 && currGameState.getArmour().getAlive()) {
                             //reduce damage by half if the player is wearing armor
-                            currGameState.damagePlayer(10 * monsters);
+                            currGameState.damagePlayer(5 * monsters);
                         } else {
-                            currGameState.damagePlayer(15 * monsters);
+                            currGameState.damagePlayer(10 * monsters);
                         }
 
                         if (!currGameState.isPlayerAlive()) {
@@ -96,7 +97,11 @@ public class ChallengeRoom {
                 }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
-        monsterAttackThread.play();
+        if (monsters > 0) {
+            monsterAttackThread.play();
+        } else {
+            monsterAttackThread.stop();
+        }
     }
 
     /**
@@ -237,6 +242,7 @@ public class ChallengeRoom {
         Label monHealthLab = (Label) scene.lookup(id);
         monster.setHealth(health);
         monHealthLab.setText("Health: " + monster.getHealth());
+        monHealthLab.setVisible(true);
     }
 
 //    private Monster getMonster() {
@@ -285,6 +291,7 @@ public class ChallengeRoom {
                     + "'); \n-fx-background-position: center center;"
                     + "\n-fx-background-repeat: stretch;"
                     + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        monsterButton.setVisible(true);
         monsterButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -297,11 +304,12 @@ public class ChallengeRoom {
                 }
                 // Change to weapon damage?
                 monster.attack(currDam);
-                setMonsterHealth(monsterID, monster, monster.getHealth());
+                setMonsterHealth(monster.getHealthLabelID(), monster, monster.getHealth());
                 if (!monster.getIsAlive()) {
-                    monsterAttackThread.stop();
+                    monster.die();
                     monsters--;
                     if (monsters == 0) {
+                        monsterAttackThread.stop();
                         dropItem();
                         exitRoomButton();
                     }
@@ -312,7 +320,39 @@ public class ChallengeRoom {
 
     // TODO: implement drop
     private void dropItem() {
+        GameState currGameState = ConfigScreen.getGameState();
+        int currRoomOrder = currGameState.getRoomOrder();
+        int currRoomIndex = currGameState.getRoomIndex();
+        Item dropItem = new ChallengeItem();
+        Button itemButton = (Button) scene.lookup("#reward");
+        itemButton.setVisible(true);
+        itemButton.setVisible(true);
+        itemButton.setStyle("-fx-background-image: url('"
+                + Main.class.getResource(dropItem.getImage()).toExternalForm()
+                + "'); \n-fx-background-position: center center; "
+                + "\n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;");
+        //set item size
+        itemButton.setPrefSize(100, 100);
+        Item finalDropItem = dropItem;
+        itemButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
 
+                if (InventoryScreen.hasSpaceForItems()) {
+                    InventoryScreen.addItem(finalDropItem);
+                    itemButton.setVisible(false);
+                }
+                if (currRoomIndex < 5) {
+                    InteriorRoom currRoom =
+                            currGameState.getInteriorRoom(currRoomOrder, currRoomIndex);
+                    currRoom.updateLabels();
+                } else {
+                    LastRoom lastRoom = currGameState.getLastRoom();
+                    lastRoom.update();
+                }
+            }
+        });
     }
 
     private void exitRoomButton() {
@@ -333,10 +373,6 @@ public class ChallengeRoom {
                         .filter(Window::isShowing).findFirst().orElse(null);
                 Main.changeWindowTo(currentWindow, prevRoom.getScene());
                 prevRoom.update();
-
-//                WinScreen winScreen = new WinScreen();
-//                Stage currentWindow = (Stage) ((Node) e.getSource()).getScene().getWindow();
-//                Main.changeWindowTo(currentWindow, winScreen.getScene());
             }
         });
     }
