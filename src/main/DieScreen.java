@@ -76,9 +76,13 @@ public class DieScreen {
         Label healthLabel = (Label) scene.lookup("#stat2");
         healthLabel.setText("Remaining health: " + health);
 
-        int roomNum = ConfigScreen.getGameState().getRoomIndex();
+        ConfigScreen.Weapon weapon = ConfigScreen.getGameState().getWeapon();
         Label roomNumLabel = (Label) scene.lookup("#stat3");
-        roomNumLabel.setText("Monsters killed: " + roomNum);
+        roomNumLabel.setText("Starting Weapon: " + weapon);
+
+        ConfigScreen.Difficulty diff = ConfigScreen.getGameState().getDifficulty();
+        Label diffLabel = (Label) scene.lookup("#stat4");
+        diffLabel.setText("Starting Difficulty: " + diff);
     }
 
     private int getMoney() {
