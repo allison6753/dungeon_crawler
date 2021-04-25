@@ -43,6 +43,8 @@ public class LastRoom extends DungeonRoomParent {
         this.weapon = weapon;
         this.difficulty = difficulty;
         this.money = money;
+        this.monster.setHealth(125);
+        this.monster.setDropItem(new DiplomaItem());
 
         scene = new Scene(root, Main.getScreenWidth(), Main.getScreenHeight());
         addBackgroundImage();
