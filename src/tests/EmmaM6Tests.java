@@ -26,20 +26,16 @@ public class EmmaM6Tests extends ApplicationTest {
 
     }
 
-    int currMoney;
-    int currHealth;
-    ConfigScreen.Weapon currWeapon;
-    ConfigScreen.Difficulty currDiff;
     //test if stats label is correct for die screen
     @Test
     public void testWinStats() {
 
         Label stat1Label = (Label) winScreen.getScene().lookup("#stat1");
-        currMoney = Integer.parseInt(stat1Label.getText().substring(8));
-        assert(currMoney == winScreen.getMoney());
+        int currMoney = Integer.parseInt(stat1Label.getText().substring(8));
+        assert (currMoney == winScreen.getMoney());
 
         Label stat2Label = (Label) winScreen.getScene().lookup("#stat2");
-        currHealth = Integer.parseInt(stat2Label.getText().substring(18)); //i think 18
+        int currHealth = Integer.parseInt(stat2Label.getText().substring(18)); //i think 18
         //assert(currMoney == winScreen.getHealth());
 
         Label stat3Label = (Label) winScreen.getScene().lookup("#stat3");
