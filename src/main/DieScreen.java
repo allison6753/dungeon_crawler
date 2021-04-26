@@ -85,11 +85,11 @@ public class DieScreen {
         diffLabel.setText("Starting Difficulty: " + diff);
     }
 
-    private int getMoney() {
+    public int getMoney() {
         return money;
     }
 
-    private void setMoney(int num) {
+    public void setMoney(int num) {
         money = num;
     }
 }
