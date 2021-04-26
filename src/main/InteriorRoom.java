@@ -483,9 +483,11 @@ public class InteriorRoom extends DungeonRoomParent {
 
                     Label speech = new Label();
                     if (type == 1) {
-                        speech.setText("I could let you into tech tower\nBut it'll cost ya $300\nWhat do you say?");
+                        speech.setText("I could let you into tech tower\n"
+                                + "But it'll cost ya $300\nWhat do you say?");
                     } else {
-                        speech.setText("Interested in getting\non the honors list?\nBut it'll cost ya $200 to try\nWhat do you say?");
+                        speech.setText("Interested in getting\non the honors list?\n"
+                                + "But it'll cost ya $200 to try\nWhat do you say?");
                     }
 
                     //set label pos
@@ -500,11 +502,14 @@ public class InteriorRoom extends DungeonRoomParent {
                     root.getChildren().add(speech);
 
                 } else {
-                    if ((ConfigScreen.didChallengeTechTower() && type == 1) || (ConfigScreen.didChallengeHonors() && type != 1)) {
+                    if ((ConfigScreen.didChallengeTechTower() && type == 1)
+                            || (ConfigScreen.didChallengeHonors() && type != 1)) {
                         Label speech = (Label) root.lookup("#speech");
                         if (type == 1) {
                             //player already defeated tech tower
-                            speech.setText("You can't come through here,\nThere's an investigation \ngoing on! Someone stole the \nT from tech towers!");
+                            speech.setText("You can't come through here,\n"
+                                    + "There's an investigation \n"
+                                    + "going on! Someone stole the \nT from tech towers!");
                         } else {
                             speech.setText("You already got Honors!\nCongrats!");
 
@@ -525,7 +530,8 @@ public class InteriorRoom extends DungeonRoomParent {
                             monsterAttackThread.stop();
                         } else {
                                 Label speech = (Label) root.lookup("#speech");
-                                speech.setText("you think $" + money + " is going to \nget you into tech tower?\nGet out of here kid!");
+                                speech.setText("you think $" + money + " is going to \n"
+                                        + "get you into tech tower?\nGet out of here kid!");
                             }
                         }
                     }

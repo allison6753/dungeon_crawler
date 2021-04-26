@@ -2,7 +2,7 @@ package main;
 
 public class ChallengeItem implements Item {
 
-    int itemType;
+    private int itemType;
 
     public ChallengeItem(int type) {
         this.itemType = type;
@@ -50,4 +50,13 @@ public class ChallengeItem implements Item {
             return "../resources/Honor_Certificate.png";
         }
     }
+
+    public int getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(int num) {
+        itemType = num;
+    }
+
 }

@@ -34,8 +34,10 @@ public class GameScreen1 extends DungeonRoomParent {
     private static List<Integer> mazeOrder3;
     private static List<Integer> mazeOrder4;
 
-    private static int challengeEntryRoom1 = 0; //room number that we allow entry into the challenge room 1
-    private static int challengeEntryRoom2 = 0; //room number that we allow entry into the challenge room 2
+    //room number that we allow entry into the challenge room 1
+    private static int challengeEntryRoom1 = 0;
+    //room number that we allow entry into the challenge room 2
+    private static int challengeEntryRoom2 = 0;
 
     private GameState currGameState;
 

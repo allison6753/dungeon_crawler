@@ -67,7 +67,7 @@ public class ChallengeRoom {
         for (int i = 1; i <= monsters; i++) {
             Monster monster = new Monster(String.valueOf(i));
             monster.setHealthLabelID("#monHealth" + i);
-            monstersList.add (monster);
+            monstersList.add(monster);
             monsterButton("#examBoss" + i, monster);
             setMonsterHealth("#monHealth" + i, monster, 100);
         }
@@ -250,10 +250,6 @@ public class ChallengeRoom {
         monHealthLab.setText("Health: " + monster.getHealth());
         monHealthLab.setVisible(true);
     }
-
-//    private Monster getMonster() {
-//        return monster;
-//    }
 
     //setting up yes button
     private void yesButton() {

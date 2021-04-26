@@ -3,12 +3,6 @@ package main;
 public class AttackPotion implements Item {
     private int damage;
 
-
-
-//    public AttackPotion() {
-//        setCost(50);
-//    }
-
     public void useAttackPotion(ConfigScreen.Weapon weapon) {
         switch (weapon) {
         case PENCIL:

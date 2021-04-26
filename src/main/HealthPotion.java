@@ -4,9 +4,9 @@ public class HealthPotion implements Item {
     private GameState state = ConfigScreen.getGameState();
     private int playerHealth = state.getPlayerHealth();
 
-//    public HealthPotion() {
-//        setCost(50);
-//    }
+    //    public HealthPotion() {
+    //        setCost(50);
+    //    }
 
     public void useItem() {
         GameState currGameState = ConfigScreen.getGameState();

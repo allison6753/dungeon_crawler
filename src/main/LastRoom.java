@@ -57,33 +57,32 @@ public class LastRoom extends DungeonRoomParent {
 
         this.monsterAttackThread = new Timeline(
                 new KeyFrame(Duration.seconds(2),
-                        new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent e) {
-                                scene = Stage.getWindows().stream().filter(Window::isShowing)
-                                        .findFirst().orElse(null).getScene();
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent e) {
+                            scene = Stage.getWindows().stream().filter(Window::isShowing)
+                                    .findFirst().orElse(null).getScene();
+                            GameState currGameState = ConfigScreen.getGameState();
 
-                                GameState currGameState = ConfigScreen.getGameState();
-
-                                if (currGameState.getArmour() != null
-                                        && currGameState.getArmour().getAlive()) {
-                                    //reduce damage by half if the player is wearing armor
-                                    currGameState.damagePlayer(5);
-                                } else {
-                                    currGameState.damagePlayer(10);
-                                }
-
-                                if (!currGameState.isPlayerAlive()) {
-                                    DieScreen screen = new DieScreen();
-                                    Stage currentWindow = (Stage) Stage.getWindows().stream()
-                                            .filter(Window::isShowing).findFirst().orElse(null);
-                                    Main.changeWindowTo(currentWindow, screen.getScene());
-                                    monsterAttackThread.stop();
-                                } else {
-                                    updateLabels();
-                                }
+                            if (currGameState.getArmour() != null
+                                    && currGameState.getArmour().getAlive()) {
+                                //reduce damage by half if the player is wearing armor
+                                currGameState.damagePlayer(5);
+                            } else {
+                                currGameState.damagePlayer(10);
                             }
-                    }));
+
+                            if (!currGameState.isPlayerAlive()) {
+                                DieScreen screen = new DieScreen();
+                                Stage currentWindow = (Stage) Stage.getWindows().stream()
+                                        .filter(Window::isShowing).findFirst().orElse(null);
+                                Main.changeWindowTo(currentWindow, screen.getScene());
+                                monsterAttackThread.stop();
+                            } else {
+                                updateLabels();
+                            }
+                        }
+                }));
         monsterAttackThread.setCycleCount(Timeline.INDEFINITE);
 
         if (this.monster.getIsAlive()) {
