@@ -141,6 +141,10 @@ public class ChallengeRoom {
         backGroundImage = background;
     }
 
+    public ChallengeItem getChallengeItem() {
+        return new ChallengeItem(roomType);
+    }
+
 
 
     protected void updateLabels() {

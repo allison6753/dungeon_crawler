@@ -4,16 +4,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import main.ConfigScreen;
-import main.GameScreen1;
-import main.GameState;
-import main.InteriorRoom;
+import main.*;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 
 public class MeilingTests extends ApplicationTest {
     private GameScreen1 startScreen;
-    private InteriorRoom room;
+    private ChallengeRoom room;
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -114,5 +112,36 @@ public class MeilingTests extends ApplicationTest {
 
         assert (next.getScene().lookup("#examBoss") != null);
     }
-}
 
+    @Test
+    public void securityGuard() throws InterruptedException {
+        room = new ChallengeRoom(1, startScreen);
+        room.setupChallenge();
+        assert (room.getScene().lookup("#examBoss1").getStyle().equals("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
+                + "'); \n-fx-background-position: center center;"
+                + "\n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;"));
+        assert (room.getScene().lookup("#examBoss2").getStyle().equals("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
+                + "'); \n-fx-background-position: center center;"
+                + "\n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;"));
+        assert (room.getScene().lookup("#examBoss3").getStyle().equals("-fx-background-image: url('"
+                + Main.class.getResource("../resources/Security_Guard.png").toExternalForm()
+                + "'); \n-fx-background-position: center center;"
+                + "\n-fx-background-repeat: stretch;"
+                + "\n-fx-background-size: stretch;\n-fx-background-color: transparent;"));
+
+    }
+
+    @Test
+    public void itemT() throws InterruptedException {
+        room = new ChallengeRoom(1, startScreen);
+        room.setupChallenge();
+
+        assert (room.getChallengeItem().getImage().equals("../resources/T.png"));
+
+    }
+
+}
